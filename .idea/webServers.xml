@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e53bf21c-1a0b-44f4-b655-a5d9a4af1c76" name="sales.ozinc.info (project level)" url="http://157.230.218.157">
+        <fileTransfer host="157.230.218.157" port="22" privateKey="C:\Users\alfre\.ssh\id_rsa_bithub" rootFolder="/home/forge/sales.ozinc.info" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

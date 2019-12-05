@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Routing\Controller;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,8 +13,8 @@ class LensController extends Controller
     /**
      * List the lenses for the given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\LensRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param LensRequest $request
+     * @return Response
      */
     public function index(LensRequest $request)
     {
@@ -23,8 +24,8 @@ class LensController extends Controller
     /**
      * Get the specified lens and its resources.
      *
-     * @param  \Laravel\Nova\Http\Requests\LensRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param LensRequest $request
+     * @return Response
      */
     public function show(LensRequest $request)
     {

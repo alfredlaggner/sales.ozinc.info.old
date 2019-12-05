@@ -2,6 +2,9 @@
 
 namespace Laravel\Nova\Fields;
 
+use Closure;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Nova\TrashedStatus;
@@ -60,7 +63,7 @@ class MorphToMany extends Field implements DeletableContract, ListableField
     /**
      * The column that should be displayed for the field.
      *
-     * @var \Closure
+     * @var Closure
      */
     public $display;
 
@@ -116,7 +119,7 @@ class MorphToMany extends Field implements DeletableContract, ListableField
     /**
      * Determine if the field should be displayed for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return bool
      */
     public function authorize(Request $request)
@@ -141,7 +144,7 @@ class MorphToMany extends Field implements DeletableContract, ListableField
     /**
      * Get the validation rules for this field.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @return array
      */
     public function getRules(NovaRequest $request)
@@ -158,7 +161,7 @@ class MorphToMany extends Field implements DeletableContract, ListableField
     /**
      * Get the creation rules for this field.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @return array
      */
     public function getCreationRules(NovaRequest $request)
@@ -173,9 +176,9 @@ class MorphToMany extends Field implements DeletableContract, ListableField
     /**
      * Build an attachable query for the field.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  bool  $withTrashed
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function buildAttachableQuery(NovaRequest $request, $withTrashed = false)
     {
@@ -196,8 +199,8 @@ class MorphToMany extends Field implements DeletableContract, ListableField
     /**
      * Get the attachable query method name.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param NovaRequest $request
+     * @param  Model  $model
      * @return array
      */
     protected function attachableQueryCallable(NovaRequest $request, $model)
@@ -210,8 +213,8 @@ class MorphToMany extends Field implements DeletableContract, ListableField
     /**
      * Get the attachable query method name.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param NovaRequest $request
+     * @param  Model  $model
      * @return string
      */
     protected function attachableQueryMethod(NovaRequest $request, $model)
@@ -226,7 +229,7 @@ class MorphToMany extends Field implements DeletableContract, ListableField
     /**
      * Format the given attachable resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  mixed  $resource
      * @return array
      */

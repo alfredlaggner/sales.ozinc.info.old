@@ -24,9 +24,9 @@ let colors = {
     40: 'var(--40)',
     30: 'var(--30)',
     20: 'var(--20)',
-}
+};
 
-let svgFillColors = global.Object.assign({ current: 'currentColor' }, colors)
+let svgFillColors = global.Object.assign({ current: 'currentColor' }, colors);
 
 module.exports = {
     colors: colors,
@@ -360,4 +360,4 @@ module.exports = {
         important: false,
         separator: ':',
     },
-}
+};

@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -13,8 +14,8 @@ class PaginatingUserLens extends Lens
     /**
      * Get the query builder / paginator for the lens.
      *
-     * @param  \Laravel\Nova\Http\Requests\LensRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param LensRequest $request
+     * @param  Builder  $query
      * @return mixed
      */
     public static function query(LensRequest $request, $query)
@@ -25,7 +26,7 @@ class PaginatingUserLens extends Lens
     /**
      * Get the fields available to the lens.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function fields(Request $request)

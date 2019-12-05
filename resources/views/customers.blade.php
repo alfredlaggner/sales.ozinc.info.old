@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Commissions Report')
 @section('content')
-    @php echo \Lava::render('DonutChart', 'Customer', 'div12') @endphp
+    @php echo Lava::render('DonutChart', 'Customer', 'div12') @endphp
 
     <div class="container">
         <div class="card">

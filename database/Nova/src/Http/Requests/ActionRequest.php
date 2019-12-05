@@ -3,8 +3,13 @@
 namespace Laravel\Nova\Http\Requests;
 
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Fluent;
 use Illuminate\Http\UploadedFile;
+use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Actions\ActionModelCollection;
 
@@ -15,7 +20,7 @@ class ActionRequest extends NovaRequest
     /**
      * Get the action instance specified by the request.
      *
-     * @return \Laravel\Nova\Actions\Action
+     * @return Action
      */
     public function action()
     {
@@ -74,7 +79,7 @@ class ActionRequest extends NovaRequest
      * Get the selected models for the action in chunks.
      *
      * @param  int  $count
-     * @param  \Closure  $callback
+     * @param Closure $callback
      * @return mixed
      */
     public function chunks($count, Closure $callback)
@@ -93,7 +98,7 @@ class ActionRequest extends NovaRequest
     /**
      * Get the query for the models that were selected by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     protected function toSelectedResourceQuery()
     {
@@ -109,7 +114,7 @@ class ActionRequest extends NovaRequest
     /**
      * Get the query for the related models that were selected by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     protected function modelsViaRelationship()
     {
@@ -121,8 +126,8 @@ class ActionRequest extends NovaRequest
     /**
      * Map the chunk of models into an appropriate state.
      *
-     * @param  \Illuminate\Database\Eloquent\Collection  $chunk
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @param  Collection  $chunk
+     * @return Collection
      */
     protected function mapChunk($chunk)
     {
@@ -158,7 +163,7 @@ class ActionRequest extends NovaRequest
     /**
      * Resolve the fields using the request.
      *
-     * @return \Laravel\Nova\Fields\ActionFields
+     * @return ActionFields
      */
     public function resolveFields()
     {
@@ -180,7 +185,7 @@ class ActionRequest extends NovaRequest
      *
      * When running pivot actions, this is the key of the owning model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model
+     * @param  Model
      * @return int
      */
     public function actionableKey($model)
@@ -195,7 +200,7 @@ class ActionRequest extends NovaRequest
      *
      * When running pivot actions, this is the owning model.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     public function actionableModel()
     {
@@ -209,7 +214,7 @@ class ActionRequest extends NovaRequest
      *
      * When running pivot actions, this is the key of the target model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model
+     * @param  Model
      * @return int
      */
     public function targetKey($model)
@@ -222,7 +227,7 @@ class ActionRequest extends NovaRequest
     /**
      * Get an instance of the target model of the action.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     public function targetModel()
     {
@@ -232,7 +237,7 @@ class ActionRequest extends NovaRequest
     /**
      * Get the many-to-many relationship for a pivot action.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     * @return Relation
      */
     public function pivotRelation()
     {

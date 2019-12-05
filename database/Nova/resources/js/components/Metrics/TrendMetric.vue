@@ -69,12 +69,12 @@ export default {
 
     methods: {
         handleRangeSelected(key) {
-            this.selectedRangeKey = key
+            this.selectedRangeKey = key;
             this.fetch()
         },
 
         fetch() {
-            this.loading = true
+            this.loading = true;
 
             Minimum(Nova.request().get(this.metricEndpoint, this.metricPayload)).then(
                 ({
@@ -82,8 +82,8 @@ export default {
                         value: { labels, trend, value, prefix, suffix, format },
                     },
                 }) => {
-                    this.value = value
-                    this.labels = Object.keys(trend)
+                    this.value = value;
+                    this.labels = Object.keys(trend);
                     this.data = {
                         labels: Object.keys(trend),
                         series: [
@@ -94,10 +94,10 @@ export default {
                                 }
                             }),
                         ],
-                    }
-                    this.format = format || this.format
-                    this.prefix = prefix || this.prefix
-                    this.suffix = suffix || this.suffix
+                    };
+                    this.format = format || this.format;
+                    this.prefix = prefix || this.prefix;
+                    this.suffix = suffix || this.suffix;
                     this.loading = false
                 }
             )
@@ -115,7 +115,7 @@ export default {
                     timezone: this.userTimezone,
                     twelveHourTime: this.usesTwelveHourTime,
                 },
-            }
+            };
 
             if (this.hasRanges) {
                 payload.params.range = this.selectedRangeKey
@@ -125,7 +125,7 @@ export default {
         },
 
         metricEndpoint() {
-            const lens = this.lens !== '' ? `/lens/${this.lens}` : ''
+            const lens = this.lens !== '' ? `/lens/${this.lens}` : '';
             if (this.resourceName && this.resourceId) {
                 return `/nova-api/${this.resourceName}${lens}/${this.resourceId}/metrics/${
                     this.card.uriKey

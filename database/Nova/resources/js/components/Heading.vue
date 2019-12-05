@@ -3,7 +3,7 @@ const classes = {
     '1': 'text-90 font-normal text-2xl',
     '2': 'text-90 font-normal text-xl',
     '3': 'text-90 font-bold text-lg',
-}
+};
 
 export default {
     props: {

@@ -66,12 +66,12 @@ export default {
 
     methods: {
         handleRangeSelected(key) {
-            this.selectedRangeKey = key
+            this.selectedRangeKey = key;
             this.fetch()
         },
 
         fetch() {
-            this.loading = true
+            this.loading = true;
 
             Minimum(Nova.request().get(this.metricEndpoint, this.rangePayload)).then(
                 ({
@@ -79,11 +79,11 @@ export default {
                         value: { value, previous, prefix, suffix, format },
                     },
                 }) => {
-                    this.value = value
-                    this.format = format || this.format
-                    this.prefix = prefix || this.prefix
-                    this.suffix = suffix || this.suffix
-                    this.previous = previous
+                    this.value = value;
+                    this.format = format || this.format;
+                    this.prefix = prefix || this.prefix;
+                    this.suffix = suffix || this.suffix;
+                    this.previous = previous;
                     this.loading = false
                 }
             )
@@ -100,7 +100,7 @@ export default {
         },
 
         metricEndpoint() {
-            const lens = this.lens !== '' ? `/lens/${this.lens}` : ''
+            const lens = this.lens !== '' ? `/lens/${this.lens}` : '';
             if (this.resourceName && this.resourceId) {
                 return `/nova-api/${this.resourceName}${lens}/${this.resourceId}/metrics/${
                     this.card.uriKey

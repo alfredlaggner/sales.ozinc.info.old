@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Http\Requests;
 
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
 
@@ -10,7 +11,7 @@ trait InteractsWithRelatedResources
     /**
      * Find the parent resource model instance for the request.
      *
-     * @return \Laravel\Nova\Resource
+     * @return Resource
      */
     public function findParentResourceOrFail()
     {
@@ -24,7 +25,7 @@ trait InteractsWithRelatedResources
     /**
      * Find the parent resource model instance for the request.
      *
-     * @return \Illuminate\Database\Eloquent\Model|null
+     * @return Model|null
      */
     public function findParentModel()
     {
@@ -42,7 +43,7 @@ trait InteractsWithRelatedResources
     /**
      * Find the parent resource model instance for the request or abort.
      *
-     * @return \Illuminate\Database\Eloquent\Model|null
+     * @return Model|null
      */
     public function findParentModelOrFail()
     {
@@ -74,7 +75,7 @@ trait InteractsWithRelatedResources
     /**
      * Get a new instance of hte "via" resource being requested.
      *
-     * @return \Laravel\Nova\Resource
+     * @return Resource
      */
     public function newViaResource()
     {

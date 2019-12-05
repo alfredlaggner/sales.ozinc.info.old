@@ -2,6 +2,8 @@
 
 namespace Laravel\Nova;
 
+use Illuminate\View\View;
+
 abstract class Tool extends Card
 {
     /**
@@ -17,7 +19,7 @@ abstract class Tool extends Card
     /**
      * Build the view that renders the navigation links for the tool.
      *
-     * @return \Illuminate\View\View|string
+     * @return View|string
      */
     public function renderNavigation()
     {

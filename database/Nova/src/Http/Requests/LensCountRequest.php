@@ -29,7 +29,7 @@ class LensCountRequest extends NovaRequest
     /**
      * Transform the request into a query.
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function toQuery()
     {

@@ -3,7 +3,7 @@ import { createRenderer } from 'vue-server-renderer'
 import Index from '@/views/Index.vue'
 
 // Create a renderer for snapshot testing
-const renderer = createRenderer()
+const renderer = createRenderer();
 
 // Nova global mock
 // class Nova {
@@ -27,12 +27,12 @@ describe('Index.vue', () => {
             propsData: {
                 resourceName: 'posts',
             },
-        })
+        });
         renderer.renderToString(wrapper.vm, (err, str) => {
-            if (err) throw new Error(err)
+            if (err) throw new Error(err);
             expect(str).toMatchSnapshot()
         })
-    })
+    });
 
     it('renders after loading', () => {
         const wrapper = shallowMount(Index, {
@@ -40,13 +40,13 @@ describe('Index.vue', () => {
             propsData: {
                 resourceName: 'posts',
             },
-        })
+        });
 
         expect(wrapper.vm.initialLoading).toEqual(false)
-    })
+    });
 
     it('should show its cards', () => {
-        const $route = { params: { resourceName: 'posts' } }
+        const $route = { params: { resourceName: 'posts' } };
         const wrapper = shallowMount(Index, {
             stubs: ['loading-view', 'cards'],
             mocks: {
@@ -55,7 +55,7 @@ describe('Index.vue', () => {
             propsData: {
                 resourceName: 'posts',
             },
-        })
+        });
 
         // wrapper.setData({
         //     cards: [{}],
@@ -63,4 +63,4 @@ describe('Index.vue', () => {
 
         expect(wrapper.vm.shouldShowCards).toEqual(true)
     })
-})
+});

@@ -28,7 +28,7 @@ class BooleanResource extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function fields(Request $request)

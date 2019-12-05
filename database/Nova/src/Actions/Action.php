@@ -3,6 +3,7 @@
 namespace Laravel\Nova\Actions;
 
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Metable;
@@ -13,6 +14,7 @@ use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\ProxiesCanSeeToGate;
 use Laravel\Nova\Http\Requests\ActionRequest;
 use Laravel\Nova\Exceptions\MissingActionHandlerException;
+use Throwable;
 
 class Action implements JsonSerializable
 {
@@ -79,7 +81,7 @@ class Action implements JsonSerializable
     /**
      * The callback used to authorize running the action.
      *
-     * @var \Closure|null
+     * @var Closure|null
      */
     public $runCallback;
 
@@ -93,8 +95,8 @@ class Action implements JsonSerializable
     /**
      * Determine if the action is executable for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param Request $request
+     * @param  Model  $model
      * @return bool
      */
     public function authorizedToRun(Request $request, $model)
@@ -160,7 +162,7 @@ class Action implements JsonSerializable
     /**
      * Execute the action for the given request.
      *
-     * @param  \Laravel\Nova\Http\Requests\ActionRequest  $request
+     * @param ActionRequest $request
      * @return mixed
      * @throws MissingActionHandlerException
      */
@@ -200,7 +202,7 @@ class Action implements JsonSerializable
     /**
      * Handle chunk results.
      *
-     * @param  \Laravel\Nova\Fields\ActionFields $fields
+     * @param ActionFields $fields
      * @param  array $results
      *
      * @return mixed
@@ -213,7 +215,7 @@ class Action implements JsonSerializable
     /**
      * Mark the action event record for the model as finished.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  Model  $model
      * @return int
      */
     protected function markAsFinished($model)
@@ -224,8 +226,8 @@ class Action implements JsonSerializable
     /**
      * Mark the action event record for the model as failed.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  \Throwable|string  $e
+     * @param  Model  $model
+     * @param  Throwable|string  $e
      * @return int
      */
     protected function markAsFailed($model, $e = null)
@@ -300,7 +302,7 @@ class Action implements JsonSerializable
     /**
      * Set the callback to be run to authorize running the action.
      *
-     * @param  \Closure  $callback
+     * @param Closure $callback
      * @return $this
      */
     public function canRun(Closure $callback)

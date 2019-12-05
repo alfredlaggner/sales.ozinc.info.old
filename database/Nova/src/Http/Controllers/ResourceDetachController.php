@@ -2,20 +2,23 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Response;
 use Laravel\Nova\DeleteField;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Actions\ActionEvent;
 use Laravel\Nova\Contracts\Deletable;
 use Laravel\Nova\Http\Requests\DetachResourceRequest;
+use Laravel\Nova\Resource;
 
 class ResourceDetachController extends Controller
 {
     /**
      * Detach the given resource(s).
      *
-     * @param  \Laravel\Nova\Http\Requests\DetachResourceRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param DetachResourceRequest $request
+     * @return Response
      */
     public function handle(DetachResourceRequest $request)
     {
@@ -42,9 +45,9 @@ class ResourceDetachController extends Controller
     /**
      * Delete the pivot fields on the given pivot model.
      *
-     * @param  \Laravel\Nova\Http\Requests\DetachResourceRequest  $request
-     * @param  \Laravel\Nova\Resource  $resource
-     * @param  \Illuminate\Database\Eloquent\Model
+     * @param DetachResourceRequest $request
+     * @param  Resource  $resource
+     * @param  Model
      * @return void
      */
     protected function deletePivotFields(DetachResourceRequest $request, $resource, $pivot)

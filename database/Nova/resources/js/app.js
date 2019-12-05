@@ -7,9 +7,9 @@ import Vue from 'vue'
 import Nova from './Nova'
 import './plugins'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-Vue.mixin(require('./base'))
+Vue.mixin(require('./base'));
 
 /**
  * Next, we'll setup some of Nova's Vue components that need to be global
@@ -28,4 +28,4 @@ import './components'
     this.CreateNova = function(config) {
         return new Nova(config)
     }
-}.call(window))
+}.call(window));

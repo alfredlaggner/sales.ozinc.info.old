@@ -17,7 +17,7 @@ trait ResolvesReverseRelation
     /**
      * Determine if the field is the reverse relation of a showed index view.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return bool
      */
     public function isReverseRelation(Request $request)
@@ -34,7 +34,7 @@ trait ResolvesReverseRelation
     /**
      * Get reverse relation field name.
      *
-     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
+     * @param NovaRequest $request
      * @return string
      */
     public function getReverseRelation(NovaRequest $request)

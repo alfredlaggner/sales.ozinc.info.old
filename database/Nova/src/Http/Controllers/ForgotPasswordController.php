@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -45,7 +46,7 @@ class ForgotPasswordController extends Controller
     /**
      * Display the form to request a password reset link.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function showLinkRequestForm()
     {

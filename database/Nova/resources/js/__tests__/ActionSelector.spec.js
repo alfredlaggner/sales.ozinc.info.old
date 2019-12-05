@@ -3,8 +3,8 @@ import PortalVue from 'portal-vue'
 import ActionSelector from '@/components/ActionSelector'
 import flushPromises from 'flush-promises'
 
-const localVue = createLocalVue()
-localVue.use(PortalVue)
+const localVue = createLocalVue();
+localVue.use(PortalVue);
 
 describe('ActionSelector', () => {
     test('it renders correctly with actions and pivot action', () => {
@@ -23,8 +23,8 @@ describe('ActionSelector', () => {
                 ],
                 pivotName: 'Pivot',
             },
-        })
+        });
 
         expect(wrapper).toMatchSnapshot()
     })
-})
+});

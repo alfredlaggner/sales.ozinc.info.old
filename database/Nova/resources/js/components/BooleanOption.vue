@@ -27,13 +27,13 @@ export default {
 
     methods: {
         updateCheckedState(optionKey, event) {
-            let oldValue = this.filter.currentValue
-            let newValue = { ...oldValue, [optionKey]: event.target.checked }
+            let oldValue = this.filter.currentValue;
+            let newValue = { ...oldValue, [optionKey]: event.target.checked };
 
             this.$store.commit(`${this.resourceName}/updateFilterState`, {
                 filterClass: this.filter.class,
                 value: newValue,
-            })
+            });
 
             this.$emit('change')
         },

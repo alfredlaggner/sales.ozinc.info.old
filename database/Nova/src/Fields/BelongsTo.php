@@ -2,6 +2,8 @@
 
 namespace Laravel\Nova\Fields;
 
+use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Nova;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -54,7 +56,7 @@ class BelongsTo extends Field
     /**
      * The column that should be displayed for the field.
      *
-     * @var \Closure
+     * @var Closure
      */
     public $display;
 
@@ -75,7 +77,7 @@ class BelongsTo extends Field
     /**
      * The callback that should be run when the field is filled.
      *
-     * @var \Closure
+     * @var Closure
      */
     public $filledCallback;
 
@@ -115,7 +117,7 @@ class BelongsTo extends Field
     /**
      * Determine if the field should be displayed for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return bool
      */
     public function authorize(Request $request)
@@ -130,7 +132,7 @@ class BelongsTo extends Field
      *
      * Ex: Is this a "user" belongs to field in a blog post list being shown on the "user" detail page.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return bool
      */
     public function isNotRedundant(Request $request)
@@ -167,7 +169,7 @@ class BelongsTo extends Field
     /**
      * Get the validation rules for this field.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @return array
      */
     public function getRules(NovaRequest $request)
@@ -187,7 +189,7 @@ class BelongsTo extends Field
     /**
      * Hydrate the given attribute on the model based on the incoming request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  object  $model
      * @return void
      */
@@ -209,9 +211,9 @@ class BelongsTo extends Field
     /**
      * Build an associatable query for the field.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  bool  $withTrashed
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function buildAssociatableQuery(NovaRequest $request, $withTrashed = false)
     {
@@ -234,8 +236,8 @@ class BelongsTo extends Field
     /**
      * Get the associatable query method name.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param NovaRequest $request
+     * @param Model $model
      * @return array
      */
     protected function associatableQueryCallable(NovaRequest $request, $model)
@@ -248,8 +250,8 @@ class BelongsTo extends Field
     /**
      * Get the associatable query method name.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param NovaRequest $request
+     * @param Model $model
      * @return string
      */
     protected function associatableQueryMethod(NovaRequest $request, $model)
@@ -264,7 +266,7 @@ class BelongsTo extends Field
     /**
      * Format the given associatable resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  mixed  $resource
      * @return array
      */
@@ -306,7 +308,7 @@ class BelongsTo extends Field
     /**
      * Specify a callback that should be run when the field is filled.
      *
-     * @param  \Closure  $callback
+     * @param  Closure  $callback
      * @return $this
      */
     public function filled($callback)

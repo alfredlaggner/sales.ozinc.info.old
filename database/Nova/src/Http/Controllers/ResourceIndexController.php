@@ -2,6 +2,8 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Http\Response;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\Controller;
 use Laravel\Nova\Http\Requests\ResourceIndexRequest;
 
@@ -10,8 +12,8 @@ class ResourceIndexController extends Controller
     /**
      * List the resources for administration.
      *
-     * @param  \Laravel\Nova\Http\Requests\ResourceIndexRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param ResourceIndexRequest $request
+     * @return Response
      */
     public function handle(ResourceIndexRequest $request)
     {
@@ -31,9 +33,9 @@ class ResourceIndexController extends Controller
     /**
      * Get the paginator instance for the index request.
      *
-     * @param  \Laravel\Nova\Http\Requests\ResourceIndexRequest  $request
+     * @param ResourceIndexRequest $request
      * @param  string  $resource
-     * @return \Illuminate\Pagination\Paginator
+     * @return Paginator
      */
     protected function paginator(ResourceIndexRequest $request, $resource)
     {

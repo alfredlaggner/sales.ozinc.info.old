@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Actions;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class ActionMethod
@@ -9,8 +10,8 @@ class ActionMethod
     /**
      * Determine the appropriate "handle" method for the given models.
      *
-     * @param  \Laravel\Nova\Actions\Action  $action
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param Action $action
+     * @param  Model  $model
      * @return string
      */
     public static function determine(Action $action, $model)

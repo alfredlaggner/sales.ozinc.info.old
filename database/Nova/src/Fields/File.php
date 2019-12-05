@@ -2,9 +2,12 @@
 
 namespace Laravel\Nova\Fields;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Contracts\Deletable as DeletableContract;
+use Laravel\Nova\Resource;
 
 class File extends Field implements DeletableContract
 {
@@ -153,7 +156,7 @@ class File extends Field implements DeletableContract
     /**
      * Store the file on disk.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return string
      */
     protected function storeFile($request)
@@ -170,7 +173,7 @@ class File extends Field implements DeletableContract
     /**
      * Merge the specified extra file information columns into the storable attributes.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  array  $attributes
      * @return array
      */
@@ -349,7 +352,7 @@ class File extends Field implements DeletableContract
     /**
      * Hydrate the given attribute on the model based on the incoming request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  object  $model
      * @return void
      */
@@ -363,7 +366,7 @@ class File extends Field implements DeletableContract
     /**
      * Hydrate the given attribute on the model based on the incoming request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  string  $requestAttribute
      * @param  object  $model
      * @param  string  $attribute
@@ -405,9 +408,9 @@ class File extends Field implements DeletableContract
     /**
      * Create an HTTP response to download the underlying field.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Laravel\Nova\Resource  $resource
-     * @return \Illuminate\Http\Response
+     * @param NovaRequest $request
+     * @param  Resource  $resource
+     * @return Response
      */
     public function toDownloadResponse(NovaRequest $request, $resource)
     {

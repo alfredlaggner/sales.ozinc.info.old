@@ -36,7 +36,7 @@ export default {
         },
 
         extraAttributes() {
-            const attrs = this.field.extraAttributes
+            const attrs = this.field.extraAttributes;
 
             return {
                 ...this.defaultAttributes,

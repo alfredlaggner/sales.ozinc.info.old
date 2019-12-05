@@ -132,17 +132,17 @@ export default {
          * Initialize the component's data.
          */
         async initializeComponent() {
-            this.softDeletes = false
-            this.disableWithTrashed()
-            this.clearSelection()
-            this.getField()
+            this.softDeletes = false;
+            this.disableWithTrashed();
+            this.clearSelection();
+            this.getField();
 
-            await this.getPivotFields()
-            await this.getAvailableResources()
+            await this.getPivotFields();
+            await this.getAvailableResources();
 
-            this.selectedResourceId = this.relatedResourceId
+            this.selectedResourceId = this.relatedResourceId;
 
-            this.selectInitialResource()
+            this.selectInitialResource();
 
             this.updateLastRetrievedAtTimestamp()
         },
@@ -151,12 +151,12 @@ export default {
          * Get the many-to-many relationship field.
          */
         getField() {
-            this.field = null
+            this.field = null;
 
             Nova.request()
                 .get('/nova-api/' + this.resourceName + '/field/' + this.viaRelationship)
                 .then(({ data }) => {
-                    this.field = data
+                    this.field = data;
 
                     if (this.field.searchable) {
                         this.determineIfSoftDeletes()
@@ -170,7 +170,7 @@ export default {
          * Get all of the available pivot fields for the relationship.
          */
         async getPivotFields() {
-            this.fields = []
+            this.fields = [];
 
             const { data } = await Nova.request()
                 .get(
@@ -181,12 +181,12 @@ export default {
                 )
                 .catch(error => {
                     if (error.response.status == 404) {
-                        this.$router.push({ name: '404' })
-                        return
-                    }
-                })
+                        this.$router.push({ name: '404' });
 
-            this.fields = data
+                    }
+                });
+
+            this.fields = data;
 
             _.each(this.fields, field => {
                 field.fill = () => ''
@@ -210,10 +210,10 @@ export default {
                             withTrashed: this.withTrashed,
                         },
                     }
-                )
+                );
 
-                this.availableResources = response.data.resources
-                this.withTrashed = response.data.withTrashed
+                this.availableResources = response.data.resources;
+                this.withTrashed = response.data.withTrashed;
                 this.softDeletes = response.data.softDeletes
             } catch (error) {
                 console.log(error)
@@ -235,14 +235,14 @@ export default {
          * Update the attached resource.
          */
         async updateAttachedResource() {
-            this.submittedViaUpdateAttachedResource = true
+            this.submittedViaUpdateAttachedResource = true;
 
             try {
-                await this.updateRequest()
+                await this.updateRequest();
 
-                this.submittedViaUpdateAttachedResource = false
+                this.submittedViaUpdateAttachedResource = false;
 
-                this.$toasted.show(this.__('The resource was updated!'), { type: 'success' })
+                this.$toasted.show(this.__('The resource was updated!'), { type: 'success' });
 
                 this.$router.push({
                     name: 'detail',
@@ -252,7 +252,7 @@ export default {
                     },
                 })
             } catch (error) {
-                this.submittedViaUpdateAttachedResource = false
+                this.submittedViaUpdateAttachedResource = false;
 
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
@@ -273,19 +273,19 @@ export default {
          * Update the resource and reset the form
          */
         async updateAndContinueEditing() {
-            this.submittedViaUpdateAndContinueEditing = true
+            this.submittedViaUpdateAndContinueEditing = true;
 
             try {
-                await this.updateRequest()
+                await this.updateRequest();
 
-                this.submittedViaUpdateAndContinueEditing = false
+                this.submittedViaUpdateAndContinueEditing = false;
 
-                this.$toasted.show(this.__('The resource was updated!'), { type: 'success' })
+                this.$toasted.show(this.__('The resource was updated!'), { type: 'success' });
 
                 // Reset the form by refetching the fields
                 this.initializeComponent()
             } catch (error) {
-                this.submittedViaUpdateAndContinueEditing = false
+                this.submittedViaUpdateAndContinueEditing = false;
 
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
@@ -318,8 +318,8 @@ export default {
          * Select a resource using the <select> control
          */
         selectResourceFromSelectControl(e) {
-            this.selectedResourceId = e.target.value
-            console.log(e.target.value, this.selectedResourceId)
+            this.selectedResourceId = e.target.value;
+            console.log(e.target.value, this.selectedResourceId);
             this.selectInitialResource()
         },
 
@@ -327,7 +327,7 @@ export default {
          * Toggle the trashed state of the search
          */
         toggleWithTrashed() {
-            this.withTrashed = !this.withTrashed
+            this.withTrashed = !this.withTrashed;
 
             // Reload the data if the component doesn't support searching
             if (!this.isSearchable) {
@@ -380,9 +380,9 @@ export default {
             return _.tap(new FormData(), formData => {
                 _.each(this.fields, field => {
                     field.fill(formData)
-                })
+                });
 
-                formData.append('viaRelationship', this.viaRelationship)
+                formData.append('viaRelationship', this.viaRelationship);
 
                 if (!this.selectedResource) {
                     formData.append(this.relatedResourceName, '')
@@ -390,7 +390,7 @@ export default {
                     formData.append(this.relatedResourceName, this.selectedResource.value)
                 }
 
-                formData.append(this.relatedResourceName + '_trashed', this.withTrashed)
+                formData.append(this.relatedResourceName + '_trashed', this.withTrashed);
                 formData.append('_retrieved_at', this.lastRetrievedAt)
             })
         },

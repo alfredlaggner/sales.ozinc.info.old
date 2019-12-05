@@ -2,12 +2,14 @@
 
 namespace Laravel\Nova\Fields;
 
+use Closure;
+
 trait Expandable
 {
     /**
      * The callback to be used to determine whether the field should be expanded.
      *
-     * @var \Closure
+     * @var Closure
      */
     public $expandableCallback;
 

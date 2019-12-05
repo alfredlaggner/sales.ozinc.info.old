@@ -32,7 +32,7 @@ export default {
         },
 
         extraAttributes() {
-            const attrs = this.field.extraAttributes
+            const attrs = this.field.extraAttributes;
 
             return {
                 // Leave the default attributes even though we can now specify

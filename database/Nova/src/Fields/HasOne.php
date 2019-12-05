@@ -64,7 +64,7 @@ class HasOne extends Field implements ListableField
     /**
      * Determine if the field should be displayed for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return bool
      */
     public function authorize(Request $request)

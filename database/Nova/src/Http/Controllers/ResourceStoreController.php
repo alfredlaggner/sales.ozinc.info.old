@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Actions\ActionEvent;
@@ -12,8 +13,8 @@ class ResourceStoreController extends Controller
     /**
      * Create a new resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\CreateResourceRequest  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param CreateResourceRequest $request
+     * @return JsonResponse
      */
     public function handle(CreateResourceRequest $request)
     {

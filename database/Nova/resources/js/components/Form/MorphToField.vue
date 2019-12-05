@@ -130,14 +130,14 @@ export default {
      */
     mounted() {
         if (this.editingExistingResource) {
-            this.initializingWithExistingResource = true
-            this.resourceType = this.field.morphToType
+            this.initializingWithExistingResource = true;
+            this.resourceType = this.field.morphToType;
             this.selectedResourceId = this.field.morphToId
         }
 
         if (this.creatingViaRelatedResource) {
-            this.initializingWithExistingResource = true
-            this.resourceType = this.viaResource
+            this.initializingWithExistingResource = true;
+            this.resourceType = this.viaResource;
             this.selectedResourceId = this.viaResourceId
         }
 
@@ -159,7 +159,7 @@ export default {
          * Select a resource using the <select> control
          */
         selectResourceFromSelectControl(e) {
-            this.selectedResourceId = e.target.value
+            this.selectedResourceId = e.target.value;
             this.selectInitialResource()
         },
 
@@ -168,10 +168,10 @@ export default {
          */
         fill(formData) {
             if (this.selectedResource && this.resourceType) {
-                formData.append(this.field.attribute, this.selectedResource.value)
+                formData.append(this.field.attribute, this.selectedResource.value);
                 formData.append(this.field.attribute + '_type', this.resourceType)
             } else {
-                formData.append(this.field.attribute, '')
+                formData.append(this.field.attribute, '');
                 formData.append(this.field.attribute + '_type', '')
             }
 
@@ -189,8 +189,8 @@ export default {
                         this.withTrashed = withTrashed
                     }
 
-                    this.initializingWithExistingResource = false
-                    this.availableResources = resources
+                    this.initializingWithExistingResource = false;
+                    this.availableResources = resources;
                     this.softDeletes = softDeletes
                 })
         },
@@ -218,16 +218,16 @@ export default {
          * Handle the changing of the resource type.
          */
         async refreshResourcesForTypeChange(event) {
-            this.resourceType = event.target.value
-            this.availableResources = []
-            this.selectedResource = ''
-            this.selectedResourceId = ''
-            this.withTrashed = false
+            this.resourceType = event.target.value;
+            this.availableResources = [];
+            this.selectedResource = '';
+            this.selectedResourceId = '';
+            this.withTrashed = false;
 
             // if (this.resourceType == '') {
-            this.softDeletes = false
+            this.softDeletes = false;
             // } else if (this.field.searchable) {
-            this.determineIfSoftDeletes()
+            this.determineIfSoftDeletes();
             // }
 
             if (!this.isSearchable && this.resourceType) {
@@ -239,7 +239,7 @@ export default {
          * Toggle the trashed state of the search
          */
         toggleWithTrashed() {
-            this.withTrashed = !this.withTrashed
+            this.withTrashed = !this.withTrashed;
 
             // Reload the data if the component doesn't support searching
             if (!this.isSearchable) {

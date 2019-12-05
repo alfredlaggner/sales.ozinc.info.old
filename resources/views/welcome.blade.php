@@ -80,7 +80,7 @@
             @endif
                 <div style="margin-top: -20px" id="poll_div">
                 </div>
-                <?= \Lava::render('ColumnChart', 'Finances', 'poll_div') ?>
+                <?= Lava::render('ColumnChart', 'Finances', 'poll_div') ?>
 
             <div class="content">
                 <div class="title m-b-md">

@@ -81,7 +81,7 @@ const actions = {
     },
 
     toggleFullScreen() {
-        this.fullScreen = !this.fullScreen
+        this.fullScreen = !this.fullScreen;
         this.$nextTick(() => this.codemirror.refresh())
     },
 
@@ -92,7 +92,7 @@ const actions = {
     exitFullScreen() {
         this.fullScreen = false
     },
-}
+};
 
 const keyMaps = {
     'Cmd-B': 'bold',
@@ -101,7 +101,7 @@ const keyMaps = {
     'Cmd-K': 'link',
     F11: 'fullScreen',
     Esc: 'exitFullScreen',
-}
+};
 
 export default {
     mixins: [HandlesValidationErrors, FormField],
@@ -143,22 +143,22 @@ export default {
                     return tool.action
                 }),
             },
-        })
+        });
 
         _.each(keyMaps, (action, map) => {
             const realMap = map.replace(
                 'Cmd-',
                 CodeMirror.keyMap['default'] == CodeMirror.keyMap.macDefault ? 'Cmd-' : 'Ctrl-'
-            )
+            );
             this.codemirror.options.extraKeys[realMap] = actions[keyMaps[map]].bind(this)
-        })
+        });
 
         this.doc.on('change', (cm, changeObj) => {
             this.value = cm.getValue()
-        })
+        });
 
-        this.codemirror.on('focus', () => (this.isFocused = true))
-        this.codemirror.on('blur', () => (this.isFocused = false))
+        this.codemirror.on('focus', () => (this.isFocused = true));
+        this.codemirror.on('blur', () => (this.isFocused = false));
 
         if (this.field.value) {
             this.doc.setValue(this.field.value)
@@ -173,7 +173,7 @@ export default {
         },
 
         write() {
-            this.mode = 'write'
+            this.mode = 'write';
             this.codemirror.refresh()
         },
 
@@ -190,13 +190,13 @@ export default {
 
         insertAround(start, end) {
             if (this.doc.somethingSelected()) {
-                const selection = this.doc.getSelection()
+                const selection = this.doc.getSelection();
                 this.doc.replaceSelection(start + selection + end)
             } else {
                 this.doc.replaceRange(start + end, {
                     line: this.cursor.line,
                     ch: this.cursor.ch,
-                })
+                });
                 this.doc.setCursor({
                     line: this.cursor.line,
                     ch: this.cursor.ch - end.length,
@@ -206,9 +206,9 @@ export default {
 
         insertBefore(insertion, cursorOffset) {
             if (this.doc.somethingSelected()) {
-                const selects = this.doc.listSelections()
+                const selects = this.doc.listSelections();
                 selects.forEach(selection => {
-                    const pos = [selection.head.line, selection.anchor.line].sort()
+                    const pos = [selection.head.line, selection.anchor.line].sort();
 
                     for (let i = pos[0]; i <= pos[1]; i++) {
                         this.doc.replaceRange(insertion, { line: i, ch: 0 })
@@ -220,7 +220,7 @@ export default {
                 this.doc.replaceRange(insertion, {
                     line: this.cursor.line,
                     ch: 0,
-                })
+                });
                 this.doc.setCursor({
                     line: this.cursor.line,
                     ch: cursorOffset || 0,
@@ -229,7 +229,7 @@ export default {
         },
 
         callAction(action) {
-            this.focus()
+            this.focus();
             actions[action].call(this)
         },
     },

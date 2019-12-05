@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class RoleResource extends Resource
      *
      * @var string
      */
-    public static $model = \Laravel\Nova\Tests\Fixtures\Role::class;
+    public static $model = Role::class;
 
     /**
      * The columns that should be searched.
@@ -31,7 +32,7 @@ class RoleResource extends Resource
     /**
      * Determine if the resource should be displayed for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return bool
      */
     public static function authorizedToViewAny(Request $request)
@@ -42,7 +43,7 @@ class RoleResource extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function fields(Request $request)
@@ -80,7 +81,7 @@ class RoleResource extends Resource
     /**
      * Get the actions displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function actions(Request $request)
@@ -93,7 +94,7 @@ class RoleResource extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -106,9 +107,9 @@ class RoleResource extends Resource
      *
      * This query determines which instances of the model may be attached to other resources.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param NovaRequest $request
+     * @param  Builder  $query
+     * @return Builder
      */
     public static function relatableQuery(NovaRequest $request, $query)
     {

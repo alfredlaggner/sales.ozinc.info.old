@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Actions\Actionable;
@@ -15,8 +16,8 @@ class ResourceForceDeleteController extends Controller
     /**
      * Force delete the given resource(s).
      *
-     * @param  \Laravel\Nova\Http\Requests\ForceDeleteResourceRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param ForceDeleteResourceRequest $request
+     * @return Response
      */
     public function handle(ForceDeleteResourceRequest $request)
     {

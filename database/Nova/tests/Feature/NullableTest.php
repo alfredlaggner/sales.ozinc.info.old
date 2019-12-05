@@ -5,6 +5,7 @@ namespace Laravel\Nova\Tests\Feature;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Tests\IntegrationTest;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use stdClass;
 
 class NullableTest extends IntegrationTest
 {
@@ -12,7 +13,7 @@ class NullableTest extends IntegrationTest
     {
         $field = Text::make('Text')->nullable()->nullValues(['', 0]);
 
-        $model = new \stdClass();
+        $model = new stdClass();
 
         $field->fill(NovaRequest::create('/?text='), $model);
 
@@ -33,7 +34,7 @@ class NullableTest extends IntegrationTest
             return $value == '0';
         });
 
-        $model = new \stdClass();
+        $model = new stdClass();
 
         $field->fill(NovaRequest::create('/?text='), $model);
 

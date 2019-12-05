@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="odoo@157.230.218.157 [2]" read-only="true" uuid="53ebdbd2-21e9-4859-bb9d-177e8e2a3bd0">
-      <driver-ref>mysql</driver-ref>
-      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://157.230.218.157:3306/odoo</jdbc-url>
+    <data-source source="LOCAL" name="odoo@69.55.54.183" read-only="true" uuid="53ebdbd2-21e9-4859-bb9d-177e8e2a3bd0">
+      <driver-ref>mysql.8</driver-ref>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://127.0.0.1:3306/odoo</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

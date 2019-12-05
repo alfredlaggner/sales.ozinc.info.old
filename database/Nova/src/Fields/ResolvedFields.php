@@ -10,15 +10,15 @@ class ResolvedFields extends Fluent
     /**
      * The post-storage callbacks for the fields.
      *
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     public $callbacks;
 
     /**
      * Create a new resolved fields instance.
      *
-     * @param  \Illuminate\Support\Collection  $attributes
-     * @param  \Illuminate\Support\Collection  $callbacks
+     * @param Collection $attributes
+     * @param Collection $callbacks
      * @return void
      */
     public function __construct(Collection $attributes, Collection $callbacks)
@@ -31,7 +31,7 @@ class ResolvedFields extends Fluent
     /**
      * Get the post-storage callbacks for the fields.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function callbacks()
     {

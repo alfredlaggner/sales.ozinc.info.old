@@ -24,13 +24,13 @@ export default {
      * Mount the component.
      */
     mounted() {
-        this.setInitialValue()
+        this.setInitialValue();
 
-        this.field.fill = this.fill
+        this.field.fill = this.fill;
 
         Nova.$on(this.field.attribute + '-value', value => {
             this.value = value
-        })
+        });
 
         this.initializePlaces()
     },
@@ -40,9 +40,9 @@ export default {
          * Initialize Algolia places library.
          */
         initializePlaces() {
-            const places = require('places.js')
+            const places = require('places.js');
 
-            const placeType = this.field.placeType
+            const placeType = this.field.placeType;
 
             const config = {
                 container: document.querySelector('#' + this.field.attribute),
@@ -52,48 +52,48 @@ export default {
                         return suggestion.name
                     },
                 },
-            }
+            };
 
             if (this.field.countries) {
                 config.countries = this.field.countries
             }
 
-            const placesAutocomplete = places(config)
+            const placesAutocomplete = places(config);
 
             placesAutocomplete.on('change', e => {
                 this.$nextTick(() => {
-                    this.value = e.suggestion.name
+                    this.value = e.suggestion.name;
 
-                    Nova.$emit(this.field.secondAddressLine + '-value', '')
-                    Nova.$emit(this.field.city + '-value', e.suggestion.city)
+                    Nova.$emit(this.field.secondAddressLine + '-value', '');
+                    Nova.$emit(this.field.city + '-value', e.suggestion.city);
 
                     Nova.$emit(
                         this.field.state + '-value',
                         this.parseState(e.suggestion.administrative, e.suggestion.countryCode)
-                    )
+                    );
 
-                    Nova.$emit(this.field.postalCode + '-value', e.suggestion.postcode)
+                    Nova.$emit(this.field.postalCode + '-value', e.suggestion.postcode);
 
                     Nova.$emit(
                         this.field.country + '-value',
                         e.suggestion.countryCode.toUpperCase()
-                    )
+                    );
 
-                    Nova.$emit(this.field.latitude + '-value', e.suggestion.latlng.lat)
+                    Nova.$emit(this.field.latitude + '-value', e.suggestion.latlng.lat);
                     Nova.$emit(this.field.longitude + '-value', e.suggestion.latlng.lng)
                 })
-            })
+            });
 
             placesAutocomplete.on('clear', () => {
                 this.$nextTick(() => {
-                    this.value = ''
+                    this.value = '';
 
-                    Nova.$emit(this.field.secondAddressLine + '-value', '')
-                    Nova.$emit(this.field.city + '-value', '')
-                    Nova.$emit(this.field.state + '-value', '')
-                    Nova.$emit(this.field.postalCode + '-value', '')
-                    Nova.$emit(this.field.country + '-value', '')
-                    Nova.$emit(this.field.latitude + '-value', '')
+                    Nova.$emit(this.field.secondAddressLine + '-value', '');
+                    Nova.$emit(this.field.city + '-value', '');
+                    Nova.$emit(this.field.state + '-value', '');
+                    Nova.$emit(this.field.postalCode + '-value', '');
+                    Nova.$emit(this.field.country + '-value', '');
+                    Nova.$emit(this.field.latitude + '-value', '');
                     Nova.$emit(this.field.longitude + '-value', '')
                 })
             })

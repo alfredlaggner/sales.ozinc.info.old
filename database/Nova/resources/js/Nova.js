@@ -8,20 +8,20 @@ import Loading from '@/components/Loading'
 import AsyncComputed from 'vue-async-computed'
 import resources from '@/store/resources'
 
-Vue.use(PortalVue)
-Vue.use(AsyncComputed)
+Vue.use(PortalVue);
+Vue.use(AsyncComputed);
 
 Vue.use(Toasted, {
     router,
     theme: 'nova',
     position: 'bottom-right',
     duration: 6000,
-})
+});
 
 export default class Nova {
     constructor(config) {
-        this.bus = new Vue()
-        this.bootingCallbacks = []
+        this.bus = new Vue();
+        this.bootingCallbacks = [];
         this.config = config
     }
 
@@ -37,7 +37,7 @@ export default class Nova {
      * Execute all of the booting callbacks.
      */
     boot() {
-        this.bootingCallbacks.forEach(callback => callback(Vue, router, store))
+        this.bootingCallbacks.forEach(callback => callback(Vue, router, store));
         this.bootingCallbacks = []
     }
 
@@ -55,10 +55,10 @@ export default class Nova {
      * the underlying Vue instance.
      */
     liftOff() {
-        let _this = this
+        let _this = this;
 
-        this.boot()
-        this.registerStoreModules()
+        this.boot();
+        this.registerStoreModules();
 
         this.app = new Vue({
             el: '#nova',
@@ -66,11 +66,11 @@ export default class Nova {
             store,
             components: { Loading },
             mounted: function() {
-                this.$loading = this.$refs.loading
+                this.$loading = this.$refs.loading;
 
                 _this.$on('error', message => {
                     this.$toasted.show(message, { type: 'error' })
-                })
+                });
 
                 _this.$on('token-expired', () => {
                     this.$toasted.show(this.__('Sorry, your session has expired.'), {

@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Laravel\Nova\Http\Requests\MetricRequest;
 
@@ -10,8 +11,8 @@ class DetailMetricController extends Controller
     /**
      * Get the specified metric's value.
      *
-     * @param  \Laravel\Nova\Http\Requests\MetricRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param MetricRequest $request
+     * @return Response
      */
     public function show(MetricRequest $request)
     {

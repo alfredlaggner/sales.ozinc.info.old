@@ -2,6 +2,10 @@
 
 namespace Laravel\Nova;
 
+use Closure;
+use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use ReflectionClass;
 use BadMethodCallException;
 use Illuminate\Support\Str;
@@ -36,14 +40,14 @@ class Nova
     /**
      * The callback used to create new users via the CLI.
      *
-     * @var \Closure
+     * @var Closure
      */
     public static $createUserCallback;
 
     /**
      * The callback used to gather new user information via the CLI.
      *
-     * @var \Closure
+     * @var Closure
      */
     public static $createUserCommandCallback;
 
@@ -136,7 +140,7 @@ class Nova
     /**
      * Register the Nova routes.
      *
-     * @return \Laravel\Nova\PendingRouteRegistration
+     * @return PendingRouteRegistration
      */
     public static function routes()
     {
@@ -148,7 +152,7 @@ class Nova
     /**
      * Register an event listener for the Nova "serving" event.
      *
-     * @param  \Closure|string  $callback
+     * @param  Closure|string  $callback
      * @return void
      */
     public static function serving($callback)
@@ -159,7 +163,7 @@ class Nova
     /**
      * Get meta data information about all resources for client side consumption.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public static function resourceInformation(Request $request)
@@ -178,7 +182,7 @@ class Nova
     /**
      * Get the resources available for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public static function availableResources(Request $request)
@@ -192,7 +196,7 @@ class Nova
     /**
      * Get the resources available for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public static function globallySearchableResources(Request $request)
@@ -290,8 +294,8 @@ class Nova
     /**
      * Get a new resource instance with the given model instance.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @return \Laravel\Nova\Resource
+     * @param  Model  $model
+     * @return Resource
      */
     public static function newResourceFromModel($model)
     {
@@ -327,7 +331,7 @@ class Nova
      * Get a resource instance for a given key.
      *
      * @param  string  $key
-     * @return \Laravel\Nova\Resource|null
+     * @return Resource|null
      */
     public static function resourceInstanceForKey($key)
     {
@@ -340,7 +344,7 @@ class Nova
      * Get a fresh model instance for the resource with the given key.
      *
      * @param  string  $key
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     public static function modelInstanceForKey($key)
     {
@@ -352,8 +356,8 @@ class Nova
     /**
      * Get the available dashboard cards for the given request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Support\Collection
+     * @param NovaRequest $request
+     * @return Collection
      */
     public static function availableDashboardCards(NovaRequest $request)
     {
@@ -363,7 +367,7 @@ class Nova
     /**
      * Create a new user instance.
      *
-     * @param  \Illuminate\Console\Command
+     * @param  Command
      * @return mixed
      */
     public static function createUser($command)
@@ -381,8 +385,8 @@ class Nova
     /**
      * Register the callbacks used to create a new user via the CLI.
      *
-     * @param  \Closure  $createUserCommandCallback
-     * @param  \Closure  $createUserCallback
+     * @param  Closure  $createUserCommandCallback
+     * @param  Closure  $createUserCallback
      * @return static
      */
     public static function createUserUsing($createUserCommandCallback = null, $createUserCallback = null)
@@ -404,7 +408,7 @@ class Nova
     /**
      * Get the default callback used for the create user command.
      *
-     * @return \Closure
+     * @return Closure
      */
     protected static function defaultCreateUserCommandCallback()
     {
@@ -420,7 +424,7 @@ class Nova
     /**
      * Get the default callback used for creating new Nova users.
      *
-     * @return \Closure
+     * @return Closure
      */
     protected static function defaultCreateUserCallback()
     {
@@ -455,7 +459,7 @@ class Nova
     /**
      * Resolve the user's preferred timezone.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return string|null
      */
     public static function resolveUserTimezone(Request $request)
@@ -494,7 +498,7 @@ class Nova
     /**
      * Boot the available Nova tools.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return void
      */
     public static function bootTools(Request $request)
@@ -505,7 +509,7 @@ class Nova
     /**
      * Get the tools registered with Nova.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public static function availableTools(Request $request)
@@ -542,7 +546,7 @@ class Nova
     /**
      * Get the cards registered with Nova.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public static function availableCards(Request $request)
@@ -563,7 +567,7 @@ class Nova
     /**
      * Get all of the available scripts that should be registered.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public static function availableScripts(Request $request)
@@ -584,7 +588,7 @@ class Nova
     /**
      * Get all of the available stylesheets that should be registered.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public static function availableStyles(Request $request)
@@ -636,7 +640,7 @@ class Nova
     /**
      * Get the JSON variables that should be provided to the global Nova JavaScript object.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public static function jsonVariables(Request $request)

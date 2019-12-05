@@ -2,6 +2,8 @@
 
 namespace Laravel\Nova\Fields;
 
+use Illuminate\Database\Eloquent\Model;
+
 class ID extends Field
 {
     /**
@@ -27,7 +29,7 @@ class ID extends Field
     /**
      * Create a new, resolved ID field for the givne model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  Model  $model
      * @return static
      */
     public static function forModel($model)

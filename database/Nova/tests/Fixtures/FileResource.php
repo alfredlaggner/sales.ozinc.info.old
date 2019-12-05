@@ -14,7 +14,7 @@ class FileResource extends Resource
      *
      * @var string
      */
-    public static $model = \Laravel\Nova\Tests\Fixtures\File::class;
+    public static $model = File::class;
 
     /**
      * The columns that should be searched.
@@ -28,7 +28,7 @@ class FileResource extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function fields(Request $request)

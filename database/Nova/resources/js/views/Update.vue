@@ -81,18 +81,18 @@ export default {
     }),
 
     async created() {
-        if (Nova.missingResource(this.resourceName)) return this.$router.push({ name: '404' })
+        if (Nova.missingResource(this.resourceName)) return this.$router.push({ name: '404' });
 
         // If this update is via a relation index, then let's grab the field
         // and use the label for that as the one we use for the title and buttons
         if (this.isRelation) {
             const { data } = await Nova.request(
                 `/nova-api/${this.viaResource}/field/${this.viaRelationship}`
-            )
+            );
             this.relationResponse = data
         }
 
-        this.getFields()
+        this.getFields();
 
         this.updateLastRetrievedAtTimestamp()
     },
@@ -102,9 +102,9 @@ export default {
          * Get the available fields for the resource.
          */
         async getFields() {
-            this.loading = true
+            this.loading = true;
 
-            this.fields = []
+            this.fields = [];
 
             const { data: fields } = await Nova.request()
                 .get(`/nova-api/${this.resourceName}/${this.resourceId}/update-fields`, {
@@ -116,12 +116,12 @@ export default {
                 })
                 .catch(error => {
                     if (error.response.status == 404) {
-                        this.$router.push({ name: '404' })
-                        return
-                    }
-                })
+                        this.$router.push({ name: '404' });
 
-            this.fields = fields
+                    }
+                });
+
+            this.fields = fields;
 
             this.loading = false
         },
@@ -130,19 +130,19 @@ export default {
          * Update the resource using the provided data.
          */
         async updateResource() {
-            this.submittedViaUpdateResource = true
+            this.submittedViaUpdateResource = true;
 
             try {
-                const response = await this.updateRequest()
+                const response = await this.updateRequest();
 
-                this.submittedViaUpdateResource = false
+                this.submittedViaUpdateResource = false;
 
                 this.$toasted.show(
                     this.__('The :resource was updated!', {
                         resource: this.resourceInformation.singularLabel.toLowerCase(),
                     }),
                     { type: 'success' }
-                )
+                );
 
                 this.$router.push({
                     name: 'detail',
@@ -152,7 +152,7 @@ export default {
                     },
                 })
             } catch (error) {
-                this.submittedViaUpdateResource = false
+                this.submittedViaUpdateResource = false;
 
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
@@ -173,28 +173,28 @@ export default {
          * Update the resource and reset the form
          */
         async updateAndContinueEditing() {
-            this.submittedViaUpdateAndContinueEditing = true
+            this.submittedViaUpdateAndContinueEditing = true;
 
             try {
-                const response = await this.updateRequest()
+                const response = await this.updateRequest();
 
-                this.submittedViaUpdateAndContinueEditing = false
+                this.submittedViaUpdateAndContinueEditing = false;
 
                 this.$toasted.show(
                     this.__('The :resource was updated!', {
                         resource: this.resourceInformation.singularLabel.toLowerCase(),
                     }),
                     { type: 'success' }
-                )
+                );
 
                 // Reset the form by refetching the fields
-                this.getFields()
+                this.getFields();
 
-                this.validationErrors = new Errors()
+                this.validationErrors = new Errors();
 
                 this.updateLastRetrievedAtTimestamp()
             } catch (error) {
-                this.submittedViaUpdateAndContinueEditing = false
+                this.submittedViaUpdateAndContinueEditing = false;
 
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
@@ -244,9 +244,9 @@ export default {
             return _.tap(new FormData(), formData => {
                 _(this.fields).each(field => {
                     field.fill(formData)
-                })
+                });
 
-                formData.append('_method', 'PUT')
+                formData.append('_method', 'PUT');
                 formData.append('_retrieved_at', this.lastRetrievedAt)
             })
         },

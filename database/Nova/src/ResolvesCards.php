@@ -3,6 +3,7 @@
 namespace Laravel\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 trait ResolvesCards
@@ -10,8 +11,8 @@ trait ResolvesCards
     /**
      * Get the cards that are available for the given request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Support\Collection
+     * @param NovaRequest $request
+     * @return Collection
      */
     public function availableCards(NovaRequest $request)
     {
@@ -21,8 +22,8 @@ trait ResolvesCards
     /**
      * Get the cards for the given request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Support\Collection
+     * @param NovaRequest $request
+     * @return Collection
      */
     public function resolveCards(NovaRequest $request)
     {
@@ -32,7 +33,7 @@ trait ResolvesCards
     /**
      * Get the cards available on the entity.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function cards(Request $request)

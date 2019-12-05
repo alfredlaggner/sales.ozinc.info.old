@@ -44,17 +44,17 @@ export default {
     mounted() {
         Minimum(
             new Promise((resolve, reject) => {
-                let image = new Image()
+                let image = new Image();
 
-                image.addEventListener('load', () => resolve(image))
-                image.addEventListener('error', () => reject())
+                image.addEventListener('load', () => resolve(image));
+                image.addEventListener('error', () => reject());
 
                 image.src = this.src
             })
         )
             .then(image => {
-                image.className = 'block w-full'
-                image.draggable = false
+                image.className = 'block w-full';
+                image.draggable = false;
 
                 if (this.maxWidth) {
                     this.$refs.card.$el.style.maxWidth = `${this.maxWidth}px`
@@ -63,7 +63,7 @@ export default {
                 this.$refs.card.$el.appendChild(image)
             })
             .catch(() => {
-                this.missing = true
+                this.missing = true;
 
                 this.$emit('missing', true)
             })

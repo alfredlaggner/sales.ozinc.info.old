@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova;
 
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Query\ApplySoftDeleteConstraint;
 
@@ -10,13 +11,13 @@ trait PerformsQueries
     /**
      * Build an "index" query for the given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param NovaRequest $request
+     * @param  Builder  $query
      * @param  string  $search
      * @param  array  $filters
      * @param  array  $orderings
      * @param  string  $withTrashed
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public static function buildIndexQuery(NovaRequest $request, $query, $search = null,
                                       array $filters = [], array $orderings = [],
@@ -32,11 +33,11 @@ trait PerformsQueries
     /**
      * Initialize the given index query.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param NovaRequest $request
+     * @param  Builder  $query
      * @param  string  $search
      * @param  string  $withTrashed
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     protected static function initializeQuery(NovaRequest $request, $query, $search, $withTrashed)
     {
@@ -52,9 +53,9 @@ trait PerformsQueries
     /**
      * Apply the search query to the query.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  Builder  $query
      * @param  string  $search
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     protected static function applySearch($query, $search)
     {
@@ -78,11 +79,11 @@ trait PerformsQueries
     /**
      * Initialize the given index query using Laravel Scout.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param NovaRequest $request
+     * @param  Builder  $query
      * @param  string  $search
      * @param  string  $withTrashed
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     protected static function initializeQueryUsingScout(NovaRequest $request, $query, $search, $withTrashed)
     {
@@ -114,10 +115,10 @@ trait PerformsQueries
     /**
      * Apply any applicable filters to the query.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param NovaRequest $request
+     * @param  Builder  $query
      * @param  array  $filters
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     protected static function applyFilters(NovaRequest $request, $query, array $filters)
     {
@@ -129,9 +130,9 @@ trait PerformsQueries
     /**
      * Apply any applicable orderings to the query.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  Builder  $query
      * @param  array  $orderings
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     protected static function applyOrderings($query, array $orderings)
     {
@@ -151,9 +152,9 @@ trait PerformsQueries
     /**
      * Build an "index" query for the given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param NovaRequest $request
+     * @param  Builder  $query
+     * @return Builder
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
@@ -163,7 +164,7 @@ trait PerformsQueries
     /**
      * Build a Scout search query for the given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  \Laravel\Scout\Builder  $query
      * @return \Laravel\Scout\Builder
      */
@@ -175,9 +176,9 @@ trait PerformsQueries
     /**
      * Build a "detail" query for the given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param NovaRequest $request
+     * @param  Builder  $query
+     * @return Builder
      */
     public static function detailQuery(NovaRequest $request, $query)
     {
@@ -189,9 +190,9 @@ trait PerformsQueries
      *
      * This query determines which instances of the model may be attached to other resources.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param NovaRequest $request
+     * @param  Builder  $query
+     * @return Builder
      */
     public static function relatableQuery(NovaRequest $request, $query)
     {

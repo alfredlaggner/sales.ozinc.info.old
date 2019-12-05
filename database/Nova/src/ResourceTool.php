@@ -12,7 +12,7 @@ class ResourceTool extends Panel
     /**
      * The resource tool element.
      *
-     * @var \Laravel\Nova\Element
+     * @var Element
      */
     public $element;
 
@@ -68,7 +68,7 @@ class ResourceTool extends Panel
     /**
      * Set the callback to be run to authorize viewing the card.
      *
-     * @param  \Closure  $callback
+     * @param Closure $callback
      * @return $this
      */
     public function canSee(Closure $callback)

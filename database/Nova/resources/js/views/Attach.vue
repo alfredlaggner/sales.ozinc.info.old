@@ -171,11 +171,11 @@ export default {
          * Initialize the component's data.
          */
         initializeComponent() {
-            this.softDeletes = false
-            this.disableWithTrashed()
-            this.clearSelection()
-            this.getField()
-            this.getPivotFields()
+            this.softDeletes = false;
+            this.disableWithTrashed();
+            this.clearSelection();
+            this.getField();
+            this.getPivotFields();
             this.resetErrors()
         },
 
@@ -183,15 +183,15 @@ export default {
          * Get the many-to-many relationship field.
          */
         getField() {
-            this.field = null
+            this.field = null;
 
             Nova.request()
                 .get('/nova-api/' + this.resourceName + '/field/' + this.viaRelationship)
                 .then(({ data }) => {
-                    this.field = data
+                    this.field = data;
                     this.field.searchable
                         ? this.determineIfSoftDeletes()
-                        : this.getAvailableResources()
+                        : this.getAvailableResources();
                     this.loading = false
                 })
         },
@@ -200,7 +200,7 @@ export default {
          * Get all of the available pivot fields for the relationship.
          */
         getPivotFields() {
-            this.fields = []
+            this.fields = [];
 
             Nova.request()
                 .get(
@@ -210,7 +210,7 @@ export default {
                         this.relatedResourceName
                 )
                 .then(({ data }) => {
-                    this.fields = data
+                    this.fields = data;
 
                     _.each(this.fields, field => {
                         field.fill = () => ''
@@ -240,8 +240,8 @@ export default {
                     }
                 )
                 .then(response => {
-                    this.availableResources = response.data.resources
-                    this.withTrashed = response.data.withTrashed
+                    this.availableResources = response.data.resources;
+                    this.withTrashed = response.data.withTrashed;
                     this.softDeletes = response.data.softDeletes
                 })
         },
@@ -261,12 +261,12 @@ export default {
          * Attach the selected resource.
          */
         async attachResource() {
-            this.submittedViaAttachResource = true
+            this.submittedViaAttachResource = true;
 
             try {
-                await this.attachRequest()
+                await this.attachRequest();
 
-                this.submittedViaAttachResource = false
+                this.submittedViaAttachResource = false;
 
                 this.$router.push({
                     name: 'detail',
@@ -276,7 +276,7 @@ export default {
                     },
                 })
             } catch (error) {
-                this.submittedViaAttachResource = false
+                this.submittedViaAttachResource = false;
 
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
@@ -288,17 +288,17 @@ export default {
          * Attach a new resource and reset the form
          */
         async attachAndAttachAnother() {
-            this.submittedViaAttachAndAttachAnother = true
+            this.submittedViaAttachAndAttachAnother = true;
 
             try {
-                await this.attachRequest()
+                await this.attachRequest();
 
-                this.submittedViaAttachAndAttachAnother = false
+                this.submittedViaAttachAndAttachAnother = false;
 
                 // Reset the form by refetching the fields
                 this.initializeComponent()
             } catch (error) {
-                this.submittedViaAttachAndAttachAnother = false
+                this.submittedViaAttachAndAttachAnother = false;
 
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
@@ -317,7 +317,7 @@ export default {
          * Select a resource using the <select> control
          */
         selectResourceFromSelectControl(e) {
-            this.selectedResourceId = e.target.value
+            this.selectedResourceId = e.target.value;
             this.selectInitialResource()
         },
 
@@ -335,7 +335,7 @@ export default {
          * Toggle the trashed state of the search
          */
         toggleWithTrashed() {
-            this.withTrashed = !this.withTrashed
+            this.withTrashed = !this.withTrashed;
 
             // Reload the data if the component doesn't support searching
             if (!this.isSearchable) {
@@ -371,7 +371,7 @@ export default {
             return _.tap(new FormData(), formData => {
                 _.each(this.fields, field => {
                     field.fill(formData)
-                })
+                });
 
                 if (!this.selectedResource) {
                     formData.append(this.relatedResourceName, '')
@@ -379,7 +379,7 @@ export default {
                     formData.append(this.relatedResourceName, this.selectedResource.value)
                 }
 
-                formData.append(this.relatedResourceName + '_trashed', this.withTrashed)
+                formData.append(this.relatedResourceName + '_trashed', this.withTrashed);
                 formData.append('viaRelationship', this.viaRelationship)
             })
         },

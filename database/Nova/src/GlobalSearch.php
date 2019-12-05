@@ -10,22 +10,22 @@ class GlobalSearch
     /**
      * The request instance.
      *
-     * @var \Laravel\Nova\Http\Requests\NovaRequest
+     * @var NovaRequest
      */
     public $request;
 
     /**
      * The resource class names that should be searched.
      *
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     public $resources;
 
     /**
      * Create a new global search instance.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Support\Collection  $resources
+     * @param NovaRequest $request
+     * @param Collection $resources
      * @return void
      */
     public function __construct(NovaRequest $request, Collection $resources)

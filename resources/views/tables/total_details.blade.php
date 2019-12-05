@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.0.5/jspdf.plugin.autotable.js"></script>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="card">
             <div class='card-header'>
                 <h5>All Invoice Lines</h5>
@@ -99,6 +99,7 @@
                     responsiveLayout: false,
                     layout: "fitData", //fit columns to width of table (optional)
                     groupBy: "month",
+                    groupBy: "rep",
                     groupHeader: [
                         function (value, count, data) { //generate header contents for gender groups
                             return value;
@@ -112,7 +113,7 @@
                             },
                             {
                                 title: "Quantity",
-                                field: "qty_invoiced",
+                                field: "quantity",
                                 align: "right"
                             },
                             {
@@ -260,6 +261,10 @@
                             {
                                 title: "Category",
                                 field: "category"
+                            },
+                            {
+                                title: "State",
+                                field: "state"
                             }
                         ],
                     /*

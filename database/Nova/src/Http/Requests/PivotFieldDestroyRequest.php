@@ -2,8 +2,11 @@
 
 namespace Laravel\Nova\Http\Requests;
 
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Fields\File;
+use Laravel\Nova\Resource;
 
 class PivotFieldDestroyRequest extends NovaRequest
 {
@@ -24,7 +27,7 @@ class PivotFieldDestroyRequest extends NovaRequest
     /**
      * Get the pivot model for the relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     public function findPivotModel()
     {
@@ -40,7 +43,7 @@ class PivotFieldDestroyRequest extends NovaRequest
     /**
      * Find the related resource for the operation.
      *
-     * @return \Laravel\Nova\Resource
+     * @return Resource
      */
     public function findRelatedResource()
     {
@@ -54,7 +57,7 @@ class PivotFieldDestroyRequest extends NovaRequest
     /**
      * Find the related model for the operation.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     public function findRelatedModel()
     {
@@ -69,7 +72,7 @@ class PivotFieldDestroyRequest extends NovaRequest
     /**
      * Find the field being deleted or fail if it is not found.
      *
-     * @return \Laravel\Nova\Fields\Field
+     * @return Field
      */
     public function findFieldOrFail()
     {

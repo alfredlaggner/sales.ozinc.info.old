@@ -3,6 +3,7 @@
 namespace Laravel\Nova\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Laravel\Nova\Nova;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,8 +12,8 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Request  $request
+     * @param Closure $next
      * @param  string|null  $guard
      * @return mixed
      */

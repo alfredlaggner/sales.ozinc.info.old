@@ -95,13 +95,13 @@ export default {
 
     methods: {
         initializeComponent() {
-            this.withTrashed = false
+            this.withTrashed = false;
 
             // If a user is editing an existing resource with this relation
             // we'll have a belongsToId on the field, and we should prefill
             // that resource in this field
             if (this.editingExistingResource) {
-                this.initializingWithExistingResource = true
+                this.initializingWithExistingResource = true;
                 this.selectedResourceId = this.field.belongsToId
             }
 
@@ -109,7 +109,7 @@ export default {
             // page we'll have a viaResource and viaResourceId in the params and
             // should prefill the resource in this field with that information
             if (this.creatingViaRelatedResource) {
-                this.initializingWithExistingResource = true
+                this.initializingWithExistingResource = true;
                 this.selectedResourceId = this.viaResourceId
             }
 
@@ -117,7 +117,7 @@ export default {
                 // If we should select the initial resource but the field is not
                 // searchable we should load all of the available resources into the
                 // field first and select the initial option
-                this.initializingWithExistingResource = false
+                this.initializingWithExistingResource = false;
                 this.getAvailableResources().then(() => this.selectInitialResource())
             } else if (this.shouldSelectInitialResource && this.isSearchable) {
                 // If we should select the initial resource and the field is
@@ -131,7 +131,7 @@ export default {
                 this.getAvailableResources()
             }
 
-            this.determineIfSoftDeletes()
+            this.determineIfSoftDeletes();
 
             this.field.fill = this.fill
         },
@@ -140,7 +140,7 @@ export default {
          * Select a resource using the <select> control
          */
         selectResourceFromSelectControl(e) {
-            this.selectedResourceId = e.target.value
+            this.selectedResourceId = e.target.value;
             this.selectInitialResource()
         },
 
@@ -151,7 +151,7 @@ export default {
             formData.append(
                 this.field.attribute,
                 this.selectedResource ? this.selectedResource.value : ''
-            )
+            );
 
             formData.append(this.field.attribute + '_trashed', this.withTrashed)
         },
@@ -168,8 +168,8 @@ export default {
                     }
 
                     // Turn off initializing the existing resource after the first time
-                    this.initializingWithExistingResource = false
-                    this.availableResources = resources
+                    this.initializingWithExistingResource = false;
+                    this.availableResources = resources;
                     this.softDeletes = softDeletes
                 })
         },
@@ -204,7 +204,7 @@ export default {
          * Toggle the trashed state of the search
          */
         toggleWithTrashed() {
-            this.withTrashed = !this.withTrashed
+            this.withTrashed = !this.withTrashed;
 
             // Reload the data if the component doesn't support searching
             if (!this.isSearchable) {

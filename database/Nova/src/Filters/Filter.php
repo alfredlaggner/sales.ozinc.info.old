@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
 use JsonSerializable;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Metable;
@@ -34,17 +35,17 @@ abstract class Filter implements FilterContract, JsonSerializable
     /**
      * Apply the filter to the given query.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param Request $request
+     * @param  Builder  $query
      * @param  mixed  $value
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     abstract public function apply(Request $request, $query, $value);
 
     /**
      * Get the filter's available options.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     abstract public function options(Request $request);

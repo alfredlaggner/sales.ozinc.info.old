@@ -31,7 +31,7 @@ export default {
 
     methods: {
         fill(formData) {
-            formData.append(this.field.attribute, this.value || '')
+            formData.append(this.field.attribute, this.value || '');
             formData.append(this.field.attribute + 'DraftId', this.draftId)
         },
 
@@ -48,10 +48,10 @@ export default {
          * Upload an attachment
          */
         uploadAttachment(attachment) {
-            const data = new FormData()
-            data.append('Content-Type', attachment.file.type)
-            data.append('attachment', attachment.file)
-            data.append('draftId', this.draftId)
+            const data = new FormData();
+            data.append('Content-Type', attachment.file.type);
+            data.append('attachment', attachment.file);
+            data.append('draftId', this.draftId);
 
             Nova.request()
                 .post(
@@ -66,7 +66,7 @@ export default {
                     }
                 )
                 .then(({ data: { url } }) => {
-                    console.log(url)
+                    console.log(url);
 
                     return attachment.setAttributes({
                         url: url,
@@ -112,7 +112,7 @@ export default {
         },
 
         extraAttributes() {
-            const attrs = this.field.extraAttributes
+            const attrs = this.field.extraAttributes;
 
             return {
                 ...this.defaultAttributes,

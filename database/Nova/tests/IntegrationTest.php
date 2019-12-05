@@ -2,6 +2,8 @@
 
 namespace Laravel\Nova\Tests;
 
+use Illuminate\Foundation\Application;
+use Illuminate\Queue\Worker;
 use Mockery;
 use Laravel\Nova\Nova;
 use Orchestra\Testbench\TestCase;
@@ -119,7 +121,7 @@ abstract class IntegrationTest extends TestCase
     /**
      * Get the queue worker instance.
      *
-     * @return \Illuminate\Queue\Worker
+     * @return Worker
      */
     protected function worker()
     {
@@ -129,7 +131,7 @@ abstract class IntegrationTest extends TestCase
     /**
      * Get the options for the worker.
      *
-     * @return \Illuminate\Queue\WorkerOptions
+     * @return WorkerOptions
      */
     protected function workerOptions()
     {
@@ -142,7 +144,7 @@ abstract class IntegrationTest extends TestCase
     /**
      * Get the service providers for the package.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -158,7 +160,7 @@ abstract class IntegrationTest extends TestCase
     /**
      * Define environment.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)

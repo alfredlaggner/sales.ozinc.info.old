@@ -2,6 +2,8 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Panel;
 use Laravel\Nova\Resource;
 use Laravel\Nova\Fields\ID;
@@ -21,7 +23,7 @@ class UserResource extends Resource
      *
      * @var string
      */
-    public static $model = \Laravel\Nova\Tests\Fixtures\User::class;
+    public static $model = User::class;
 
     /**
      * The columns that should be searched.
@@ -45,8 +47,8 @@ class UserResource extends Resource
     /**
      * Determine if the user can add / associate models of the given type to the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Model|string  $model
+     * @param NovaRequest $request
+     * @param  Model|string  $model
      * @return bool
      */
     public function authorizedToAdd(NovaRequest $request, $model)
@@ -59,7 +61,7 @@ class UserResource extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function fields(Request $request)
@@ -136,7 +138,7 @@ class UserResource extends Resource
     /**
      * Get the lenses available on the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -151,7 +153,7 @@ class UserResource extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function actions(Request $request)
@@ -183,7 +185,7 @@ class UserResource extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -212,9 +214,9 @@ class UserResource extends Resource
      *
      * This query determines which instances of the model may be attached to other resources.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param NovaRequest $request
+     * @param  Builder  $query
+     * @return Builder
      */
     public static function relatableQuery(NovaRequest $request, $query)
     {
@@ -224,9 +226,9 @@ class UserResource extends Resource
     /**
      * Build a "relatable" query for the given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param NovaRequest $request
+     * @param  Builder  $query
+     * @return Builder
      */
     public static function relatableRoles(NovaRequest $request, $query)
     {
@@ -242,7 +244,7 @@ class UserResource extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function cards(Request $request)

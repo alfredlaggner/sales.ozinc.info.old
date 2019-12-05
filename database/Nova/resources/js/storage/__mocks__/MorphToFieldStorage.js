@@ -1,8 +1,8 @@
-const resources = [{ value: 1 }, { value: 2 }, { value: 3 }]
+const resources = [{ value: 1 }, { value: 2 }, { value: 3 }];
 const resourceTypes = {
     posts: true,
     videos: false,
-}
+};
 
 export default {
     fetchAvailableResources(resourceName, fieldAttribute, { params }) {

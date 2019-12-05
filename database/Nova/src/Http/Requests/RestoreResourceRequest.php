@@ -11,7 +11,7 @@ class RestoreResourceRequest extends DeletionRequest
      * Get the selected models for the action in chunks.
      *
      * @param  int  $count
-     * @param  \Closure  $callback
+     * @param Closure $callback
      * @return mixed
      */
     public function chunks($count, Closure $callback)
@@ -24,8 +24,8 @@ class RestoreResourceRequest extends DeletionRequest
     /**
      * Get the models that may be restored.
      *
-     * @param  \Illuminate\Support\Collection  $models
-     * @return \Illuminate\Support\Collection
+     * @param Collection $models
+     * @return Collection
      */
     protected function restorableModels(Collection $models)
     {

@@ -39,7 +39,7 @@ export default {
             this.$store.commit(`${this.resourceName}/updateFilterState`, {
                 filterClass: this.filterKey,
                 value,
-            })
+            });
             this.$emit('change')
         },
     },

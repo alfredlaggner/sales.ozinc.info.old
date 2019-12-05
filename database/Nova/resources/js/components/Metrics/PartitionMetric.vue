@@ -42,17 +42,17 @@ export default {
 
     methods: {
         fetch() {
-            this.loading = true
+            this.loading = true;
 
             Minimum(Nova.request(this.metricEndpoint)).then(({ data: { value: { value } } }) => {
-                this.chartData = value
+                this.chartData = value;
                 this.loading = false
             })
         },
     },
     computed: {
         metricEndpoint() {
-            const lens = this.lens !== '' ? `/lens/${this.lens}` : ''
+            const lens = this.lens !== '' ? `/lens/${this.lens}` : '';
             if (this.resourceName && this.resourceId) {
                 return `/nova-api/${this.resourceName}${lens}/${this.resourceId}/metrics/${
                     this.card.uriKey

@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Macros;
 
+use DateTimeInterface;
 use Illuminate\Support\Carbon;
 
 class FirstDayOfQuarter
@@ -9,7 +10,7 @@ class FirstDayOfQuarter
     /**
      * Execute the macro.
      *
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
     public function __invoke()
     {

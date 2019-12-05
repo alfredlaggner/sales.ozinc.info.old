@@ -67,7 +67,7 @@ CodeMirror.defineMode('htmltwig', function(config, parserConfig) {
         CodeMirror.getMode(config, parserConfig.backdrop || 'text/html'),
         CodeMirror.getMode(config, 'twig')
     )
-})
+});
 
 import { FormField, HandlesValidationErrors } from 'laravel-nova'
 
@@ -90,13 +90,13 @@ export default {
                 viewportMargin: Infinity,
             },
             ...this.field.options,
-        }
+        };
 
-        this.codemirror = CodeMirror.fromTextArea(this.$refs.theTextarea, config)
+        this.codemirror = CodeMirror.fromTextArea(this.$refs.theTextarea, config);
 
         this.doc.on('change', (cm, changeObj) => {
             this.value = cm.getValue()
-        })
+        });
 
         this.doc.setValue(this.field.value)
     },

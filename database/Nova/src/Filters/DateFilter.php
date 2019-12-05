@@ -27,7 +27,7 @@ abstract class DateFilter extends Filter
     /**
      * Get the filter's available options.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function options(Request $request)

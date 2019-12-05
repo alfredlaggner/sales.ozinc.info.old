@@ -117,7 +117,7 @@ export default {
          * Watch the actions property for changes.
          */
         actions() {
-            this.selectedActionKey = ''
+            this.selectedActionKey = '';
             this.initializeActionFields()
         },
 
@@ -125,7 +125,7 @@ export default {
          * Watch the pivot actions property for changes.
          */
         pivotActions() {
-            this.selectedActionKey = ''
+            this.selectedActionKey = '';
             this.initializeActionFields()
         },
     },
@@ -171,10 +171,10 @@ export default {
          * Execute the selected action.
          */
         executeAction() {
-            this.working = true
+            this.working = true;
 
             if (this.selectedResources.length == 0) {
-                alert(this.__('Please select a resource to perform this action on.'))
+                alert(this.__('Please select a resource to perform this action on.'));
                 return
             }
 
@@ -185,12 +185,12 @@ export default {
                 data: this.actionFormData(),
             })
                 .then(response => {
-                    this.confirmActionModalOpened = false
-                    this.handleActionResponse(response.data)
+                    this.confirmActionModalOpened = false;
+                    this.handleActionResponse(response.data);
                     this.working = false
                 })
                 .catch(error => {
-                    this.working = false
+                    this.working = false;
 
                     if (error.response.status == 422) {
                         this.errors = new Errors(error.response.data.errors)
@@ -203,7 +203,7 @@ export default {
          */
         actionFormData() {
             return _.tap(new FormData(), formData => {
-                formData.append('resources', this.selectedResources)
+                formData.append('resources', this.selectedResources);
 
                 _.each(this.selectedAction.fields, field => {
                     field.fill(formData)
@@ -216,24 +216,24 @@ export default {
          */
         handleActionResponse(response) {
             if (response.message) {
-                this.$emit('actionExecuted')
+                this.$emit('actionExecuted');
                 this.$toasted.show(response.message, { type: 'success' })
             } else if (response.deleted) {
                 this.$emit('actionExecuted')
             } else if (response.danger) {
-                this.$emit('actionExecuted')
+                this.$emit('actionExecuted');
                 this.$toasted.show(response.danger, { type: 'error' })
             } else if (response.download) {
-                let link = document.createElement('a')
-                link.href = response.download
-                link.download = response.name
-                document.body.appendChild(link)
-                link.click()
+                let link = document.createElement('a');
+                link.href = response.download;
+                link.download = response.name;
+                document.body.appendChild(link);
+                link.click();
                 document.body.removeChild(link)
             } else if (response.redirect) {
                 window.location = response.redirect
             } else {
-                this.$emit('actionExecuted')
+                this.$emit('actionExecuted');
                 this.$toasted.show(this.__('The action ran successfully!'), { type: 'success' })
             }
         },

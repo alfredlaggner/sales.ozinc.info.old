@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 
 use App\BccRetailer;
 use App\Customer;
 use App\Traits\CommissionTrait;
+use Lava;
 
 class ChartsController extends Controller
 {
@@ -18,7 +20,7 @@ class ChartsController extends Controller
         //	$sales_person_id = $request->get('sales_person_id');
         $sales_person_id = 14;
         $bccCustomers = BccRetailer::
-        select(\DB::raw('city as "0",business_name as "1", phone as "2"'))
+        select(DB::raw('city as "0",business_name as "1", phone as "2"'))
             //	->join('customers', 'customers.name', 'like', 'bcc_retailers.business_name')
             //	->join('saleinvoices', 'saleinvoices.customer_id', '!=', 'customers.ext_id')
             ->where('bcc_retailers.sales_person_id', $sales_person_id)
@@ -26,7 +28,7 @@ class ChartsController extends Controller
             ->get()->toArray();
         //		dd($bccCustomers);
 
-        $dispensaries = \Lava::DataTable();
+        $dispensaries = Lava::DataTable();
 
         $dispensaries->addStringColumn('City');
         $dispensaries->addStringColumn('Dispensary');
@@ -34,7 +36,7 @@ class ChartsController extends Controller
        $dispensaries->addRows($bccCustomers);
 
 dd($dispensaries);
-        \Lava::GeoChart('Dispensary', $dispensaries,
+        Lava::GeoChart('Dispensary', $dispensaries,
             ['displayMode' => 'markers', 'region' => 'US-CA',
                 'resolution' => "provinces",
                 'colorAxis' => ['colors' => ['red', 'green']],
@@ -54,12 +56,12 @@ dd($dispensaries);
 
         //     $data = BccRetailer::select("city as 0", "business_name as 1")->limit(20)->get()->toArray();
         $salesorders = Customer::
-        select(\DB::raw('name as "0", avg(amount_total) as "1", count(customer_id) as "2"'))
+        select(DB::raw('name as "0", avg(amount_total) as "1", count(customer_id) as "2"'))
             ->join('salesorders', 'salesorders.customer_id', '=', 'customers.ext_id')
             ->whereMonth('salesorders.order_date', $order_date)
             ->groupby('salesorders.customer_id')
             ->get()->toArray();
-        $dispensaries = \Lava::DataTable();
+        $dispensaries = Lava::DataTable();
         $dispensaries->addStringColumn('Dispensary')
             ->addnumberColumn(' Avg Sold')
             ->addnumberColumn('# Sales')
@@ -67,7 +69,7 @@ dd($dispensaries);
 
         //	dd($dispensaries);
 
-        \Lava::GeoChart('Dispensary', $dispensaries, ['displayMode' => 'markers', 'region' => 'US-CA',
+        Lava::GeoChart('Dispensary', $dispensaries, ['displayMode' => 'markers', 'region' => 'US-CA',
             'resolution' => "provinces",
             'colorAxis' => ['colors' => ['red', 'green']],
         ]);
@@ -83,10 +85,10 @@ dd($dispensaries);
         $brand = $request->get('brand') ? $request->get('brand') : 0;
         $brand = strtoupper($brand);
         $month = $request->get('month') ? $request->get('month') : 0;
-        $dispensaries = \Lava::DataTable();
+        $dispensaries = Lava::DataTable();
 
         $saleslines = Customer::
-        select(\DB::raw('customers.name as "0", sum(quantity) as "1", count(customer_id) as "2"'))
+        select(DB::raw('customers.name as "0", sum(quantity) as "1", count(customer_id) as "2"'))
             ->join('saleinvoices', 'saleinvoices.customer_id', '=', 'customers.ext_id')
             ->when($brand, function ($query, $brand) {
                 return $query->whereRaw("upper(saleinvoices.name) LIKE '%" . $brand . "%'");
@@ -103,7 +105,7 @@ dd($dispensaries);
             ->addnumberColumn('# Sales')
             ->addRows($saleslines);
 
-        \Lava::GeoChart('Dispensary', $dispensaries, ['displayMode' => 'markers', 'region' => 'US-CA',
+        Lava::GeoChart('Dispensary', $dispensaries, ['displayMode' => 'markers', 'region' => 'US-CA',
             'resolution' => "provinces",
             'colorAxis' => ['colors' => ['red', 'green']],
         ]);

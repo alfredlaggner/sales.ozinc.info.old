@@ -3,20 +3,21 @@
 namespace Laravel\Nova\Trix;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Trix;
 
 class DeleteAttachments
 {
     /**
      * The field instance.
      *
-     * @var \Laravel\Nova\Fields\Trix
+     * @var Trix
      */
     public $field;
 
     /**
      * Create a new class instance.
      *
-     * @param  \Laravel\Nova\Fields\Trix  $field
+     * @param  Trix  $field
      * @return void
      */
     public function __construct($field)
@@ -27,7 +28,7 @@ class DeleteAttachments
     /**
      * Delete the attachments associated with the field.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  mixed  $model
      * @return void
      */

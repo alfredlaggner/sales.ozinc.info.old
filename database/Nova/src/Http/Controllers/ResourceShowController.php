@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Laravel\Nova\Panel;
 use Illuminate\Routing\Controller;
 use Laravel\Nova\Http\Requests\ResourceDetailRequest;
@@ -11,8 +12,8 @@ class ResourceShowController extends Controller
     /**
      * Display the resource for administration.
      *
-     * @param  \Laravel\Nova\Http\Requests\ResourceDetailRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param ResourceDetailRequest $request
+     * @return Response
      */
     public function handle(ResourceDetailRequest $request)
     {
@@ -33,9 +34,9 @@ class ResourceShowController extends Controller
     /**
      * Assign any un-assigned fields to the default panel.
      *
-     * @param  \Laravel\Nova\Http\Requests\ResourceDetailRequest  $request
+     * @param ResourceDetailRequest $request
      * @param  array  $resource
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     protected function assignFieldsToPanels(ResourceDetailRequest $request, array $resource)
     {

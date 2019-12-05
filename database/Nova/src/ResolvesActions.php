@@ -3,6 +3,7 @@
 namespace Laravel\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 trait ResolvesActions
@@ -10,8 +11,8 @@ trait ResolvesActions
     /**
      * Get the actions that are available for the given request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Support\Collection
+     * @param NovaRequest $request
+     * @return Collection
      */
     public function availableActions(NovaRequest $request)
     {
@@ -21,8 +22,8 @@ trait ResolvesActions
     /**
      * Get the actions for the given request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Support\Collection
+     * @param NovaRequest $request
+     * @return Collection
      */
     public function resolveActions(NovaRequest $request)
     {
@@ -32,8 +33,8 @@ trait ResolvesActions
     /**
      * Get the "pivot" actions that are available for the given request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Support\Collection
+     * @param NovaRequest $request
+     * @return Collection
      */
     public function availablePivotActions(NovaRequest $request)
     {
@@ -43,8 +44,8 @@ trait ResolvesActions
     /**
      * Get the "pivot" actions for the given request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Support\Collection
+     * @param NovaRequest $request
+     * @return Collection
      */
     public function resolvePivotActions(NovaRequest $request)
     {
@@ -58,7 +59,7 @@ trait ResolvesActions
     /**
      * Get the "pivot" actions for the given request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @return array
      */
     protected function getPivotActions(NovaRequest $request)
@@ -78,7 +79,7 @@ trait ResolvesActions
     /**
      * Get the actions available on the entity.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function actions(Request $request)

@@ -44,7 +44,7 @@ const colorForIndex = index =>
         '#6474D7',
         '#9C6ADE',
         '#E471DE',
-    ][index]
+    ][index];
 
 export default {
     name: 'PartitionMetric',
@@ -70,7 +70,7 @@ export default {
             donutSolid: true,
             startAngle: 270,
             showLabel: false,
-        })
+        });
 
         this.chartist.on('draw', context => {
             if (context.type === 'slice') {

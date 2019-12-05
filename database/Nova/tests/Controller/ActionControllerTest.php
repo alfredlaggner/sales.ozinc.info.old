@@ -6,6 +6,7 @@ use Laravel\Nova\Actions\Action;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Actions\ActionEvent;
+use Laravel\Nova\Exceptions\MissingActionHandlerException;
 use Laravel\Nova\Tests\Fixtures\Post;
 use Laravel\Nova\Tests\Fixtures\User;
 use Laravel\Nova\Tests\IntegrationTest;
@@ -529,7 +530,7 @@ class ActionControllerTest extends IntegrationTest
 
     public function test_exception_is_thrown_if_handle_method_is_missing()
     {
-        $this->expectException(\Laravel\Nova\Exceptions\MissingActionHandlerException::class);
+        $this->expectException(MissingActionHandlerException::class);
         $response = $this->withoutExceptionHandling()
                         ->post('/nova-api/users/action?action='.(new EmptyAction)->uriKey(), [
                             'resources' => '1',
@@ -538,7 +539,7 @@ class ActionControllerTest extends IntegrationTest
 
     public function test_exception_is_thrown_if_handle_method_is_missing_for_entire_resource()
     {
-        $this->expectException(\Laravel\Nova\Exceptions\MissingActionHandlerException::class);
+        $this->expectException(MissingActionHandlerException::class);
 
         $response = $this->withoutExceptionHandling()
                         ->post('/nova-api/users/action?action='.(new EmptyAction)->uriKey(), [

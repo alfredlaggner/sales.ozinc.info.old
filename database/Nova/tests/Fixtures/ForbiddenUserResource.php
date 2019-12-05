@@ -12,12 +12,12 @@ class ForbiddenUserResource extends Resource
      *
      * @var string
      */
-    public static $model = \Laravel\Nova\Tests\Fixtures\User::class;
+    public static $model = User::class;
 
     /**
      * Determine if the resource should be displayed for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return bool
      */
     public static function authorizedToViewAny(Request $request)
@@ -38,7 +38,7 @@ class ForbiddenUserResource extends Resource
     /**
      * Get the lenses available on the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -49,7 +49,7 @@ class ForbiddenUserResource extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function fields(Request $request)

@@ -310,19 +310,19 @@ export default {
      * Mount the component and retrieve its initial data.
      */
     async created() {
-        if (Nova.missingResource(this.resourceName)) return this.$router.push({ name: '404' })
+        if (Nova.missingResource(this.resourceName)) return this.$router.push({ name: '404' });
 
-        this.initializeSearchFromQueryString()
-        this.initializePerPageFromQueryString()
-        this.initializeTrashedFromQueryString()
-        this.initializeOrderingFromQueryString()
+        this.initializeSearchFromQueryString();
+        this.initializePerPageFromQueryString();
+        this.initializeTrashedFromQueryString();
+        this.initializeOrderingFromQueryString();
 
-        await this.initializeFilters(this.lens)
-        this.getResources()
+        await this.initializeFilters(this.lens);
+        this.getResources();
         // this.getAuthorizationToRelate()
-        this.getActions()
+        this.getActions();
 
-        this.initialLoading = false
+        this.initialLoading = false;
 
         this.$watch(
             () => {
@@ -339,18 +339,18 @@ export default {
                 )
             },
             () => {
-                this.getResources()
+                this.getResources();
 
-                this.initializeSearchFromQueryString()
-                this.initializePerPageFromQueryString()
-                this.initializeTrashedFromQueryString()
+                this.initializeSearchFromQueryString();
+                this.initializePerPageFromQueryString();
+                this.initializeTrashedFromQueryString();
                 this.initializeOrderingFromQueryString()
             }
         )
     },
 
     beforeRouteUpdate(to, from, next) {
-        next()
+        next();
         this.initializeState(this.lens)
     },
 
@@ -360,14 +360,14 @@ export default {
         },
 
         toggleSelectAll() {
-            if (this.selectAllChecked) return this.clearResourceSelections()
+            if (this.selectAllChecked) return this.clearResourceSelections();
             this.selectAllResources()
         },
 
         toggleSelectAllMatching() {
             if (!this.selectAllMatchingResources) {
-                this.selectAllResources()
-                this.selectAllMatchingResources = true
+                this.selectAllResources();
+                this.selectAllMatchingResources = true;
 
                 return
             }
@@ -380,8 +380,8 @@ export default {
          */
         updateSelectionStatus(resource) {
             if (!_(this.selectedResources).includes(resource))
-                return this.selectedResources.push(resource)
-            const index = this.selectedResources.indexOf(resource)
+                return this.selectedResources.push(resource);
+            const index = this.selectedResources.indexOf(resource);
             if (index > -1) return this.selectedResources.splice(index, 1)
         },
 
@@ -390,26 +390,26 @@ export default {
          */
         getResources() {
             this.$nextTick(() => {
-                this.clearResourceSelections()
+                this.clearResourceSelections();
 
                 return Minimum(
                     Nova.request().get('/nova-api/' + this.resourceName + '/lens/' + this.lens, {
                         params: this.resourceRequestQueryString,
                     })
                 ).then(({ data }) => {
-                    this.resources = []
+                    this.resources = [];
 
-                    this.resourceResponse = data
-                    this.resources = data.resources
-                    this.softDeletes = data.softDeletes
-                    this.hasId = data.hasId
+                    this.resourceResponse = data;
+                    this.resources = data.resources;
+                    this.softDeletes = data.softDeletes;
+                    this.hasId = data.hasId;
 
-                    this.loading = false
+                    this.loading = false;
 
-                    this.getAllMatchingResourceCount()
+                    this.getAllMatchingResourceCount();
 
                     if (!this.hasId) {
-                        this.selectAllMatchingResources = true
+                        this.selectAllMatchingResources = true;
                         this.selectAllResources()
                     }
                 })
@@ -420,8 +420,8 @@ export default {
          * Get the actions available for the current resource.
          */
         getActions() {
-            this.actions = []
-            this.pivotActions = null
+            this.actions = [];
+            this.pivotActions = null;
             Nova.request()
                 .get(`/nova-api/${this.resourceName}/lens/${this.lens}/actions`, {
                     params: {
@@ -433,7 +433,7 @@ export default {
                 .then(response => {
                     this.actions = _.filter(response.data.actions, action => {
                         return !action.onlyOnDetail
-                    })
+                    });
                     this.pivotActions = response.data.pivotActions
                 })
         },
@@ -442,7 +442,7 @@ export default {
          * Clear the selected resouces and the "select all" states.
          */
         clearResourceSelections() {
-            this.selectAllMatchingResources = false
+            this.selectAllMatchingResources = false;
             this.selectedResources = []
         },
 
@@ -463,7 +463,7 @@ export default {
          * Sort the resources by the given field.
          */
         orderByField(field) {
-            var direction = this.currentOrderByDirection == 'asc' ? 'desc' : 'asc'
+            var direction = this.currentOrderByDirection == 'asc' ? 'desc' : 'asc';
             if (this.currentOrderBy != field.attribute) {
                 direction = 'asc'
             }
@@ -484,7 +484,7 @@ export default {
          * Sync the current order by values from the query string.
          */
         initializeOrderingFromQueryString() {
-            this.orderBy = this.currentOrderBy
+            this.orderBy = this.currentOrderBy;
             this.orderByDirection = this.currentOrderByDirection
         },
 
@@ -499,7 +499,7 @@ export default {
          * Update the trashed constraint for the resource listing.
          */
         trashedChanged(trashedStatus) {
-            this.trashed = trashedStatus
+            this.trashed = trashedStatus;
             this.updateQueryString({ [this.trashedParameter]: this.trashed })
         },
 
@@ -507,7 +507,7 @@ export default {
          * Update the per page parameter in the query string
          */
         updatePerPageChanged(perPage) {
-            this.perPage = perPage
+            this.perPage = perPage;
             this.perPageChanged()
         },
 
@@ -853,7 +853,7 @@ export default {
          * Return the resource count label
          */
         resourceCountLabel() {
-            const first = this.perPage * (this.currentPage - 1)
+            const first = this.perPage * (this.currentPage - 1);
 
             return (
                 this.resources.length &&

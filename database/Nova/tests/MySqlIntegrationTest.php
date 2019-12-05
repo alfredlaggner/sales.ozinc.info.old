@@ -2,6 +2,8 @@
 
 namespace Laravel\Nova\Tests;
 
+use Illuminate\Foundation\Application;
+
 abstract class MySqlIntegrationTest extends IntegrationTest
 {
     /**
@@ -20,7 +22,7 @@ abstract class MySqlIntegrationTest extends IntegrationTest
     /**
      * Define environment.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)

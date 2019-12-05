@@ -11,7 +11,7 @@ class FieldCollection extends Collection
      *
      * @param  string  $attribute
      * @param  mixed  $default
-     * @return \Laravel\Nova\Fields\Field|null
+     * @return Field|null
      */
     public function findFieldByAttribute($attribute, $default = null)
     {

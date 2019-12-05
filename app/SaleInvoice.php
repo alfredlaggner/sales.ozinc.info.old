@@ -1,68 +1,80 @@
 <?php
 
-namespace App;
+	namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Laravel\Scout\Searchable;
+	use Illuminate\Database\Eloquent\Model;
+	use Illuminate\Database\Eloquent\Builder;
+	use Laravel\Scout\Searchable;
 
-class SaleInvoice extends Model
-{
-    //  use Searchable;
+	class SaleInvoice extends Model
+	{
+		//  use Searchable;
 
-    protected $table = 'saleinvoices';
+		protected $table = 'invoice_lines';
 
-    protected $fillable = ['commission', 'comm_percent', 'comm_version', 'comm_region', 'updated_at', 'created_at'];
+		protected $fillable = ['commission', 'comm_percent', 'comm_version', 'comm_region', 'updated_at', 'created_at'];
 
-    protected static function boot()
-    {
-        parent::boot();
-        /*
-             static::addGlobalScope('age', function (Builder $builder) {
-                    $builder->where('saleinvoices.sales_person_id', '>', 0)
-                        ->where('saleinvoices.margin', '>', -100)
-                        ->where('saleinvoices.margin', '<', 100)
-                   //     ->where('saleinvoices.amt_to_invoice', '>=', 0)
-                        ->where(function ($query) {
-                            $query->where('saleinvoices.invoice_status', '=', 'invoiced')
-                                ->orWhere('saleinvoices.is_paid', '=', true);
-                        });
-                });*/
-        static::addGlobalScope('age', function (Builder $builder) {
-			$builder->where('saleinvoices.sales_person_id', '>', 0)
-				->where('saleinvoices.margin', '>', -100)
-				->where('saleinvoices.margin', '<', 100)
-				->whereYear('saleinvoices.invoice_date', '=', 2019)
-                ->where(function ($query) {
-                    $query->where('saleinvoices.invoice_status', '=', 'invoiced')
-                        ->orWhere('saleinvoices.invoice_status', '=', 'to invoice');
-                });
-        });
-    }
+		protected static function boot()
+		{
+			parent::boot();
+			/*
+				 static::addGlobalScope('age', function (Builder $builder) {
+						$builder->where('invoice_lines.sales_person_id', '>', 0)
+							->where('invoice_lines.margin', '>', -100)
+							->where('invoice_lines.margin', '<', 100)
+					   //     ->where('invoice_lines.amt_to_invoice', '>=', 0)
+							->where(function ($query) {
+								$query->where('invoice_lines.invoice_status', '=', 'invoiced')
+									->orWhere('invoice_lines.is_paid', '=', true);
+							});
+					});*/
+			$invoice_date =
+			static::addGlobalScope('age', function (Builder $builder) {
+				$builder->where('invoice_lines.sales_person_id', '>', 0)
+					->where('invoice_lines.margin', '>', -100)
+					->where('invoice_lines.margin', '<', 100)
+					->whereYear('invoice_lines.invoice_date', '=', 2019);
+			});
+		}
 
-    public function salesperson()
-    {
-        return $this->hasOne('App\SalesPerson', 'sales_person_id', 'sales_person_id');
-    }
+		public function salesperson()
+		{
+			return $this->hasOne('App\SalesPerson', 'sales_person_id', 'sales_person_id');
+		}
 
-    public function customer()
-    {
-        return $this->belongsTo('App\Customer', 'customer_id', 'ext_id');
-    }
+		public function customer()
+		{
+			return $this->belongsTo('App\Customer', 'customer_id', 'ext_id');
+		}
 
-    //  public $asYouType = true;
+        public function salesline(){
 
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array
-     */
-    /*    public function toSearchableArray()
+            return $this->hasOne('App\Salesline', 'ext_id', 'ext_id');
+        }
+
+        public function invoice_paid(){
+
+            return $this->hasOne('App\CommissionsPaid', 'ext_id', 'ext_id');
+        }
+        public function getCommissionsUnpaidAttribute()
         {
-            $array = $this->toArray();
+            return $this->invoice_paid()->where('invoice_paid.is_paid', 0)->get();
 
-            // Customize array...
+        }
 
-            return $array;
-        }*/
-}
+		//  public $asYouType = true;
+
+		/**
+		 * Get the indexable data array for the model.
+		 *
+		 * @return array
+		 */
+		/*    public function toSearchableArray()
+			{
+				$array = $this->toArray();
+
+				// Customize array...
+
+				return $array;
+			}*/
+	}

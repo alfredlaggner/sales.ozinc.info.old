@@ -3,6 +3,7 @@
 namespace Laravel\Nova\Http\Requests;
 
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
 
 class DeletionRequest extends NovaRequest
 {
@@ -12,8 +13,8 @@ class DeletionRequest extends NovaRequest
      * Get the selected models for the action in chunks.
      *
      * @param  int  $count
-     * @param  \Closure  $callback
-     * @param  \Closure  $authCallback
+     * @param Closure $callback
+     * @param Closure $authCallback
      * @return mixed
      */
     protected function chunkWithAuthorization($count, Closure $callback, Closure $authCallback)
@@ -34,7 +35,7 @@ class DeletionRequest extends NovaRequest
     /**
      * Get the query for the models that were selected by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     protected function toSelectedResourceQuery()
     {

@@ -193,7 +193,7 @@ export default {
         },
 
         confirmDelete() {
-            this.deleteResource(this.resource)
+            this.deleteResource(this.resource);
             this.closeDeleteModal()
         },
 
@@ -206,7 +206,7 @@ export default {
         },
 
         confirmRestore() {
-            this.restoreResource(this.resource)
+            this.restoreResource(this.resource);
             this.closeRestoreModal()
         },
 

@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Fields;
 
+use Closure;
 use Laravel\Nova\Nova;
 use Laravel\Nova\DeleteField;
 use Laravel\Nova\Contracts\Deletable;
@@ -11,7 +12,7 @@ trait DetachesPivotModels
     /**
      * Get the pivot record detachment callback for the field.
      *
-     * @return \Closure
+     * @return Closure
      */
     protected function detachmentCallback()
     {

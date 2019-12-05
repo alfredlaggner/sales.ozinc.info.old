@@ -23,7 +23,7 @@ export default {
     }),
 
     mounted() {
-        this.value = this.field.value || false
+        this.value = this.field.value || false;
 
         this.field.fill = formData => {
             formData.append(this.field.attribute, this.trueValue)

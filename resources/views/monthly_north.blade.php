@@ -10,7 +10,7 @@
             <div class="card card-body">
                 <div id="month_div12">
 <<<<<<< Updated upstream
-                    <?= \Lava::render('ComboChart', 'MonthsNorth', 'month_div12') ?>
+                    <?= Lava::render('ComboChart', 'MonthsNorth', 'month_div12') ?>
 =======
                     <?= Lava::render('ComboChart', 'MonthsNorth', 'month_div12') ?>
 >>>>>>> Stashed changes

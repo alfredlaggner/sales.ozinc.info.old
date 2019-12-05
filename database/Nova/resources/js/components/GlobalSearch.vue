@@ -119,30 +119,30 @@ export default {
 
     methods: {
         isNotInputElement(event) {
-            const tagName = event.target.tagName
+            const tagName = event.target.tagName;
             return Boolean(tagName !== 'INPUT' && tagName !== 'TEXTAREA')
         },
 
         handleKeydown(event) {
             if (this.isNotInputElement(event) && event.keyCode == 191) {
-                event.preventDefault()
-                event.stopPropagation()
+                event.preventDefault();
+                event.stopPropagation();
                 this.openSearch()
             }
         },
 
         openSearch() {
-            this.clearSearch()
-            this.$refs.input.focus()
-            this.currentlySearching = true
+            this.clearSearch();
+            this.$refs.input.focus();
+            this.currentlySearching = true;
             this.clearResults()
         },
 
         closeSearch() {
-            this.clearSearch()
-            this.clearResults()
-            this.$refs.input.blur()
-            this.currentlySearching = false
+            this.clearSearch();
+            this.clearResults();
+            this.$refs.input.blur();
+            this.currentlySearching = false;
             this.loading = false
         },
 
@@ -155,11 +155,11 @@ export default {
         },
 
         search(event) {
-            this.highlightedResultIndex = 0
-            this.loading = true
+            this.highlightedResultIndex = 0;
+            this.loading = true;
 
             if (this.searchTerm == '') {
-                this.loading = false
+                this.loading = false;
                 this.results = []
             } else {
                 this.debouncer(() => {
@@ -169,7 +169,7 @@ export default {
         },
 
         async fetchResults(search) {
-            this.results = []
+            this.results = [];
 
             if (search !== '') {
                 try {
@@ -177,13 +177,13 @@ export default {
                         Nova.request().get('/nova-api/search', {
                             params: { search },
                         })
-                    )
+                    );
 
-                    this.results = results
+                    this.results = results;
 
                     this.loading = false
                 } catch (e) {
-                    this.loading = false
+                    this.loading = false;
                     throw e
                 }
             }
@@ -199,24 +199,24 @@ export default {
          */
         move(offset) {
             if (this.results.length) {
-                let newIndex = this.highlightedResultIndex + offset
+                let newIndex = this.highlightedResultIndex + offset;
 
                 if (newIndex < 0) {
-                    this.highlightedResultIndex = this.results.length - 1
+                    this.highlightedResultIndex = this.results.length - 1;
                     this.updateScrollPosition()
                 } else if (newIndex > this.results.length - 1) {
-                    this.highlightedResultIndex = 0
+                    this.highlightedResultIndex = 0;
                     this.updateScrollPosition()
                 } else if (newIndex >= 0 && newIndex < this.results.length) {
-                    this.highlightedResultIndex = newIndex
+                    this.highlightedResultIndex = newIndex;
                     this.updateScrollPosition()
                 }
             }
         },
 
         updateScrollPosition() {
-            const selection = this.$refs.selected
-            const container = this.$refs.container
+            const selection = this.$refs.selected;
+            const container = this.$refs.container;
 
             this.$nextTick(() => {
                 if (selection) {
@@ -237,7 +237,7 @@ export default {
         },
 
         navigate(index) {
-            this.highlightedResultIndex = index
+            this.highlightedResultIndex = index;
             this.goToCurrentlySelectedResource()
         },
 
@@ -245,7 +245,7 @@ export default {
             const resource = _.find(
                 this.indexedResults,
                 res => res.index == this.highlightedResultIndex
-            )
+            );
 
             this.$router.push({
                 name: 'detail',
@@ -253,7 +253,7 @@ export default {
                     resourceName: resource.resourceName,
                     resourceId: resource.resourceId,
                 },
-            })
+            });
 
             this.closeSearch()
         },

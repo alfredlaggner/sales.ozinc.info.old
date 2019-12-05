@@ -10,14 +10,14 @@ trait AuthorizedToSee
     /**
      * The callback used to authorize viewing the filter.
      *
-     * @var \Closure|null
+     * @var Closure|null
      */
     public $seeCallback;
 
     /**
      * Determine if the filter should be available for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return bool
      */
     public function authorizedToSee(Request $request)
@@ -28,7 +28,7 @@ trait AuthorizedToSee
     /**
      * Set the callback to be run to authorize viewing the filter.
      *
-     * @param  \Closure  $callback
+     * @param Closure $callback
      * @return $this
      */
     public function canSee(Closure $callback)

@@ -140,6 +140,10 @@
                         },
                         {title: "Customer", field: "customer_name", responsive: 4, headerFilter: false},
                     ],
+                    rowClick: function (e, row) { //trigger an alert message when the row is clicked
+                        alert("Row " + row.getData().id + " Clicked!!!!");
+                    },
+
                 });
                 //trigger download of data.xlsx file
                 $("#download-xlsx").click(function () {

@@ -6,4 +6,4 @@ Nova.booting((Vue, router, store) => {
             component: require('./components/Tool'),
         },
     ])
-})
+});

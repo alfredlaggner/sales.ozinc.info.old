@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Laravel\Nova\Nova;
 use Laravel\Nova\GlobalSearch;
 use Illuminate\Routing\Controller;
@@ -12,8 +13,8 @@ class SearchController extends Controller
     /**
      * Get the global search results for the given query.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param NovaRequest $request
+     * @return Response
      */
     public function index(NovaRequest $request)
     {

@@ -27,7 +27,7 @@ export default {
         close(event) {
             let classArray = Array.isArray(this.classWhitelist)
                 ? this.classWhitelist
-                : [this.classWhitelist]
+                : [this.classWhitelist];
 
             if (_.filter(classArray, className => pathIncludesClass(event, className)).length > 0) {
                 return

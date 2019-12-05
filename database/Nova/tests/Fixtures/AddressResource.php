@@ -15,7 +15,7 @@ class AddressResource extends Resource
      *
      * @var string
      */
-    public static $model = \Laravel\Nova\Tests\Fixtures\Address::class;
+    public static $model = Address::class;
 
     /**
      * The columns that should be searched.
@@ -29,7 +29,7 @@ class AddressResource extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function fields(Request $request)

@@ -2,7 +2,10 @@
 
 namespace Laravel\Nova\Http\Requests;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Nova;
+use Laravel\Nova\Resource;
 
 trait InteractsWithResources
 {
@@ -56,7 +59,7 @@ trait InteractsWithResources
     /**
      * Get a new instance of the resource being requested.
      *
-     * @return \Laravel\Nova\Resource
+     * @return Resource
      */
     public function newResource()
     {
@@ -69,7 +72,7 @@ trait InteractsWithResources
      * Find the resource model instance for the request.
      *
      * @param  mixed|null  $resourceId
-     * @return \Laravel\Nova\Resource
+     * @return Resource
      */
     public function findResourceOrFail($resourceId = null)
     {
@@ -80,7 +83,7 @@ trait InteractsWithResources
      * Find the model instance for the request.
      *
      * @param  mixed|null  $resourceId
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     public function findModelOrFail($resourceId = null)
     {
@@ -97,7 +100,7 @@ trait InteractsWithResources
      * Get the query to find the model instance for the request.
      *
      * @param  mixed|null  $resourceId
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     public function findModelQuery($resourceId = null)
     {
@@ -109,8 +112,8 @@ trait InteractsWithResources
     /**
      * Get a new instance of the resource being requested.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @return \Laravel\Nova\Resource
+     * @param  Model  $model
+     * @return Resource
      */
     public function newResourceWith($model)
     {
@@ -122,7 +125,7 @@ trait InteractsWithResources
     /**
      * Get a new query builder for the underlying model.
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function newQuery()
     {
@@ -132,7 +135,7 @@ trait InteractsWithResources
     /**
      * Get a new, scopeless query builder for the underlying model.
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function newQueryWithoutScopes()
     {
@@ -142,7 +145,7 @@ trait InteractsWithResources
     /**
      * Get a new instance of the underlying model.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     public function model()
     {

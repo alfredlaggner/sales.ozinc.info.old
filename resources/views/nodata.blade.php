@@ -8,7 +8,7 @@
                     <div class="card-header">Dashboard</div>
 
                     <div class="card-body">
-                        No data for this month found.
+                        Sorry, no data for or dataset found.
                     </div>
                     <div class="card-footer">
                         <div class="col-auto">

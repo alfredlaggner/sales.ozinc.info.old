@@ -53,9 +53,9 @@ export default {
             return _.reduce(
                 state.filters,
                 (result, f) => {
-                    const originalFilter = getters.getOriginalFilter(f.class)
-                    const originalFilterCloneValue = JSON.stringify(originalFilter.currentValue)
-                    const currentFilterCloneValue = JSON.stringify(f.currentValue)
+                    const originalFilter = getters.getOriginalFilter(f.class);
+                    const originalFilterCloneValue = JSON.stringify(originalFilter.currentValue);
+                    const currentFilterCloneValue = JSON.stringify(f.currentValue);
                     return currentFilterCloneValue == originalFilterCloneValue ? result : result + 1
                 },
                 0
@@ -81,7 +81,7 @@ export default {
          * Get the options for a single filter.
          */
         getOptionsForFilter: (state, getters) => filterKey => {
-            const filter = getters.getFilter(filterKey)
+            const filter = getters.getFilter(filterKey);
             return filter ? filter.options : []
         },
 
@@ -89,7 +89,7 @@ export default {
          * Get the current value for a given filter at the provided key.
          */
         filterOptionValue: (state, getters) => (filterKey, optionKey) => {
-            const filter = getters.getFilter(filterKey)
+            const filter = getters.getFilter(filterKey);
 
             return _.find(filter.currentValue, (value, key) => key == optionKey)
         },
@@ -99,13 +99,13 @@ export default {
          * Fetch the current filters for the given resource name.
          */
         async fetchFilters({ commit, state }, options) {
-            let { resourceName, lens = false } = options
+            let { resourceName, lens = false } = options;
 
             const { data } = lens
                 ? await Nova.request().get(
                       '/nova-api/' + resourceName + '/lens/' + lens + '/filters'
                   )
-                : await Nova.request().get('/nova-api/' + resourceName + '/filters')
+                : await Nova.request().get('/nova-api/' + resourceName + '/filters');
 
             commit('storeFilters', data)
         },
@@ -127,7 +127,7 @@ export default {
          */
         async initializeCurrentFilterValuesFromQueryString({ commit, getters }, encodedFilters) {
             if (encodedFilters) {
-                const initialFilters = JSON.parse(atob(encodedFilters))
+                const initialFilters = JSON.parse(atob(encodedFilters));
                 _.each(initialFilters, f => {
                     commit('updateFilterState', { filterClass: f.class, value: f.value })
                 })
@@ -137,7 +137,7 @@ export default {
 
     mutations: {
         updateFilterState(state, { filterClass, value }) {
-            const filter = _(state.filters).find(f => f.class == filterClass)
+            const filter = _(state.filters).find(f => f.class == filterClass);
 
             filter.currentValue = value
         },
@@ -146,7 +146,7 @@ export default {
          * Store the mutable filter settings
          */
         storeFilters(state, data) {
-            state.filters = data
+            state.filters = data;
             state.originalFilters = _.cloneDeep(data)
         },
 
@@ -154,7 +154,7 @@ export default {
          * Clear the filters for this resource
          */
         clearFilters(state) {
-            state.filters = []
+            state.filters = [];
             state.originalFilters = []
         },
     },

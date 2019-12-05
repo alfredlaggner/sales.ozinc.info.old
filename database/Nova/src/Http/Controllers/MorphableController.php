@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Laravel\Nova\Nova;
 use Illuminate\Routing\Controller;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -11,8 +12,8 @@ class MorphableController extends Controller
     /**
      * List the available morphable resources for a given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param NovaRequest $request
+     * @return Response
      */
     public function index(NovaRequest $request)
     {
@@ -41,7 +42,7 @@ class MorphableController extends Controller
     /**
      * Determine if the query should include trashed models.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  string  $associatedResource
      * @return bool
      */

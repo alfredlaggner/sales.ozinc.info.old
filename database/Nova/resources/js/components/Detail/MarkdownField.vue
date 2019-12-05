@@ -7,7 +7,7 @@
 </template>
 
 <script>
-const md = require('markdown-it')()
+const md = require('markdown-it')();
 
 export default {
     props: ['resource', 'resourceName', 'resourceId', 'field'],

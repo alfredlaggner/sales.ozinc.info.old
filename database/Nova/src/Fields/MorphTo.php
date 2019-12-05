@@ -3,6 +3,8 @@
 namespace Laravel\Nova\Fields;
 
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
 use Illuminate\Support\Str;
@@ -69,7 +71,7 @@ class MorphTo extends Field
     /**
      * The column that should be displayed for the field.
      *
-     * @var \Closure|array
+     * @var Closure|array
      */
     public $display;
 
@@ -104,7 +106,7 @@ class MorphTo extends Field
     /**
      * Determine if the field should be displayed for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return bool
      */
     public function authorize(Request $request)
@@ -127,7 +129,7 @@ class MorphTo extends Field
      *
      * See: Explanation on belongsTo field.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return bool
      */
     public function isNotRedundant(Request $request)
@@ -184,7 +186,7 @@ class MorphTo extends Field
     /**
      * Resolve the resource class for the field.
      *
-     * @param  \Illuminate\Database\Eloquent\Model
+     * @param  Model
      * @return string|null
      */
     protected function resolveResourceClass($model)
@@ -195,7 +197,7 @@ class MorphTo extends Field
     /**
      * Get the validation rules for this field.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @return array
      */
     public function getRules(NovaRequest $request)
@@ -211,8 +213,8 @@ class MorphTo extends Field
     /**
      * Get the validation rule to verify that the selected model is relatable.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @return \Laravel\Nova\Rules\Relatable|null
+     * @param NovaRequest $request
+     * @return Relatable|null
      */
     protected function getRelatableRule(NovaRequest $request)
     {
@@ -226,7 +228,7 @@ class MorphTo extends Field
     /**
      * Hydrate the given attribute on the model based on the incoming request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  object  $model
      * @return void
      */
@@ -270,10 +272,10 @@ class MorphTo extends Field
     /**
      * Build an morphable query for the field.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  string  $relatedResource
      * @param  bool  $withTrashed
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function buildMorphableQuery(NovaRequest $request, $relatedResource, $withTrashed = false)
     {
@@ -297,9 +299,9 @@ class MorphTo extends Field
     /**
      * Get the morphable query method name.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  string  $relatedResource
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  Model  $model
      * @return array
      */
     protected function morphableQueryCallable(NovaRequest $request, $relatedResource, $model)
@@ -312,8 +314,8 @@ class MorphTo extends Field
     /**
      * Get the morphable query method name.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param NovaRequest $request
+     * @param  Model  $model
      * @return string
      */
     protected function morphableQueryMethod(NovaRequest $request, $model)
@@ -326,7 +328,7 @@ class MorphTo extends Field
     /**
      * Format the given morphable resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param NovaRequest $request
      * @param  mixed  $resource
      * @param  string  $relatedResource
      * @return array
@@ -383,7 +385,7 @@ class MorphTo extends Field
     /**
      * Set the column that should be displayed for the field.
      *
-     * @param  \Closure|array|string  $display
+     * @param Closure|array|string  $display
      * @return $this
      */
     public function display($display)
@@ -402,8 +404,8 @@ class MorphTo extends Field
     /**
      * Ensure the given displayer is a Closure.
      *
-     * @param  \Closure|string  $display
-     * @return \Closure
+     * @param Closure|string  $display
+     * @return Closure
      */
     protected function ensureDisplayerIsClosure($display)
     {
@@ -418,7 +420,7 @@ class MorphTo extends Field
      * Get the column that should be displayed for a given type.
      *
      * @param  string  $type
-     * @return \Closure
+     * @return Closure
      */
     public function displayFor($type)
     {

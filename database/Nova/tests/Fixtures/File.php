@@ -4,6 +4,7 @@ namespace Laravel\Nova\Tests\Fixtures;
 
 use Laravel\Nova\Actions\Actionable;
 use Illuminate\Database\Eloquent\Model;
+use RuntimeException;
 
 class File extends Model
 {
@@ -19,7 +20,7 @@ class File extends Model
     public function setFilesAttribute($value)
     {
         if (! is_string($value) || strpos($value, 'avatars') !== 0) {
-            throw new \RuntimeException('Invalid argument');
+            throw new RuntimeException('Invalid argument');
         }
     }
 }

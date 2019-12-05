@@ -33,6 +33,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 {{--
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=c99mo6sbrd4d9hoengwoicwyb36hu9y46nuiz4acxzrxzj7p"></script>
+--}}
+    <script lang="javascript" src="/js/xlsx.full.min.js"></script>
+
+    <script>tinymce.init({selector:'textarea'});</script>
+{{--
     <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
 --}}
 {{--

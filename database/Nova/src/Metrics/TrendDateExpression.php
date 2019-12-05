@@ -41,7 +41,7 @@ abstract class TrendDateExpression extends Expression
     /**
      * Create a new raw query expression.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param Builder $query
      * @param  string  $column
      * @param  string  $unit
      * @param  string  $timezone

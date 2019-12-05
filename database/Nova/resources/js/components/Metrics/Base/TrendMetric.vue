@@ -101,7 +101,7 @@ export default {
                         }
 
                         if (this.suffix) {
-                            const suffix = SingularOrPlural(value, this.suffix)
+                            const suffix = SingularOrPlural(value, this.suffix);
 
                             return `${value} ${suffix}`
                         }

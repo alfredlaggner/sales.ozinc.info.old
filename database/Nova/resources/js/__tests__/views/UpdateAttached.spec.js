@@ -4,7 +4,7 @@ import UpdateAttached from '@/views/UpdateAttached'
 
 describe('UpdateAttached', () => {
     test('it loads all the available resources if its not searchable', () => {
-        window.Nova = {}
+        window.Nova = {};
         window.Nova.config = {
             resources: [
                 {
@@ -22,7 +22,7 @@ describe('UpdateAttached', () => {
                     searchable: false,
                 },
             ],
-        }
+        };
 
         const wrapper = mount(UpdateAttached, {
             propsData: {
@@ -35,7 +35,7 @@ describe('UpdateAttached', () => {
                 // viaRelationship: {},
                 // polymorphic: false,
             },
-        })
+        });
 
         wrapper.setData({
             field: {},
@@ -43,4 +43,4 @@ describe('UpdateAttached', () => {
 
         // expect(wrapper).toMatchSnapshot()
     })
-})
+});

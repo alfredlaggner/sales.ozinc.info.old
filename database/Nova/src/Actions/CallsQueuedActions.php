@@ -4,6 +4,7 @@ namespace Laravel\Nova\Actions;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use Laravel\Nova\Fields\ActionFields;
 
 trait CallsQueuedActions
 {
@@ -12,7 +13,7 @@ trait CallsQueuedActions
     /**
      * The action class name.
      *
-     * @var \Laravel\Nova\Actions\Action
+     * @var Action
      */
     public $action;
 
@@ -26,7 +27,7 @@ trait CallsQueuedActions
     /**
      * The resolved fields.
      *
-     * @var \Laravel\Nova\Fields\ActionFields
+     * @var ActionFields
      */
     public $fields;
 

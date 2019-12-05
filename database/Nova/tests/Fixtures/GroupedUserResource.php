@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -13,12 +14,12 @@ class GroupedUserResource extends Resource
      *
      * @var string
      */
-    public static $model = \Laravel\Nova\Tests\Fixtures\User::class;
+    public static $model = User::class;
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function fields(Request $request)
@@ -29,9 +30,9 @@ class GroupedUserResource extends Resource
     /**
      * Build an "index" query for the given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param NovaRequest $request
+     * @param  Builder  $query
+     * @return Builder
      */
     public static function indexQuery(NovaRequest $request, $query)
     {

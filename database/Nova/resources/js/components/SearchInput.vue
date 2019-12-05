@@ -137,7 +137,7 @@ export default {
 
     watch: {
         search(search) {
-            this.selected = 0
+            this.selected = 0;
             this.$refs.container.scrollTop = 0
         },
         show(show) {
@@ -145,18 +145,18 @@ export default {
                 let selected = _.findIndex(this.data, [
                     this.trackBy,
                     _.get(this.value, this.trackBy),
-                ])
-                if (selected !== -1) this.selected = selected
-                this.inputWidth = this.$refs.input.offsetWidth
+                ]);
+                if (selected !== -1) this.selected = selected;
+                this.inputWidth = this.$refs.input.offsetWidth;
 
                 Vue.nextTick(() => {
-                    const vm = this
+                    const vm = this;
 
                     this.popper = new Popper(this.$refs.input, this.$refs.dropdown, {
                         placement: 'bottom-start',
                         onCreate() {
-                            vm.$refs.container.scrollTop = vm.$refs.container.scrollHeight
-                            vm.updateScrollPosition()
+                            vm.$refs.container.scrollTop = vm.$refs.container.scrollHeight;
+                            vm.updateScrollPosition();
                             vm.$refs.search.focus()
                         },
                         modifiers: {
@@ -186,7 +186,7 @@ export default {
 
         open() {
             if (!this.disabled) {
-                this.show = true
+                this.show = true;
                 this.search = ''
             }
         },
@@ -197,16 +197,16 @@ export default {
 
         clear() {
             if (!this.disabled) {
-                this.selected = null
+                this.selected = null;
                 this.$emit('clear', null)
             }
         },
 
         move(offset) {
-            let newIndex = this.selected + offset
+            let newIndex = this.selected + offset;
 
             if (newIndex >= 0 && newIndex < this.data.length) {
-                this.selected = newIndex
+                this.selected = newIndex;
                 this.updateScrollPosition()
             }
         },
@@ -235,16 +235,16 @@ export default {
 
         chooseSelected() {
             if (this.data[this.selected] !== undefined) {
-                this.$emit('selected', this.data[this.selected])
-                this.$refs.input.focus()
+                this.$emit('selected', this.data[this.selected]);
+                this.$refs.input.focus();
                 Vue.nextTick(() => this.close())
             }
         },
 
         choose(option) {
-            this.selected = _.findIndex(this.data, [this.trackBy, _.get(option, this.trackBy)])
-            this.$emit('selected', option)
-            this.$refs.input.focus()
+            this.selected = _.findIndex(this.data, [this.trackBy, _.get(option, this.trackBy)]);
+            this.$emit('selected', option);
+            this.$refs.input.focus();
             Vue.nextTick(() => this.close())
         },
 

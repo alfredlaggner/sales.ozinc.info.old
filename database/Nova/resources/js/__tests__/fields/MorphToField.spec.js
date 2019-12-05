@@ -3,7 +3,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import MorphToField from '@/components/Form/MorphToField'
 import flushPromises from 'flush-promises'
 
-jest.mock('@/storage/MorphToFieldStorage')
+jest.mock('@/storage/MorphToFieldStorage');
 
 describe('MorphToField', () => {
     /**
@@ -38,14 +38,14 @@ describe('MorphToField', () => {
                 viaResource: '',
                 viaResourceId: '',
             },
-        })
+        });
 
-        expect(wrapper.vm.initializingWithExistingResource).toBe(false)
-        expect(wrapper.vm.editingExistingResource).toBe(false)
-        expect(wrapper.vm.withTrashed).toBe(false)
-        expect(wrapper.vm.resourceType).toBe('')
-        expect(wrapper.vm.isSearchable).toBe(false)
-        expect(wrapper.vm.shouldSelectInitialResource).toBe(false)
+        expect(wrapper.vm.initializingWithExistingResource).toBe(false);
+        expect(wrapper.vm.editingExistingResource).toBe(false);
+        expect(wrapper.vm.withTrashed).toBe(false);
+        expect(wrapper.vm.resourceType).toBe('');
+        expect(wrapper.vm.isSearchable).toBe(false);
+        expect(wrapper.vm.shouldSelectInitialResource).toBe(false);
         expect(wrapper.vm.queryParams).toEqual({
             params: {
                 type: '',
@@ -54,11 +54,11 @@ describe('MorphToField', () => {
                 search: '',
                 withTrashed: false,
             },
-        })
-        expect(wrapper.vm.availableResources).toEqual([])
-        expect(wrapper.vm.selectedResource).toEqual(null)
+        });
+        expect(wrapper.vm.availableResources).toEqual([]);
+        expect(wrapper.vm.selectedResource).toEqual(null);
         expect(wrapper.vm.selectedResourceId).toBe(null)
-    })
+    });
 
     test('when creating it has the correct initial state if it is searchable', async () => {
         const wrapper = shallowMount(MorphToField, {
@@ -90,14 +90,14 @@ describe('MorphToField', () => {
                 viaResource: '',
                 viaResourceId: '',
             },
-        })
+        });
 
-        expect(wrapper.vm.initializingWithExistingResource).toBe(false)
-        expect(wrapper.vm.editingExistingResource).toBe(false)
-        expect(wrapper.vm.resourceType).toBe('')
-        expect(wrapper.vm.withTrashed).toBe(false)
-        expect(wrapper.vm.isSearchable).toBe(true)
-        expect(wrapper.vm.shouldSelectInitialResource).toBe(false)
+        expect(wrapper.vm.initializingWithExistingResource).toBe(false);
+        expect(wrapper.vm.editingExistingResource).toBe(false);
+        expect(wrapper.vm.resourceType).toBe('');
+        expect(wrapper.vm.withTrashed).toBe(false);
+        expect(wrapper.vm.isSearchable).toBe(true);
+        expect(wrapper.vm.shouldSelectInitialResource).toBe(false);
         expect(wrapper.vm.queryParams).toEqual({
             params: {
                 type: '',
@@ -106,11 +106,11 @@ describe('MorphToField', () => {
                 search: '',
                 withTrashed: false,
             },
-        })
-        expect(wrapper.vm.availableResources).toEqual([])
-        expect(wrapper.vm.selectedResource).toEqual(null)
+        });
+        expect(wrapper.vm.availableResources).toEqual([]);
+        expect(wrapper.vm.selectedResource).toEqual(null);
         expect(wrapper.vm.selectedResourceId).toBe(null)
-    })
+    });
 
     test('when creating via a related resource and is not searchable it loads the related type all related resources and selects the related resource', async () => {
         const wrapper = shallowMount(MorphToField, {
@@ -142,14 +142,14 @@ describe('MorphToField', () => {
                 viaResource: 'posts',
                 viaResourceId: 1,
             },
-        })
+        });
 
-        expect(wrapper.vm.initializingWithExistingResource).toBe(true)
-        expect(wrapper.vm.editingExistingResource).toBe(false)
-        expect(wrapper.vm.resourceType).toBe('posts')
-        expect(wrapper.vm.withTrashed).toBe(false)
-        expect(wrapper.vm.isSearchable).toBe(false)
-        expect(wrapper.vm.shouldSelectInitialResource).toBe(true)
+        expect(wrapper.vm.initializingWithExistingResource).toBe(true);
+        expect(wrapper.vm.editingExistingResource).toBe(false);
+        expect(wrapper.vm.resourceType).toBe('posts');
+        expect(wrapper.vm.withTrashed).toBe(false);
+        expect(wrapper.vm.isSearchable).toBe(false);
+        expect(wrapper.vm.shouldSelectInitialResource).toBe(true);
         expect(wrapper.vm.queryParams).toEqual({
             params: {
                 type: 'posts',
@@ -158,15 +158,15 @@ describe('MorphToField', () => {
                 search: '',
                 withTrashed: false,
             },
-        })
+        });
 
-        await flushPromises()
+        await flushPromises();
 
-        expect(wrapper.vm.availableResources).toEqual([{ value: 1 }, { value: 2 }, { value: 3 }])
-        expect(wrapper.vm.softDeletes).toBe(true)
-        expect(wrapper.vm.selectedResource).toEqual({ value: 1 })
+        expect(wrapper.vm.availableResources).toEqual([{ value: 1 }, { value: 2 }, { value: 3 }]);
+        expect(wrapper.vm.softDeletes).toBe(true);
+        expect(wrapper.vm.selectedResource).toEqual({ value: 1 });
         expect(wrapper.vm.selectedResourceId).toBe(1)
-    })
+    });
 
     test('when creating via a related resource and it is searchable, it only loads the related type and selects the related resource', async () => {
         const wrapper = shallowMount(MorphToField, {
@@ -198,14 +198,14 @@ describe('MorphToField', () => {
                 viaResource: 'posts',
                 viaResourceId: 1,
             },
-        })
+        });
 
-        expect(wrapper.vm.initializingWithExistingResource).toBe(true)
-        expect(wrapper.vm.editingExistingResource).toBe(false)
-        expect(wrapper.vm.resourceType).toBe('posts')
-        expect(wrapper.vm.isSearchable).toBe(true)
-        expect(wrapper.vm.withTrashed).toBe(false)
-        expect(wrapper.vm.shouldSelectInitialResource).toBe(true)
+        expect(wrapper.vm.initializingWithExistingResource).toBe(true);
+        expect(wrapper.vm.editingExistingResource).toBe(false);
+        expect(wrapper.vm.resourceType).toBe('posts');
+        expect(wrapper.vm.isSearchable).toBe(true);
+        expect(wrapper.vm.withTrashed).toBe(false);
+        expect(wrapper.vm.shouldSelectInitialResource).toBe(true);
         expect(wrapper.vm.queryParams).toEqual({
             params: {
                 type: 'posts',
@@ -214,15 +214,15 @@ describe('MorphToField', () => {
                 search: '',
                 withTrashed: false,
             },
-        })
+        });
 
-        await flushPromises()
+        await flushPromises();
 
-        expect(wrapper.vm.availableResources).toEqual([{ value: 1 }])
-        expect(wrapper.vm.softDeletes).toBe(true)
-        expect(wrapper.vm.selectedResource).toEqual({ value: 1 })
+        expect(wrapper.vm.availableResources).toEqual([{ value: 1 }]);
+        expect(wrapper.vm.softDeletes).toBe(true);
+        expect(wrapper.vm.selectedResource).toEqual({ value: 1 });
         expect(wrapper.vm.selectedResourceId).toBe(1)
-    })
+    });
 
     test('when editing an existing resource and the field is not searchable it selects the related resource type and resource and loads all resources', async () => {
         const wrapper = shallowMount(MorphToField, {
@@ -254,14 +254,14 @@ describe('MorphToField', () => {
                 viaResource: '',
                 viaResourceId: null,
             },
-        })
+        });
 
-        expect(wrapper.vm.initializingWithExistingResource).toBe(true)
-        expect(wrapper.vm.editingExistingResource).toBe(true)
-        expect(wrapper.vm.resourceType).toBe('posts')
-        expect(wrapper.vm.withTrashed).toBe(false)
-        expect(wrapper.vm.isSearchable).toBe(false)
-        expect(wrapper.vm.shouldSelectInitialResource).toBe(true)
+        expect(wrapper.vm.initializingWithExistingResource).toBe(true);
+        expect(wrapper.vm.editingExistingResource).toBe(true);
+        expect(wrapper.vm.resourceType).toBe('posts');
+        expect(wrapper.vm.withTrashed).toBe(false);
+        expect(wrapper.vm.isSearchable).toBe(false);
+        expect(wrapper.vm.shouldSelectInitialResource).toBe(true);
         expect(wrapper.vm.queryParams).toEqual({
             params: {
                 type: 'posts',
@@ -270,15 +270,15 @@ describe('MorphToField', () => {
                 search: '',
                 withTrashed: false,
             },
-        })
+        });
 
-        await flushPromises()
+        await flushPromises();
 
-        expect(wrapper.vm.availableResources).toEqual([{ value: 1 }, { value: 2 }, { value: 3 }])
-        expect(wrapper.vm.softDeletes).toBe(true)
-        expect(wrapper.vm.selectedResource).toEqual({ value: 1 })
+        expect(wrapper.vm.availableResources).toEqual([{ value: 1 }, { value: 2 }, { value: 3 }]);
+        expect(wrapper.vm.softDeletes).toBe(true);
+        expect(wrapper.vm.selectedResource).toEqual({ value: 1 });
         expect(wrapper.vm.selectedResourceId).toBe(1)
-    })
+    });
 
     test('when editing an existing resource and the field is searchable it selects the related resource type and resource and doesnt load all the resources', async () => {
         const wrapper = shallowMount(MorphToField, {
@@ -310,14 +310,14 @@ describe('MorphToField', () => {
                 viaResource: '',
                 viaResourceId: null,
             },
-        })
+        });
 
-        expect(wrapper.vm.initializingWithExistingResource).toBe(true)
-        expect(wrapper.vm.editingExistingResource).toBe(true)
-        expect(wrapper.vm.resourceType).toBe('posts')
-        expect(wrapper.vm.withTrashed).toBe(false)
-        expect(wrapper.vm.isSearchable).toBe(true)
-        expect(wrapper.vm.shouldSelectInitialResource).toBe(true)
+        expect(wrapper.vm.initializingWithExistingResource).toBe(true);
+        expect(wrapper.vm.editingExistingResource).toBe(true);
+        expect(wrapper.vm.resourceType).toBe('posts');
+        expect(wrapper.vm.withTrashed).toBe(false);
+        expect(wrapper.vm.isSearchable).toBe(true);
+        expect(wrapper.vm.shouldSelectInitialResource).toBe(true);
         expect(wrapper.vm.queryParams).toEqual({
             params: {
                 type: 'posts',
@@ -326,15 +326,15 @@ describe('MorphToField', () => {
                 search: '',
                 withTrashed: false,
             },
-        })
+        });
 
-        await flushPromises()
+        await flushPromises();
 
-        expect(wrapper.vm.availableResources).toEqual([{ value: 1 }])
-        expect(wrapper.vm.softDeletes).toBe(true)
-        expect(wrapper.vm.selectedResource).toEqual({ value: 1 })
+        expect(wrapper.vm.availableResources).toEqual([{ value: 1 }]);
+        expect(wrapper.vm.softDeletes).toBe(true);
+        expect(wrapper.vm.selectedResource).toEqual({ value: 1 });
         expect(wrapper.vm.selectedResourceId).toBe(1)
-    })
+    });
 
     test('it determines if its related resource soft deletes', async () => {
         const wrapper = shallowMount(MorphToField, {
@@ -366,14 +366,14 @@ describe('MorphToField', () => {
                 viaResource: 'posts',
                 viaResourceId: 1,
             },
-        })
+        });
 
-        expect(wrapper.vm.softDeletes).toBe(false)
+        expect(wrapper.vm.softDeletes).toBe(false);
 
-        await flushPromises()
+        await flushPromises();
 
         expect(wrapper.vm.softDeletes).toBe(true)
-    })
+    });
 
     test('including trashed resources in the available resources can be enabled when a resource supports soft-deleting', async () => {
         const wrapper = shallowMount(MorphToField, {
@@ -404,14 +404,14 @@ describe('MorphToField', () => {
                 viaResource: 'posts',
                 viaResourceId: 1,
             },
-        })
+        });
 
-        wrapper.vm.enableWithTrashed()
+        wrapper.vm.enableWithTrashed();
 
-        await flushPromises()
+        await flushPromises();
 
-        expect(wrapper.vm.softDeletes).toBe(true)
-        expect(wrapper.vm.withTrashed).toBe(true)
+        expect(wrapper.vm.softDeletes).toBe(true);
+        expect(wrapper.vm.withTrashed).toBe(true);
         expect(wrapper.vm.queryParams).toEqual({
             params: {
                 current: 1,
@@ -421,7 +421,7 @@ describe('MorphToField', () => {
                 withTrashed: true,
             },
         })
-    })
+    });
 
     test('including trashed resources in the available resources cannot be enabled when a resource doesnt support soft-deleting', async () => {
         const wrapper = shallowMount(MorphToField, {
@@ -452,12 +452,12 @@ describe('MorphToField', () => {
                 viaResource: 'videos',
                 viaResourceId: 1,
             },
-        })
+        });
 
-        await flushPromises()
+        await flushPromises();
 
-        expect(wrapper.vm.softDeletes).toBe(false)
-        expect(wrapper.vm.withTrashed).toBe(false)
+        expect(wrapper.vm.softDeletes).toBe(false);
+        expect(wrapper.vm.withTrashed).toBe(false);
         expect(wrapper.vm.queryParams).toEqual({
             params: {
                 current: 1,
@@ -467,7 +467,7 @@ describe('MorphToField', () => {
                 withTrashed: false,
             },
         })
-    })
+    });
 
     test('including trashed resources in the available resources is disabled by default', async () => {
         const wrapper = shallowMount(MorphToField, {
@@ -498,12 +498,12 @@ describe('MorphToField', () => {
                 viaResource: 'videos',
                 viaResourceId: 1,
             },
-        })
+        });
 
-        await flushPromises()
+        await flushPromises();
 
         expect(wrapper.vm.withTrashed).toBe(false)
-    })
+    });
 
     test('it determines if its related resource doesnt soft delete', async () => {
         const wrapper = shallowMount(MorphToField, {
@@ -534,19 +534,19 @@ describe('MorphToField', () => {
                 viaResource: 'posts',
                 viaResourceId: 1,
             },
-        })
+        });
 
-        await flushPromises()
+        await flushPromises();
 
-        expect(wrapper.vm.softDeletes).toBe(true)
+        expect(wrapper.vm.softDeletes).toBe(true);
 
-        wrapper.setData({ resourceType: 'videos' })
-        wrapper.vm.determineIfSoftDeletes()
+        wrapper.setData({ resourceType: 'videos' });
+        wrapper.vm.determineIfSoftDeletes();
 
-        await flushPromises()
+        await flushPromises();
 
         expect(wrapper.vm.softDeletes).toBe(false)
-    })
+    });
 
     test('it correctly handles filling the formData object for submit', async () => {
         const wrapper = shallowMount(MorphToField, {
@@ -577,19 +577,19 @@ describe('MorphToField', () => {
                 viaResource: 'posts',
                 viaResourceId: 1,
             },
-        })
+        });
 
-        await flushPromises()
+        await flushPromises();
 
-        const expectedFormData = new FormData()
-        expectedFormData.append('commentable', 1)
-        expectedFormData.append('commentable_type', 'posts')
-        expectedFormData.append('commentable_trashed', false)
+        const expectedFormData = new FormData();
+        expectedFormData.append('commentable', 1);
+        expectedFormData.append('commentable_type', 'posts');
+        expectedFormData.append('commentable_trashed', false);
 
-        const formData = new FormData()
+        const formData = new FormData();
 
-        wrapper.vm.field.fill(formData)
+        wrapper.vm.field.fill(formData);
 
         expect(formData).toEqual(expectedFormData)
     })
-})
+});

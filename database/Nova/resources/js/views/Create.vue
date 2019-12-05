@@ -78,14 +78,14 @@ export default {
     }),
 
     async created() {
-        if (Nova.missingResource(this.resourceName)) return this.$router.push({ name: '404' })
+        if (Nova.missingResource(this.resourceName)) return this.$router.push({ name: '404' });
 
         // If this create is via a relation index, then let's grab the field
         // and use the label for that as the one we use for the title and buttons
         if (this.isRelation) {
             const { data } = await Nova.request(
                 '/nova-api/' + this.viaResource + '/field/' + this.viaRelationship
-            )
+            );
             this.relationResponse = data
         }
 
@@ -97,7 +97,7 @@ export default {
          * Get the available fields for the resource.
          */
         async getFields() {
-            this.fields = []
+            this.fields = [];
 
             const { data: fields } = await Nova.request().get(
                 `/nova-api/${this.resourceName}/creation-fields`,
@@ -108,9 +108,9 @@ export default {
                         viaRelationship: this.viaRelationship,
                     },
                 }
-            )
+            );
 
-            this.fields = fields
+            this.fields = fields;
             this.loading = false
         },
 
@@ -118,19 +118,19 @@ export default {
          * Create a new resource instance using the provided data.
          */
         async createResource() {
-            this.submittedViaCreateResource = true
+            this.submittedViaCreateResource = true;
 
             try {
-                const response = await this.createRequest()
+                const response = await this.createRequest();
 
-                this.submittedViaCreateResource = false
+                this.submittedViaCreateResource = false;
 
                 this.$toasted.show(
                     this.__('The :resource was created!', {
                         resource: this.resourceInformation.singularLabel.toLowerCase(),
                     }),
                     { type: 'success' }
-                )
+                );
 
                 this.$router.push({
                     name: 'detail',
@@ -140,7 +140,7 @@ export default {
                     },
                 })
             } catch (error) {
-                this.submittedViaCreateResource = false
+                this.submittedViaCreateResource = false;
 
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
@@ -152,26 +152,26 @@ export default {
          * Create a new resource and reset the form
          */
         async createAndAddAnother() {
-            this.submittedViaCreateAndAddAnother = true
+            this.submittedViaCreateAndAddAnother = true;
 
             try {
-                const response = await this.createRequest()
+                const response = await this.createRequest();
 
-                this.submittedViaCreateAndAddAnother = false
+                this.submittedViaCreateAndAddAnother = false;
 
                 this.$toasted.show(
                     this.__('The :resource was created!', {
                         resource: this.resourceInformation.singularLabel.toLowerCase(),
                     }),
                     { type: 'success' }
-                )
+                );
 
                 // Reset the form by refetching the fields
-                this.getFields()
+                this.getFields();
 
                 this.validationErrors = new Errors()
             } catch (error) {
-                this.submittedViaCreateAndAddAnother = false
+                this.submittedViaCreateAndAddAnother = false;
 
                 if (error.response.status == 422) {
                     this.validationErrors = new Errors(error.response.data.errors)
@@ -196,10 +196,10 @@ export default {
             return _.tap(new FormData(), formData => {
                 _.each(this.fields, field => {
                     field.fill(formData)
-                })
+                });
 
-                formData.append('viaResource', this.viaResource)
-                formData.append('viaResourceId', this.viaResourceId)
+                formData.append('viaResource', this.viaResource);
+                formData.append('viaResourceId', this.viaResourceId);
                 formData.append('viaRelationship', this.viaRelationship)
             })
         },

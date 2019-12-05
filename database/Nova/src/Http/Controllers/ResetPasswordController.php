@@ -2,6 +2,8 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use Laravel\Nova\Nova;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -39,9 +41,9 @@ class ResetPasswordController extends Controller
      *
      * If no token is present, display the link request form.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  string|null  $token
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showResetForm(Request $request, $token = null)
     {

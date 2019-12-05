@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Tests\Fixtures;
 
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class CommentResource extends Resource
      *
      * @var string
      */
-    public static $model = \Laravel\Nova\Tests\Fixtures\Comment::class;
+    public static $model = Comment::class;
 
     /**
      * The columns that should be searched.
@@ -31,7 +32,7 @@ class CommentResource extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function fields(Request $request)
@@ -51,7 +52,7 @@ class CommentResource extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -62,7 +63,7 @@ class CommentResource extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function actions(Request $request)
@@ -73,9 +74,9 @@ class CommentResource extends Resource
     /**
      * Build a "relatable" query for the posts.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param NovaRequest $request
+     * @param  Builder  $query
+     * @return Builder
      */
     public static function relatablePosts(NovaRequest $request, $query)
     {

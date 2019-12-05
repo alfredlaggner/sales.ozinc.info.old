@@ -65,7 +65,7 @@ CodeMirror.defineMode('htmltwig', function(config, parserConfig) {
         CodeMirror.getMode(config, parserConfig.backdrop || 'text/html'),
         CodeMirror.getMode(config, 'twig')
     )
-})
+});
 
 export default {
     props: ['resource', 'resourceName', 'resourceId', 'field'],
@@ -87,9 +87,9 @@ export default {
             },
             ...this.field.options,
             ...{ readOnly: true },
-        }
+        };
 
-        this.codemirror = CodeMirror.fromTextArea(this.$refs.theTextarea, config)
+        this.codemirror = CodeMirror.fromTextArea(this.$refs.theTextarea, config);
 
         this.codemirror.getDoc().setValue(this.field.value)
     },

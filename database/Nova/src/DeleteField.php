@@ -2,6 +2,9 @@
 
 namespace Laravel\Nova;
 
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Nova\Contracts\Deletable;
+use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class DeleteField
@@ -9,10 +12,10 @@ class DeleteField
     /**
      * Delete the given field.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Laravel\Nova\Fields\Field|\Laravel\Nova\Contracts\Deletable  $field
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param NovaRequest $request
+     * @param  Field|Deletable  $field
+     * @param  Model  $model
+     * @return Model
      */
     public static function forRequest(NovaRequest $request, $field, $model)
     {

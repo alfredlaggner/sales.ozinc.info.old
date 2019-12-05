@@ -11,7 +11,7 @@ class DeleteResourceRequest extends DeletionRequest
      * Get the selected models for the action in chunks.
      *
      * @param  int  $count
-     * @param  \Closure  $callback
+     * @param Closure $callback
      * @return mixed
      */
     public function chunks($count, Closure $callback)
@@ -24,8 +24,8 @@ class DeleteResourceRequest extends DeletionRequest
     /**
      * Get the models that may be deleted.
      *
-     * @param  \Illuminate\Support\Collection  $models
-     * @return \Illuminate\Support\Collection
+     * @param Collection $models
+     * @return Collection
      */
     protected function deletableModels(Collection $models)
     {

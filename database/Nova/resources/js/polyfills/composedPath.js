@@ -27,11 +27,11 @@
 
 export default function composedPath(evt) {
     var path = (evt.composedPath && evt.composedPath()) || evt.path,
-        target = evt.target
+        target = evt.target;
 
     if (path != null) {
         // Safari doesn't include Window, and it should.
-        path = path.indexOf(window) < 0 ? path.concat([window]) : path
+        path = path.indexOf(window) < 0 ? path.concat([window]) : path;
         return path
     }
 
@@ -40,8 +40,8 @@ export default function composedPath(evt) {
     }
 
     function getParents(node, memo) {
-        memo = memo || []
-        var parentNode = node.parentNode
+        memo = memo || [];
+        var parentNode = node.parentNode;
 
         if (!parentNode) {
             return memo

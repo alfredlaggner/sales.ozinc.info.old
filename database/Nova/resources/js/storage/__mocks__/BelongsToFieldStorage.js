@@ -1,9 +1,9 @@
-const resources = [{ value: 1 }, { value: 2 }, { value: 3 }]
+const resources = [{ value: 1 }, { value: 2 }, { value: 3 }];
 
 const softDeleteTypes = {
     users: true,
     authors: false,
-}
+};
 
 export default {
     fetchAvailableResources(resourceName, fieldAttribute, { params }) {

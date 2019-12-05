@@ -5,6 +5,7 @@ namespace Laravel\Nova\Tests\Controller;
 use Laravel\Nova\Tests\Fixtures\User;
 use Laravel\Nova\Tests\IntegrationTest;
 use Laravel\Nova\Tests\Fixtures\NoopAction;
+use LogicException;
 
 class LensActionControllerTest extends IntegrationTest
 {
@@ -57,7 +58,7 @@ class LensActionControllerTest extends IntegrationTest
 
     public function test_lens_actions_cant_be_applied_to_entire_lens_if_lens_returns_resource()
     {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
 
         $user = factory(User::class)->create();
         $user2 = factory(User::class)->create();

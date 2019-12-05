@@ -3,9 +3,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routes'
 
-Vue.use(Router)
+Vue.use(Router);
 
-const router = createRouter({ base: window.config.base })
+const router = createRouter({ base: window.config.base });
 
 export default router
 
@@ -18,10 +18,10 @@ function createRouter({ base }) {
         base,
         mode: 'history',
         routes,
-    })
+    });
 
-    router.beforeEach(beforeEach)
-    router.afterEach(afterEach)
+    router.beforeEach(beforeEach);
+    router.afterEach(afterEach);
 
     return router
 }
@@ -35,7 +35,7 @@ function createRouter({ base }) {
  */
 async function beforeEach(to, from, next) {
     // Get the matched components and resolve them.
-    const components = await resolveComponents(router.getMatchedComponents({ ...to }))
+    const components = await resolveComponents(router.getMatchedComponents({ ...to }));
 
     if (components.length === 0) {
         return next()
@@ -57,7 +57,7 @@ async function beforeEach(to, from, next) {
  * @param {Function} next
  */
 async function afterEach(to, from, next) {
-    await router.app.$nextTick()
+    await router.app.$nextTick();
     router.app.$loading.finish()
 }
 
@@ -94,7 +94,7 @@ function scrollBehavior(to, from, savedPosition) {
         return { selector: to.hash }
     }
 
-    const [component] = router.getMatchedComponents({ ...to }).slice(-1)
+    const [component] = router.getMatchedComponents({ ...to }).slice(-1);
 
     if (component && component.scrollToTop === false) {
         return {}

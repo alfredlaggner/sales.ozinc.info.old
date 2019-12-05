@@ -197,7 +197,7 @@ export default {
      * Bind the keydown even listener when the component is created
      */
     created() {
-        if (Nova.missingResource(this.resourceName)) return this.$router.push({ name: '404' })
+        if (Nova.missingResource(this.resourceName)) return this.$router.push({ name: '404' });
 
         document.addEventListener('keydown', this.handleKeydown)
     },
@@ -238,8 +238,8 @@ export default {
          * Initialize the compnent's data.
          */
         async initializeComponent() {
-            await this.getResource()
-            await this.getActions()
+            await this.getResource();
+            await this.getActions();
 
             this.initialLoading = false
         },
@@ -248,33 +248,33 @@ export default {
          * Get the resource information.
          */
         getResource() {
-            this.resource = null
+            this.resource = null;
 
             return Minimum(
                 Nova.request().get('/nova-api/' + this.resourceName + '/' + this.resourceId)
             )
                 .then(({ data: { panels, resource } }) => {
-                    this.panels = panels
-                    this.resource = resource
+                    this.panels = panels;
+                    this.resource = resource;
                     this.loading = false
                 })
                 .catch(error => {
                     if (error.response.status >= 500) {
-                        Nova.$emit('error', error.response.data.message)
+                        Nova.$emit('error', error.response.data.message);
                         return
                     }
 
                     if (error.response.status === 404 && this.initialLoading) {
-                        this.$router.push({ name: '404' })
+                        this.$router.push({ name: '404' });
                         return
                     }
 
                     if (error.response.status === 403) {
-                        this.$router.push({ name: '403' })
+                        this.$router.push({ name: '403' });
                         return
                     }
 
-                    this.$toasted.show(this.__('This resource no longer exists'), { type: 'error' })
+                    this.$toasted.show(this.__('This resource no longer exists'), { type: 'error' });
 
                     this.$router.push({
                         name: 'index',
@@ -287,7 +287,7 @@ export default {
          * Get the available actions for the resource.
          */
         getActions() {
-            this.actions = []
+            this.actions = [];
 
             return Nova.request()
                 .get('/nova-api/' + this.resourceName + '/actions', {
@@ -306,7 +306,7 @@ export default {
          * Handle an action executed event.
          */
         async actionExecuted() {
-            await this.getResource()
+            await this.getResource();
             await this.getActions()
         },
 
@@ -341,17 +341,17 @@ export default {
                         resource: this.resourceInformation.singularLabel.toLowerCase(),
                     }),
                     { type: 'success' }
-                )
+                );
 
                 if (!this.resource.softDeletes) {
                     this.$router.push({
                         name: 'index',
                         params: { resourceName: this.resourceName },
-                    })
+                    });
                     return
                 }
 
-                this.closeDeleteModal()
+                this.closeDeleteModal();
                 this.getResource()
             })
         },
@@ -380,9 +380,9 @@ export default {
                         resource: this.resourceInformation.singularLabel.toLowerCase(),
                     }),
                     { type: 'success' }
-                )
+                );
 
-                this.closeRestoreModal()
+                this.closeRestoreModal();
                 this.getResource()
             })
         },
@@ -411,7 +411,7 @@ export default {
                         resource: this.resourceInformation.singularLabel.toLowerCase(),
                     }),
                     { type: 'success' }
-                )
+                );
 
                 this.$router.push({ name: 'index', params: { resourceName: this.resourceName } })
             })
@@ -438,9 +438,9 @@ export default {
          */
         availablePanels() {
             if (this.resource) {
-                var panels = {}
+                var panels = {};
 
-                var fields = _.toArray(JSON.parse(JSON.stringify(this.resource.fields)))
+                var fields = _.toArray(JSON.parse(JSON.stringify(this.resource.fields)));
 
                 fields.forEach(field => {
                     if (field.listable) {
@@ -450,7 +450,7 @@ export default {
                     }
 
                     panels[field.panel] = this.createPanelForField(field)
-                })
+                });
 
                 return _.toArray(panels)
             }

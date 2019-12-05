@@ -3,6 +3,7 @@
 namespace Laravel\Nova\Actions;
 
 use DateTime;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Laravel\Nova\Nova;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Http\Requests\ActionRequest;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Throwable;
 
 class ActionEvent extends Model
 {
@@ -39,9 +41,9 @@ class ActionEvent extends Model
     /**
      * Create a new action event instance for a resource creation.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param  Authenticatable  $user
+     * @param Model $model
+     * @return Model
      */
     public static function forResourceCreate($user, $model)
     {
@@ -64,9 +66,9 @@ class ActionEvent extends Model
     /**
      * Create a new action event instance for a resource update.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param  Authenticatable  $user
+     * @param Model $model
+     * @return Model
      */
     public static function forResourceUpdate($user, $model)
     {
@@ -89,10 +91,10 @@ class ActionEvent extends Model
     /**
      * Create a new action event instance for an attached resource update.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Model  $parent
-     * @param  \Illuminate\Database\Eloquent\Model  $pivot
-     * @return \Illuminate\Database\Eloquent\Model
+     * @param NovaRequest $request
+     * @param Model $parent
+     * @param Model $pivot
+     * @return Model
      */
     public static function forAttachedResourceUpdate(NovaRequest $request, $parent, $pivot)
     {
@@ -115,9 +117,9 @@ class ActionEvent extends Model
     /**
      * Create new action event instances for resource deletes.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @param  \Illuminate\Support\Collection  $models
-     * @return \Illuminate\Support\Collection
+     * @param  Authenticatable  $user
+     * @param Collection $models
+     * @return Collection
      */
     public static function forResourceDelete($user, Collection $models)
     {
@@ -127,9 +129,9 @@ class ActionEvent extends Model
     /**
      * Create new action event instances for resource restorations.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @param  \Illuminate\Support\Collection  $models
-     * @return \Illuminate\Support\Collection
+     * @param  Authenticatable  $user
+     * @param Collection $models
+     * @return Collection
      */
     public static function forResourceRestore($user, Collection $models)
     {
@@ -140,9 +142,9 @@ class ActionEvent extends Model
      * Create new action event instances for resource soft deletions.
      *
      * @param  string  $action
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @param  \Illuminate\Support\Collection  $models
-     * @return \Illuminate\Support\Collection
+     * @param  Authenticatable  $user
+     * @param Collection $models
+     * @return Collection
      */
     public static function forSoftDeleteAction($action, $user, Collection $models)
     {
@@ -171,11 +173,11 @@ class ActionEvent extends Model
     /**
      * Create new action event instances for resource detachments.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @param  \Illuminate\Database\Eloquent\Model  $parent
-     * @param  \Illuminate\Support\Collection  $models
+     * @param  Authenticatable  $user
+     * @param Model $parent
+     * @param Collection $models
      * @param  string  $pivotClass
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public static function forResourceDetach($user, $parent, Collection $models, $pivotClass)
     {
@@ -204,10 +206,10 @@ class ActionEvent extends Model
     /**
      * Create the action records for the given models.
      *
-     * @param  \Laravel\Nova\Http\Requests\ActionRequest  $request
-     * @param  \Laravel\Nova\Actions\Action  $action
+     * @param ActionRequest $request
+     * @param Action $action
      * @param  string  $batchId
-     * @param  \Illuminate\Support\Collection  $models
+     * @param Collection $models
      * @param  string  $status
      * @return void
      */
@@ -235,8 +237,8 @@ class ActionEvent extends Model
     /**
      * Get the default attributes for creating a new action event.
      *
-     * @param  \Laravel\Nova\Http\Requests\ActionRequest  $request
-     * @param  \Laravel\Nova\Actions\Action  $action
+     * @param ActionRequest $request
+     * @param Action $action
      * @param  string  $batchId
      * @param  string  $status
      * @return array
@@ -272,7 +274,7 @@ class ActionEvent extends Model
     /**
      * Prune the action events for the given types.
      *
-     * @param  \Illuminate\Support\Collection  $models
+     * @param Collection $models
      * @param  int  $limit
      */
     public static function prune($models, $limit = 25)
@@ -324,7 +326,7 @@ class ActionEvent extends Model
      * Mark a given action event record as finished.
      *
      * @param  string  $batchId
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param Model $model
      * @return int
      */
     public static function markAsFinished($batchId, $model)
@@ -336,7 +338,7 @@ class ActionEvent extends Model
      * Mark the given batch as failed.
      *
      * @param  string  $batchId
-     * @param  \Throwable  $e
+     * @param  Throwable  $e
      * @return int
      */
     public static function markBatchAsFailed($batchId, $e = null)
@@ -352,8 +354,8 @@ class ActionEvent extends Model
      * Mark a given action event record as failed.
      *
      * @param  string  $batchId
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  \Throwable|string  $e
+     * @param Model $model
+     * @param  Throwable|string  $e
      * @return int
      */
     public static function markAsFailed($batchId, $model, $e = null)
@@ -365,9 +367,9 @@ class ActionEvent extends Model
      * Update the status of a given action event.
      *
      * @param  string  $batchId
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param Model $model
      * @param  string  $status
-     * @param  \Throwable|string  $e
+     * @param  Throwable|string  $e
      * @return int
      */
     public static function updateStatus($batchId, $model, $status, $e = null)

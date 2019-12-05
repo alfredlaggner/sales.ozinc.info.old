@@ -95,7 +95,7 @@ export default {
         },
 
         increaseOrDecrease() {
-            if (this.previous == 0 || this.previous == null || this.value == 0) return 0
+            if (this.previous == 0 || this.previous == null || this.value == 0) return 0;
 
             return (((this.value - this.previous) / this.previous) * 100).toFixed(2)
         },
@@ -103,9 +103,9 @@ export default {
         increaseOrDecreaseLabel() {
             switch (Math.sign(this.increaseOrDecrease)) {
                 case 1:
-                    return 'Increase'
+                    return 'Increase';
                 case 0:
-                    return 'Constant'
+                    return 'Constant';
                 case -1:
                     return 'Decrease'
             }
@@ -114,9 +114,9 @@ export default {
         sign() {
             switch (Math.sign(this.increaseOrDecrease)) {
                 case 1:
-                    return '+'
+                    return '+';
                 case 0:
-                    return ''
+                    return '';
                 case -1:
                     return '-'
             }

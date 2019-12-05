@@ -36,7 +36,7 @@ export default {
             this.$store.commit(`${this.resourceName}/updateFilterState`, {
                 filterClass: this.filterKey,
                 value: event.target.value,
-            })
+            });
 
             this.$emit('change')
         },

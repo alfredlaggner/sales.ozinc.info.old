@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Laravel\Nova\Http\Requests\DashboardMetricRequest;
 
@@ -10,8 +11,8 @@ class DashboardMetricController extends Controller
     /**
      * List the metrics for the dashboard.
      *
-     * @param  \Laravel\Nova\Http\Requests\DashboardMetricRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param DashboardMetricRequest $request
+     * @return Response
      */
     public function index(DashboardMetricRequest $request)
     {
@@ -21,8 +22,8 @@ class DashboardMetricController extends Controller
     /**
      * Get the specified metric's value.
      *
-     * @param  \Laravel\Nova\Http\Requests\DashboardMetricRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param DashboardMetricRequest $request
+     * @return Response
      */
     public function show(DashboardMetricRequest $request)
     {

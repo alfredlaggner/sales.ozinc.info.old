@@ -49,7 +49,7 @@ abstract class Element implements JsonSerializable
     /**
      * Determine if the element should be displayed for the given request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return bool
      */
     public function authorize(Request $request)

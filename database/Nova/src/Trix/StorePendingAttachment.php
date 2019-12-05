@@ -11,14 +11,14 @@ class StorePendingAttachment
     /**
      * The field instance.
      *
-     * @var \Laravel\Nova\Fields\Trix
+     * @var Trix
      */
     public $field;
 
     /**
      * Create a new invokable instance.
      *
-     * @param  \Laravel\Nova\Fields\Trix  $field
+     * @param Trix $field
      * @return void
      */
     public function __construct(Trix $field)
@@ -29,7 +29,7 @@ class StorePendingAttachment
     /**
      * Attach a pending attachment to the field.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return void
      */
     public function __invoke(Request $request)

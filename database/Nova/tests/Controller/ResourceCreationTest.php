@@ -2,6 +2,7 @@
 
 namespace Laravel\Nova\Tests\Controller;
 
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Actions\ActionEvent;
 use Laravel\Nova\Tests\Fixtures\Post;
@@ -297,7 +298,7 @@ class ResourceCreationTest extends IntegrationTest
 
     public function test_can_create_resources_with_null_relation_without_autonull()
     {
-        $this->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class);
+        $this->withoutMiddleware(ConvertEmptyStringsToNull::class);
 
         $response = $this->withExceptionHandling()
             ->postJson('/nova-api/posts', [

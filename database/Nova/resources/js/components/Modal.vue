@@ -18,20 +18,20 @@ export default {
     },
 
     created() {
-        document.addEventListener('keydown', this.handleEscape)
-        document.body.classList.add('overflow-hidden')
+        document.addEventListener('keydown', this.handleEscape);
+        document.body.classList.add('overflow-hidden');
 
-        const modalBg = document.createElement('div')
-        modalBg.classList = 'fixed pin bg-80 z-20 opacity-75'
+        const modalBg = document.createElement('div');
+        modalBg.classList = 'fixed pin bg-80 z-20 opacity-75';
 
-        this.modalBg = modalBg
+        this.modalBg = modalBg;
 
         document.body.appendChild(this.modalBg)
     },
 
     destroyed() {
-        document.removeEventListener('keydown', this.handleEscape)
-        document.body.classList.remove('overflow-hidden')
+        document.removeEventListener('keydown', this.handleEscape);
+        document.body.classList.remove('overflow-hidden');
         document.body.removeChild(this.modalBg)
     },
 
@@ -39,7 +39,7 @@ export default {
 
     methods: {
         handleEscape(e) {
-            e.stopPropagation()
+            e.stopPropagation();
 
             if (e.keyCode == 27) {
                 this.close()
@@ -49,7 +49,7 @@ export default {
         close(e) {
             let classArray = Array.isArray(this.classWhitelist)
                 ? this.classWhitelist
-                : [this.classWhitelist]
+                : [this.classWhitelist];
 
             if (_.filter(classArray, className => pathIncludesClass(e, className)).length > 0) {
                 return

@@ -2,6 +2,8 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Http\Response;
 use Laravel\Nova\Nova;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -37,7 +39,7 @@ class LoginController extends Controller
     /**
      * Show the application's login form.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function showLoginForm()
     {
@@ -47,8 +49,8 @@ class LoginController extends Controller
     /**
      * Log the user out of the application.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function logout(Request $request)
     {
@@ -72,7 +74,7 @@ class LoginController extends Controller
     /**
      * Get the guard to be used during authentication.
      *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     * @return StatefulGuard
      */
     protected function guard()
     {

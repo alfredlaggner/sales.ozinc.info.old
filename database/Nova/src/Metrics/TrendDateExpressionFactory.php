@@ -10,11 +10,11 @@ class TrendDateExpressionFactory
     /**
      * Create a new trend expression instance.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param Builder $query
      * @param  string  $column
      * @param  string  $unit
      * @param  string  $timezone
-     * @return \Laravel\Nova\Metrics\TrendDateExpression
+     * @return TrendDateExpression
      */
     public static function make(Builder $query, $column, $unit, $timezone)
     {

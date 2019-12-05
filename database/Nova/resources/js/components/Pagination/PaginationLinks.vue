@@ -148,9 +148,9 @@ export default {
         printPages() {
             const middlePage = Math.min(Math.max(3, this.page), this.pages - 2),
                 fromPage = Math.max(middlePage - 2, 1),
-                toPage = Math.min(middlePage + 2, this.pages)
+                toPage = Math.min(middlePage + 2, this.pages);
 
-            let pages = []
+            let pages = [];
 
             for (let n = fromPage; n <= toPage; ++n) {
                 if (n > 0) pages.push(n)

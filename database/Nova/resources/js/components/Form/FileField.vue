@@ -102,9 +102,9 @@ export default {
          * Responsd to the file change
          */
         fileChange(event) {
-            let path = event.target.value
-            let fileName = path.match(/[^\\/]*$/)[0]
-            this.fileName = fileName
+            let path = event.target.value;
+            let fileName = path.match(/[^\\/]*$/)[0];
+            this.fileName = fileName;
             this.file = this.$refs.fileField.files[0]
         },
 
@@ -126,7 +126,7 @@ export default {
          * Remove the linked file from storage
          */
         async removeFile() {
-            this.uploadErrors = new Errors()
+            this.uploadErrors = new Errors();
 
             const {
                 resourceName,
@@ -134,20 +134,20 @@ export default {
                 relatedResourceName,
                 relatedResourceId,
                 viaRelationship,
-            } = this
-            const attribute = this.field.attribute
+            } = this;
+            const attribute = this.field.attribute;
 
             const uri = this.viaRelationship
                 ? `/nova-api/${resourceName}/${resourceId}/${relatedResourceName}/${relatedResourceId}/field/${attribute}?viaRelationship=${viaRelationship}`
-                : `/nova-api/${resourceName}/${resourceId}/field/${attribute}`
+                : `/nova-api/${resourceName}/${resourceId}/field/${attribute}`;
 
             try {
-                await Nova.request().delete(uri)
-                this.closeRemoveModal()
-                this.deleted = true
+                await Nova.request().delete(uri);
+                this.closeRemoveModal();
+                this.deleted = true;
                 this.$emit('file-deleted')
             } catch (error) {
-                this.closeRemoveModal()
+                this.closeRemoveModal();
 
                 if (error.response.status == 422) {
                     this.uploadErrors = new Errors(error.response.data.errors)

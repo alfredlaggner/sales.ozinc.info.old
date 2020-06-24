@@ -2,10 +2,10 @@
 
 namespace Laravel\Nova\Http\Controllers;
 
-use Illuminate\Http\Response;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Routing\Controller;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\LensRequest;
 
 class LensController extends Controller

@@ -3,10 +3,10 @@
 namespace Laravel\Nova\Http\Controllers;
 
 use Illuminate\Http\Response;
-use Laravel\Nova\Nova;
-use Illuminate\Support\Arr;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Arr;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Nova;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ScriptController extends Controller

@@ -2,22 +2,22 @@
 
 namespace Laravel\Nova;
 
+use BadMethodCallException;
 use Closure;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
-use ReflectionClass;
-use BadMethodCallException;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Nova\Events\ServingNova;
-use Symfony\Component\Finder\Finder;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Illuminate\Support\Str;
+use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Http\Middleware\RedirectIfAuthenticated;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use ReflectionClass;
+use Symfony\Component\Finder\Finder;
 
 class Nova
 {
@@ -295,7 +295,7 @@ class Nova
      * Get a new resource instance with the given model instance.
      *
      * @param  Model  $model
-     * @return Resource
+     * @return resource
      */
     public static function newResourceFromModel($model)
     {
@@ -331,7 +331,7 @@ class Nova
      * Get a resource instance for a given key.
      *
      * @param  string  $key
-     * @return Resource|null
+     * @return resource|null
      */
     public static function resourceInstanceForKey($key)
     {

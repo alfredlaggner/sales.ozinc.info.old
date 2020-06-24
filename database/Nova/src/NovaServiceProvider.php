@@ -3,12 +3,12 @@
 namespace Laravel\Nova;
 
 use Illuminate\Support\Carbon;
-use Laravel\Nova\Tools\Dashboard;
-use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Tools\ResourceManager;
 use Laravel\Nova\Actions\ActionResource;
+use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Tools\Dashboard;
+use Laravel\Nova\Tools\ResourceManager;
 
 class NovaServiceProvider extends ServiceProvider
 {

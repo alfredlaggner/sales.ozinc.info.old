@@ -2,11 +2,11 @@
 
 namespace Laravel\Nova\Console;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Symfony\Component\Process\Process;
+use Illuminate\Support\Str;
 use Laravel\Nova\Console\Concerns\AcceptsNameAndVendor;
+use Symfony\Component\Process\Process;
 
 class CustomFilterCommand extends Command
 {

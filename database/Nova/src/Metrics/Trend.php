@@ -2,12 +2,12 @@
 
 namespace Laravel\Nova\Metrics;
 
-use DateTime;
 use Cake\Chronos\Chronos;
-use Illuminate\Http\Request;
-use InvalidArgumentException;
-use Illuminate\Support\Facades\DB;
+use DateTime;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use InvalidArgumentException;
 
 abstract class Trend extends RangedMetric
 {

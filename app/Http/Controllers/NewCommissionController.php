@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Salesline;
 use App\SalesPerson;
 use App\SavedCommission;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Carbon\Carbon;
 
 class NewCommissionController extends Controller
 {
@@ -18,12 +18,12 @@ class NewCommissionController extends Controller
         $paidCommissionDateFrom = env('PAID_INVOICES_START_DATE', '2019-06-01');
         $dateTo = $request->get('today');
         $rep_id = $request->get('salesperson_id');
-   //     dd($rep_id);
+        //     dd($rep_id);
         //just for testing
-       // $dateTo = '2019-10-29';
+        // $dateTo = '2019-10-29';
         //    $rep_id = 35; //Matt Gutierrez
         $agent = SalesPerson::where('sales_person_id', $rep_id)->first();
-//dd($agent->name);
+        //dd($agent->name);
         $months = $this->listSavedPaidCommissions($agent->name);
         $paid_subtotals_so = $this->paid_subtotals_so($rep_id, $paidCommissionDateFrom, $dateTo);
         $paid_subtotals_month = $this->paid_subtotals_month($rep_id, $paidCommissionDateFrom, $dateTo);
@@ -40,15 +40,15 @@ class NewCommissionController extends Controller
             ->where('sales_person_id', '=', $rep_id)
             ->where('state', 'like', 'paid')
             ->whereBetween('invoice_paid_at', [$paidCommissionDateFrom, $dateTo])
-            ->where('commission_paid_at', '!=', NULL)
+            ->where('commission_paid_at', '!=', null)
             ->get();
 
         $paids = [];
         foreach ($commissions_paids as $query) {
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
 
             array_push($paids, [
-                'month' => $month . ' ' . substr($query->summary_year_month, 0, 4),
+                'month' => $month.' '.substr($query->summary_year_month, 0, 4),
                 'invoice_paid_at' => $query->invoice_paid_at,
                 'order_number' => $query->order_number,
                 'name' => $query->name,
@@ -75,9 +75,9 @@ class NewCommissionController extends Controller
 
         $unpaids = [];
         foreach ($commissions_unpaids as $query) {
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
             array_push($unpaids, [
-                'month' => $month . ' ' . substr($query->summary_year_month, 0, 4),
+                'month' => $month.' '.substr($query->summary_year_month, 0, 4),
                 'invoice_paid_at' => $query->invoice_paid_at,
                 'order_number' => $query->order_number,
                 'name' => $query->name,
@@ -89,7 +89,7 @@ class NewCommissionController extends Controller
             ]);
         }
         //dd($months);
-        return (view('commissions.paid_unpaid_accordion', [
+        return view('commissions.paid_unpaid_accordion', [
             'name' => $agent->name,
             'paids' => $commissions_paids,
             'paid_subtotals_so' => $paid_subtotals_so,
@@ -97,9 +97,8 @@ class NewCommissionController extends Controller
             'unpaids' => $commissions_unpaids,
             'unpaid_subtotals_so' => $unpaid_subtotals_so,
             'unpaid_subtotals_month' => $unpaid_subtotals_month,
-            'months' => $months
-        ]));
-
+            'months' => $months,
+        ]);
 
         //  return view('paid_unpaid', compact('commissions_paids', 'commissions_unpaids'));
     }
@@ -115,27 +114,26 @@ class NewCommissionController extends Controller
             ->where('state', 'like', 'paid')
             ->whereBetween('invoice_paid_at', [$paidCommissionDateFrom, $dateTo])
             ->where('sales_person_id', '=', $rep_id)
-            ->where('commission_paid_at', '!=', NULL)
+            ->where('commission_paid_at', '!=', null)
             ->groupBy('order_number')
             ->orderBy('commission_paid_at', 'desc')
             ->get();
 
         $paid_commissions_by_so = [];
         foreach ($queries as $query) {
-
             array_push($paid_commissions_by_so, [
                 'order_number' => $query->order_number,
                 'commission_per_so' => $query->sum_commission,
                 'volume_per_so' => $query->sum_volume,
                 'margin_per_so' => $query->avg_margin,
-                'invoice_date_so' => date("m-d-Y", strtotime(substr($query->invoice_date, 0, 10))),
-                'invoice_paid_at_so' => date("m-d-Y", strtotime(substr($query->invoice_paid_at, 0, 10))),
-                'commission_paid_at_so' => date("m-d-Y", strtotime(substr($query->commission_paid_at, 0, 10))),
+                'invoice_date_so' => date('m-d-Y', strtotime(substr($query->invoice_date, 0, 10))),
+                'invoice_paid_at_so' => date('m-d-Y', strtotime(substr($query->invoice_paid_at, 0, 10))),
+                'commission_paid_at_so' => date('m-d-Y', strtotime(substr($query->commission_paid_at, 0, 10))),
             ]);
         }
 
         //    dd($paid_commissions_by_so);
-        return ($paid_commissions_by_so);
+        return $paid_commissions_by_so;
     }
 
     public function paid_subtotals_month($rep_id, $paidCommissionDateFrom, $dateTo)
@@ -150,25 +148,25 @@ class NewCommissionController extends Controller
             ->groupBy('summary_year_month')
             ->whereBetween('invoice_paid_at', [$paidCommissionDateFrom, $dateTo])
             ->where('sales_person_id', '=', $rep_id)
-            ->where('commission_paid_at', '!=', NULL)
+            ->where('commission_paid_at', '!=', null)
             ->orderBy('summary_year_month', 'desc')
             ->get();
 
         $paid_commissions_by_month = [];
         foreach ($queries as $query) {
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
             array_push($paid_commissions_by_month, [
                 'month' => $month,
                 'commission_per_month' => $query->sum_commission,
                 'volume_per_month' => $query->sum_volume,
                 'margin_per_month' => $query->avg_margin,
-                'invoice_date_so' => date("m-d-Y", strtotime(substr($query->invoice_date, 0, 10))),
-                'invoice_paid_at_so' => date("m-d-Y", strtotime(substr($query->invoice_paid_at, 0, 10))),
-                'commission_paid_at_so' => date("m-d-Y", strtotime(substr($query->commission_paid_at, 0, 10))),
+                'invoice_date_so' => date('m-d-Y', strtotime(substr($query->invoice_date, 0, 10))),
+                'invoice_paid_at_so' => date('m-d-Y', strtotime(substr($query->invoice_paid_at, 0, 10))),
+                'commission_paid_at_so' => date('m-d-Y', strtotime(substr($query->commission_paid_at, 0, 10))),
             ]);
         }
         //     dd($paid_commissions_by_month);
-        return ($paid_commissions_by_month);
+        return $paid_commissions_by_month;
     }
 
     public function unpaid_subtotals_so($rep_id, $paidCommissionDateFrom, $dateTo)
@@ -189,10 +187,10 @@ class NewCommissionController extends Controller
             ->groupBy('order_number')
             ->orderBy('summary_year_month', 'desc')
             ->get();
-//dd($queries);
+        //dd($queries);
         $unpaid_commissions_by_so = [];
         foreach ($queries as $query) {
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
             array_push($unpaid_commissions_by_so, [
                 'months' => $queries,
                 'month_number' => intval(substr($query->summary_year_month, 4, 2)),
@@ -200,14 +198,14 @@ class NewCommissionController extends Controller
                 'commission_per_so' => $query->sum_commission,
                 'volume_per_so' => $query->sum_volume,
                 'margin_per_so' => $query->avg_margin,
-                'invoice_date_so' => date("m-d-Y", strtotime(substr($query->invoice_date, 0, 10))),
-                'invoice_paid_at_so' => date("m-d-Y", strtotime(substr($query->invoice_paid_at, 0, 10))),
-                'commission_paid_at_so' => "",
+                'invoice_date_so' => date('m-d-Y', strtotime(substr($query->invoice_date, 0, 10))),
+                'invoice_paid_at_so' => date('m-d-Y', strtotime(substr($query->invoice_paid_at, 0, 10))),
+                'commission_paid_at_so' => '',
             ]);
         }
 
         //          dd($unpaid_commissions_by_so);
-        return ($unpaid_commissions_by_so);
+        return $unpaid_commissions_by_so;
     }
 
     public function unpaid_subtotals_month($rep_id, $paidCommissionDateFrom, $dateTo)
@@ -226,21 +224,21 @@ class NewCommissionController extends Controller
             //      ->where('commission_paid_at', '=', NULL)
             ->orderBy('summary_year_month', 'desc')
             ->get();
-//dd($queries);
+        //dd($queries);
         $unpaid_commissions_by_month = [];
         $total_uncollected = 0.00;
         foreach ($queries as $query) {
             $total_uncollected += $query->sum_volume;
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
             array_push($unpaid_commissions_by_month, [
                 'month' => $month,
                 'month_number' => intval(substr($query->summary_year_month, 4, 2)),
                 'commission_per_month' => $query->sum_commission,
                 'volume_per_month' => $query->sum_volume,
                 'margin_per_month' => $query->avg_margin,
-                'invoice_date_so' => date("m-d-Y", strtotime(substr($query->invoice_date, 0, 10))),
-                'invoice_paid_at_so' => date("m-d-Y", strtotime(substr($query->invoice_paid_at, 0, 10))),
-                'commission_paid_at_so' => "",
+                'invoice_date_so' => date('m-d-Y', strtotime(substr($query->invoice_date, 0, 10))),
+                'invoice_paid_at_so' => date('m-d-Y', strtotime(substr($query->invoice_paid_at, 0, 10))),
+                'commission_paid_at_so' => '',
             ]);
         }
         $returnArray = [];
@@ -248,7 +246,7 @@ class NewCommissionController extends Controller
         array_push($returnArray, $unpaid_commissions_by_month);
         array_push($returnArray, $month_total);
         //  dd($returnArray);
-        return ($returnArray);
+        return $returnArray;
     }
 
     public function listSavedPaidCommissions($agent_name)
@@ -280,17 +278,17 @@ class NewCommissionController extends Controller
             }
                     dd($months);*/
         }
-        return ($months);
 
+        return $months;
     }
 
     public function viewSavedPaidCommissions($table_name, $rep, $description)
     {
         $paids = [];
 
-//dd($table_name);
-        if (!Schema::hasTable($table_name)) {
-            return (view('nodata'));
+        //dd($table_name);
+        if (! Schema::hasTable($table_name)) {
+            return view('nodata');
         } else {
             $paids = DB::table($table_name)
                 ->orderBy('customer_name', 'asc')
@@ -298,14 +296,13 @@ class NewCommissionController extends Controller
                 ->get();
 
             //     array_push($paids, $query);
-
         }
 
         $queries = DB::table($table_name)->select(DB::table($table_name)->raw('*,
                 sum(commission) as sum_commission,
                 sum(amount) as sum_volume,
                 avg(NULLIF(margin,0))as avg_margin,
-                EXTRACT(YEAR_MONTH FROM ' . $table_name . '.invoice_date) as summary_year_month 
+                EXTRACT(YEAR_MONTH FROM '.$table_name.'.invoice_date) as summary_year_month 
                 '))
             //			->leftJoin('sales_persons', 'sales_persons.sales_person_id', '=', $table_name . '.sales_person_id')
             //			->where('sales_persons.region', '!=', null)
@@ -314,24 +311,24 @@ class NewCommissionController extends Controller
             ->groupBy('rep')
             ->groupBy('summary_year_month')
             ->get();
-//dd($queries->toArray());
+        //dd($queries->toArray());
         $months = [];
         $paid_commissions_by_month = [];
         $total_volume = 0;
         $total_commission = 0;
         foreach ($queries as $query) {
             //          if ($query->sum_volume) {
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
             array_push($paid_commissions_by_month, [
                 'month' => $month,
                 'month_number' => intval(substr($query->summary_year_month, 4, 2)),
                 'commission_per_month' => $query->sum_commission,
                 'volume_per_month' => $query->sum_volume,
                 'margin_per_month' => $query->avg_margin,
-                'invoice_date_so' => date("m-d-Y", strtotime(substr($query->invoice_date, 0, 10))),
+                'invoice_date_so' => date('m-d-Y', strtotime(substr($query->invoice_date, 0, 10))),
                 //     'invoice_paid_at_so' => date("m-d-Y", strtotime(substr($query->invoice_paid_at, 0, 10))),
-                'invoice_paid_at_so' => "",
-                'commission_paid_at_so' => "",
+                'invoice_paid_at_so' => '',
+                'commission_paid_at_so' => '',
             ]);
             //               }
         }
@@ -344,15 +341,14 @@ class NewCommissionController extends Controller
                         sum(commission) as sum_commission,
                         sum(amount) as sum_volume,
                         avg(NULLIF(margin,0))as avg_margin,
-                EXTRACT(YEAR_MONTH FROM ' . $table_name . '.invoice_date) as summary_year_month,
-                EXTRACT(MONTH FROM ' . $table_name . '.invoice_date) as so_month 
+                EXTRACT(YEAR_MONTH FROM '.$table_name.'.invoice_date) as summary_year_month,
+                EXTRACT(MONTH FROM '.$table_name.'.invoice_date) as so_month 
                         '))
             ->where('rep', 'like', $rep)
             ->groupBy('order_number')
             ->get();
         $so = [];
         foreach ($queries as $query) {
-
             array_push($so, [
                 'months' => $queries,
                 'month_number' => intval(substr($query->summary_year_month, 4, 2)),
@@ -360,9 +356,9 @@ class NewCommissionController extends Controller
                 'commission_per_so' => $query->sum_commission,
                 'volume_per_so' => $query->sum_volume,
                 'margin_per_so' => $query->avg_margin,
-                'invoice_date_so' => date("m-d-Y", strtotime(substr($query->invoice_date, 0, 10))),
-                'invoice_paid_at_so' => "",
-                'commission_paid_at_so' => "",
+                'invoice_date_so' => date('m-d-Y', strtotime(substr($query->invoice_date, 0, 10))),
+                'invoice_paid_at_so' => '',
+                'commission_paid_at_so' => '',
             ]);
         }
 
@@ -385,35 +381,33 @@ class NewCommissionController extends Controller
 
             ]);
     }
+
     public function viewSavedPaidCommissionsbyRep(Request $request)
     {
         // $savedCommission = SavedCommission::where('month', '=', $month)->first();
         $timeFrame = [
             'months' => $request->get('months'),
-            'year' => $request->get('year')];
+            'year' => $request->get('year'), ];
 
         $data = [];
 
         foreach ($timeFrame['months'] as $month) {
             $savedCommission = SavedCommission::where('month', '=', $month)->first();
             if ($savedCommission) {
-
-
                 $lastMonth = end($timeFrame['months']);
-                $dateFrom = substr(new Carbon($timeFrame['year'] . '-' . $timeFrame['months'][0] . '-01'), 0, 10);
-                $dateTo = substr(new Carbon($timeFrame['year'] . '-' . $lastMonth . '-01'), 0, 10);
+                $dateFrom = substr(new Carbon($timeFrame['year'].'-'.$timeFrame['months'][0].'-01'), 0, 10);
+                $dateTo = substr(new Carbon($timeFrame['year'].'-'.$lastMonth.'-01'), 0, 10);
                 $lastDay = date('t', strtotime($dateTo));
-                $dateTo = substr(new Carbon($timeFrame['year'] . '-' . $lastMonth . '-' . $lastDay), 0, 10);
+                $dateTo = substr(new Carbon($timeFrame['year'].'-'.$lastMonth.'-'.$lastDay), 0, 10);
 
-
-                if (!Schema::hasTable($savedCommission->name)) {
-                    return (view('nodata'));
+                if (! Schema::hasTable($savedCommission->name)) {
+                    return view('nodata');
                 } else {
                     $queries = DB::table($savedCommission->name)->select(DB::raw('*,
                 sum(commission) as sp_commission,
                 sum(amount) as sp_volume,
                 avg(NULLIF(margin,0))as sp_margin,
-                EXTRACT(YEAR_MONTH FROM ' . $savedCommission->name . '.invoice_date) as summary_year_month 
+                EXTRACT(YEAR_MONTH FROM '.$savedCommission->name.'.invoice_date) as summary_year_month 
                 '))
                         ->orderBy('rep')
                         ->groupBy('rep')
@@ -423,7 +417,7 @@ class NewCommissionController extends Controller
                         $monthNum = $month;
                         $dateObj = DateTime::createFromFormat('!m', $monthNum);
                         $monthName = $dateObj->format('F'); // March
-                        $month_name = $monthName . " " . substr($timeFrame['year'], 0);
+                        $month_name = $monthName.' '.substr($timeFrame['year'], 0);
                         if ($query->sp_volume) {
                             array_push($data, [
                                 'month' => $month_name,
@@ -439,8 +433,6 @@ class NewCommissionController extends Controller
         }
         // dd($all_months);
 
-        return (view('tables.rep_totals_per_month', ['header' => '', 'overview' => json_encode($data)]));
+        return view('tables.rep_totals_per_month', ['header' => '', 'overview' => json_encode($data)]);
     }
-
-
 }

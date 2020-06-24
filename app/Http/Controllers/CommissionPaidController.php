@@ -9,8 +9,8 @@ use App\Month;
 use App\Salesline;
 use App\SalesPerson;
 use App\SavedCommission;
-use Carbon\Carbon;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,15 +23,15 @@ class CommissionPaidController extends Controller
         $this->middleware('auth');
     }
 
-
     public function admin(Request $request)
     {
         $commissions = SavedCommission::all();
-        foreach ($commissions as $commission)
-            if (!Schema::hasTable($commission->name)) {
+        foreach ($commissions as $commission) {
+            if (! Schema::hasTable($commission->name)) {
                 $savedCommission = SavedCommission::find($commission->id);
                 $savedCommission->delete();
             }
+        }
         $now = Carbon::now();
         $months = Month::where('month_id', '<=', $now->month)
             ->orderBy('month_id', 'desc')
@@ -39,9 +39,9 @@ class CommissionPaidController extends Controller
         $commissions = SavedCommission::orderBy('updated_at', 'desc')->get();
         //dd($commissions);
         $data = ['id' => 0, 'month' => $now->month];
+
         return view('admin', ['jcommissions' => json_encode($commissions), 'commissions' => $commissions, 'data' => $data, 'data' => $data, 'months' => $months, 'year' => $now->year]);
     }
-
 
     public function createSavedCommission(Request $request)
     {
@@ -50,9 +50,9 @@ class CommissionPaidController extends Controller
         $timeFrame = ['year' => 2019, 'months' => [Carbon::now()->month]];
         $timeFrame = ['year' => $request->get('year'), 'months' => [$request->get('months')]];
         $lastMonth = end($timeFrame['months']);
-        $dateTo = substr(new Carbon($timeFrame['year'] . '-' . $lastMonth . '-01'), 0, 10);
+        $dateTo = substr(new Carbon($timeFrame['year'].'-'.$lastMonth.'-01'), 0, 10);
         $lastDay = date('t', strtotime($dateTo));
-        $dateTo = substr(new Carbon($timeFrame['year'] . '-' . $lastMonth . '-' . $lastDay), 0, 10);
+        $dateTo = substr(new Carbon($timeFrame['year'].'-'.$lastMonth.'-'.$lastDay), 0, 10);
 
         $queries = SalesLine::select(DB::raw('*,EXTRACT(YEAR_MONTH FROM saleslines.invoice_date) as summary_year_month'))
             ->whereBetween('saleslines.invoice_date', [$paidCommissionDateFrom, $dateTo])
@@ -65,7 +65,7 @@ class CommissionPaidController extends Controller
             ->orderBy('order_number', 'desc')
             ->get();
 
-//dd('queries');
+        //dd('queries');
 
         /*        foreach ($queries as $query) {
                     echo $query->invoice_paid->ext_id . "<br>";
@@ -77,7 +77,7 @@ class CommissionPaidController extends Controller
         if ($is_add == true) {
             $now = Carbon::now();
             $currentTime = $now->format('_Y_m_d_h_i_s');
-            $newtable = "invoices_paid" . $currentTime;
+            $newtable = 'invoices_paid'.$currentTime;
             //			echo $newtable;
             Schema::create($newtable, function (Blueprint $table) {
                 $table->increments('id')->unique();
@@ -108,7 +108,7 @@ class CommissionPaidController extends Controller
 
             $data = [];
             $sc = new SavedCommission;
-            $sc->description = "add description";
+            $sc->description = 'add description';
             $sc->name = $newtable;
             $sc->date_created = $now;
             $sc->month = $request->get('months');
@@ -118,9 +118,9 @@ class CommissionPaidController extends Controller
         }
 
         foreach ($queries as $query) {
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
             $line = [
-                'month' => $month . ' ' . substr($query->summary_year_month, 0, 4),
+                'month' => $month.' '.substr($query->summary_year_month, 0, 4),
                 'ext_id' => $query->ext_id,
                 'sales_person_id' => $query->sales_person_id,
                 'order_date' => $query->order_date,
@@ -159,7 +159,6 @@ class CommissionPaidController extends Controller
         $newtable = $table_name;
         $payed_commissions = DB::table($newtable)->get();
         foreach ($payed_commissions as $payed_commission) {
-
             CommissionsPaid::where('ext_id', $payed_commission->ext_id)
                 ->where('is_paid', 0)
                 ->update([
@@ -168,18 +167,16 @@ class CommissionPaidController extends Controller
                     'paid_at' => now(),
                     'paid_by' => Auth::user()->name,
                 ]);
-
         }
+
         return redirect()->route('admin');
     }
 
-    public
-    function editSavedCommission(Request $request, $id)
+    public function editSavedCommission(Request $request, $id)
     {
         $saved_commission = SavedCommission::find($id);
 
-
-        return (view('accounting.edit_saved_commission', compact('saved_commission')));
+        return view('accounting.edit_saved_commission', compact('saved_commission'));
     }
 
     public function saveSavedCommission(Request $request)
@@ -199,8 +196,8 @@ class CommissionPaidController extends Controller
         $line = [];
         $savedCommission = SavedCommission::find($id);
 
-        if (!Schema::hasTable($savedCommission->name)) {
-            return (view('nodata'));
+        if (! Schema::hasTable($savedCommission->name)) {
+            return view('nodata');
         } else {
             $queries = DB::table($savedCommission->name)
            //     ->orderBy('customer_name', 'asc')
@@ -234,14 +231,13 @@ class CommissionPaidController extends Controller
                     'created_at' => now(),
                 ];
                 array_push($data, $line);
-
             }
 
             $queries = DB::table($savedCommission->name)->select(DB::raw('*,
                 sum(commission) as sp_commission,
                 sum(amount) as sp_volume,
                 avg(NULLIF(margin,0))as sp_margin,
-                EXTRACT(YEAR_MONTH FROM ' . $savedCommission->name . '.invoice_date) as summary_year_month 
+                EXTRACT(YEAR_MONTH FROM '.$savedCommission->name.'.invoice_date) as summary_year_month 
                 '))
                 //			->leftJoin('sales_persons', 'sales_persons.sales_person_id', '=', $savedCommission->name . '.sales_person_id')
                 //			->where('sales_persons.region', '!=', null)
@@ -259,21 +255,20 @@ class CommissionPaidController extends Controller
                         'commission' => $query->sp_commission,
                         'volume' => $query->sp_volume,
                         'margin' => $query->sp_margin,
-                        'month' => $month . ' ' . substr($query->summary_year_month, 0, 4),
+                        'month' => $month.' '.substr($query->summary_year_month, 0, 4),
                     ]);
                 }
             }
-//dd($data2);
+            //dd($data2);
 
-
-            return (view('tables.total_salesorders', ['data' => json_encode($data), 'header' => $savedCommission, 'overview' => json_encode($data2)]));
+            return view('tables.total_salesorders', ['data' => json_encode($data), 'header' => $savedCommission, 'overview' => json_encode($data2)]);
         }
     }
 
     public function view_paid_unpaid_commissions()
     {
         return view('view_paid_unpaid', [
-            'today' => Carbon::now()->today()->format("Y-m-d"),
+            'today' => Carbon::now()->today()->format('Y-m-d'),
             'salesperson' => Salesperson::all(),
         ]);
     }
@@ -284,7 +279,7 @@ class CommissionPaidController extends Controller
         $dateTo = $request->get('today');
         $rep_id = $request->get('salesperson_id');
         $agent_name = SalesPerson::where('sales_person_id', $rep_id)->first();
-//dd($agent_name->name);
+        //dd($agent_name->name);
 
         $paid_subtotals_so = $this->paid_subtotals_so($rep_id, $paidCommissionDateFrom, $dateTo);
         $paid_subtotals_month = $this->paid_subtotals_month($rep_id, $paidCommissionDateFrom, $dateTo);
@@ -300,15 +295,15 @@ class CommissionPaidController extends Controller
             ->where('sales_person_id', '=', $rep_id)
             ->where('state', 'like', 'paid')
             ->whereBetween('invoice_date', [$paidCommissionDateFrom, $dateTo])
-            ->where('commission_paid_at', '!=', NULL)
+            ->where('commission_paid_at', '!=', null)
             ->get();
 
         $paids = [];
         foreach ($commissions_paids as $query) {
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
 
             array_push($paids, [
-                'month' => $month . ' ' . substr($query->summary_year_month, 0, 4),
+                'month' => $month.' '.substr($query->summary_year_month, 0, 4),
                 'invoice_date' => $query->invoice_date,
                 'order_number' => $query->order_number,
                 'name' => $query->name,
@@ -328,17 +323,17 @@ class CommissionPaidController extends Controller
             ->where('sales_person_id', '=', $rep_id)
             ->whereBetween('invoice_date', [$paidCommissionDateFrom, $dateTo])
             ->where('state', 'like', 'paid')
-            ->where('invoice_paid_at', '!=', NULL)
-            ->where('commission_paid_at', '=', NULL)
+            ->where('invoice_paid_at', '!=', null)
+            ->where('commission_paid_at', '=', null)
             ->get();
 
-//dd($commissions_unpaids->count());
+        //dd($commissions_unpaids->count());
 
         $unpaids = [];
         foreach ($commissions_unpaids as $query) {
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
             array_push($unpaids, [
-                'month' => $month . ' ' . substr($query->summary_year_month, 0, 4),
+                'month' => $month.' '.substr($query->summary_year_month, 0, 4),
                 'invoice_date' => $query->invoice_date,
                 'order_number' => $query->order_number,
                 'name' => $query->name,
@@ -348,8 +343,8 @@ class CommissionPaidController extends Controller
                 'amount' => $query->amount,
             ]);
         }
-        return (view('paid_unpaid', ['name' => $agent_name->name, 'paid' => json_encode($paids), 'unpaid' => json_encode($unpaids)]));
 
+        return view('paid_unpaid', ['name' => $agent_name->name, 'paid' => json_encode($paids), 'unpaid' => json_encode($unpaids)]);
 
         //  return view('paid_unpaid', compact('commissions_paids', 'commissions_unpaids'));
     }
@@ -363,7 +358,7 @@ class CommissionPaidController extends Controller
         $dateTo = '2019-09-29';
         $rep_id = 35; //Matt Gutierrez
         $agent_name = SalesPerson::where('sales_person_id', $rep_id)->first();
-//dd($agent_name->name);
+        //dd($agent_name->name);
         $saved_paid_commissions = $this->viewSavedPaidCommissions($rep_id, $paidCommissionDateFrom, $dateTo);
         $paid_subtotals_so = $this->paid_subtotals_so($rep_id, $paidCommissionDateFrom, $dateTo);
         $paid_subtotals_month = $this->paid_subtotals_month($rep_id, $paidCommissionDateFrom, $dateTo);
@@ -379,15 +374,15 @@ class CommissionPaidController extends Controller
             ->where('sales_person_id', '=', $rep_id)
             ->where('state', 'like', 'paid')
             ->whereBetween('invoice_date', [$paidCommissionDateFrom, $dateTo])
-            ->where('commission_paid_at', '!=', NULL)
+            ->where('commission_paid_at', '!=', null)
             ->get();
 
         $paids = [];
         foreach ($commissions_paids as $query) {
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
 
             array_push($paids, [
-                'month' => $month . ' ' . substr($query->summary_year_month, 0, 4),
+                'month' => $month.' '.substr($query->summary_year_month, 0, 4),
                 'invoice_date' => $query->invoice_date,
                 'order_number' => $query->order_number,
                 'name' => $query->name,
@@ -397,7 +392,7 @@ class CommissionPaidController extends Controller
                 'amount' => $query->amount,
             ]);
         }
-      //  dd($commissions_paids);
+        //  dd($commissions_paids);
 
         $commissions_unpaids = Salesline::select(DB::raw('*,
                 EXTRACT(YEAR_MONTH FROM invoice_date) as summary_year_month 
@@ -407,17 +402,17 @@ class CommissionPaidController extends Controller
             ->where('sales_person_id', '=', $rep_id)
             ->whereBetween('invoice_date', [$paidCommissionDateFrom, $dateTo])
             ->where('state', 'like', 'paid')
-            ->where('invoice_paid_at', '!=', NULL)
-            ->where('commission_paid_at', '=', NULL)
+            ->where('invoice_paid_at', '!=', null)
+            ->where('commission_paid_at', '=', null)
             ->get();
 
-//dd($commissions_unpaids->count());
+        //dd($commissions_unpaids->count());
 
         $unpaids = [];
         foreach ($commissions_unpaids as $query) {
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
             array_push($unpaids, [
-                'month' => $month . ' ' . substr($query->summary_year_month, 0, 4),
+                'month' => $month.' '.substr($query->summary_year_month, 0, 4),
                 'invoice_date' => $query->invoice_date,
                 'order_number' => $query->order_number,
                 'name' => $query->name,
@@ -427,8 +422,8 @@ class CommissionPaidController extends Controller
                 'amount' => $query->amount,
             ]);
         }
-        return (view('paid_unpaid', ['name' => $agent_name->name, 'paid' => json_encode($paids), 'unpaid' => json_encode($unpaids)]));
 
+        return view('paid_unpaid', ['name' => $agent_name->name, 'paid' => json_encode($paids), 'unpaid' => json_encode($unpaids)]);
 
         //  return view('paid_unpaid', compact('commissions_paids', 'commissions_unpaids'));
     }
@@ -444,10 +439,10 @@ class CommissionPaidController extends Controller
             ->where('state', 'like', 'paid')
             ->whereBetween('invoice_date', [$paidCommissionDateFrom, $dateTo])
             ->where('sales_person_id', '=', $rep_id)
-            ->where('commission_paid_at', '!=', NULL)
+            ->where('commission_paid_at', '!=', null)
             ->groupBy('order_number')
             ->get();
-//dd($queries)->toArray();
+        //dd($queries)->toArray();
         $paid_commissions_by_so = [];
         foreach ($queries as $query) {
             array_push($paid_commissions_by_so, [
@@ -459,8 +454,8 @@ class CommissionPaidController extends Controller
             ]);
         }
 
-    //      dd($paid_commissions_by_so);
-        return ($paid_commissions_by_so);
+        //      dd($paid_commissions_by_so);
+        return $paid_commissions_by_so;
     }
 
     public function paid_subtotals_month($rep_id, $paidCommissionDateFrom, $dateTo)
@@ -475,7 +470,7 @@ class CommissionPaidController extends Controller
             ->groupBy('summary_year_month')
             ->whereBetween('invoice_date', [$paidCommissionDateFrom, $dateTo])
             ->where('sales_person_id', '=', $rep_id)
-            ->where('commission_paid_at', '!=', NULL)
+            ->where('commission_paid_at', '!=', null)
             ->get();
         $paid_commissions_by_month = [];
         foreach ($queries as $query) {
@@ -487,7 +482,7 @@ class CommissionPaidController extends Controller
             ]);
         }
         //     dd($paid_commissions_by_month);
-        return ($paid_commissions_by_month);
+        return $paid_commissions_by_month;
     }
 
     public function unpaid_subtotals_so($rep_id, $paidCommissionDateFrom, $dateTo)
@@ -501,8 +496,8 @@ class CommissionPaidController extends Controller
             ->where('state', 'like', 'paid')
             ->whereBetween('invoice_date', [$paidCommissionDateFrom, $dateTo])
             ->where('sales_person_id', '=', $rep_id)
-            ->where('invoice_paid_at', '!=', NULL)
-            ->where('commission_paid_at', '=', NULL)
+            ->where('invoice_paid_at', '!=', null)
+            ->where('commission_paid_at', '=', null)
             ->groupBy('order_number')
             ->get();
 
@@ -517,7 +512,7 @@ class CommissionPaidController extends Controller
         }
 
         //    dd($unpaid_commissions_by_so);
-        return ($unpaid_commissions_by_so);
+        return $unpaid_commissions_by_so;
     }
 
     public function unpaid_subtotals_month($rep_id, $paidCommissionDateFrom, $dateTo)
@@ -532,8 +527,8 @@ class CommissionPaidController extends Controller
             ->groupBy('summary_year_month')
             ->whereBetween('invoice_date', [$paidCommissionDateFrom, $dateTo])
             ->where('sales_person_id', '=', $rep_id)
-            ->where('invoice_paid_at', '!=', NULL)
-            ->where('commission_paid_at', '=', NULL)
+            ->where('invoice_paid_at', '!=', null)
+            ->where('commission_paid_at', '=', null)
             ->get();
         $unpaid_commissions_by_month = [];
         foreach ($queries as $query) {
@@ -545,12 +540,11 @@ class CommissionPaidController extends Controller
             ]);
         }
         //     dd($unpaid_commissions_by_month);
-        return ($unpaid_commissions_by_month);
+        return $unpaid_commissions_by_month;
     }
 
     public function calc_used_products()
     {
-
         $queries = InvoiceLine::select(DB::raw('*,
                 count(product_id) as count_product,
                 EXTRACT(YEAR_MONTH FROM invoice_date) as summary_year_month 
@@ -558,17 +552,11 @@ class CommissionPaidController extends Controller
             ->groupBy('product_id')
             ->orderBy('count_product', 'desc')
             ->get();
-//dd($queries->toArray());
+        //dd($queries->toArray());
         foreach ($queries as $query) {
-
-            echo $query->product_id . "      -> " . $query->name . "      : " . $query->count_product . "<br>";
+            echo $query->product_id.'      -> '.$query->name.'      : '.$query->count_product.'<br>';
         }
         /*        $products = Margin::all()
                 ->rightJoin('')*/
-
     }
-
-
-
 }
-

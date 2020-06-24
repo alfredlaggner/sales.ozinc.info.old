@@ -1,15 +1,15 @@
 <?php
 
-    namespace App\Console\Commands;
+namespace App\Console\Commands;
 
+    use App\Customer;
+    use App\Invoice;
     use App\Notifications\customerStatements;
     use App\Notifications\InvoiceDue;
-    use App\User;
-    use Illuminate\Database\Eloquent\Model;
-    use App\Invoice;
-    use App\Customer;
     use App\Payment;
+    use App\User;
     use Illuminate\Console\Command;
+    use Illuminate\Database\Eloquent\Model;
 
     class emailCustomerStatements extends Command
     {
@@ -51,12 +51,11 @@
                     // invalid emailaddress
                     $customer->notify(new customerStatements($customer));
                 } else {
-                    $this->info($customer->name . " -> " . $customer->email);
+                    $this->info($customer->name.' -> '.$customer->email);
                 }
                 //   sleep(5);
             }
         }
-
 
         public function customer_statement($customer_id = 6322)
         {
@@ -77,7 +76,7 @@
                         'amount' => $q->amount_total,
                         'payment_amount' => 0,
                         'residual' => $q->residual,
-                        'difference' => 0]
+                        'difference' => 0, ]
                 );
             }
             $query = Payment::where('customer_id', $customer_id)
@@ -94,9 +93,8 @@
                         'amount' => 0,
                         'payment_amount' => $q->amount,
                         'residual' => 0,
-                        'difference' => $q->payment_difference]
+                        'difference' => $q->payment_difference, ]
                 );
-
             }
             //     dd("xxx");
             $out_ledger = collect($ledger);
@@ -104,5 +102,4 @@
             //  dd($out_ledger);
             return view('ar.customer_statement', compact('ledgers', 'total_amount', 'total_residual', 'total_payment'));
         }
-
     }

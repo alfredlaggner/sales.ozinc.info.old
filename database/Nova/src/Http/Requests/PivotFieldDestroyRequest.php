@@ -4,8 +4,8 @@ namespace Laravel\Nova\Http\Requests;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Nova\Fields\Field;
-use Laravel\Nova\Nova;
 use Laravel\Nova\Fields\File;
+use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
 
 class PivotFieldDestroyRequest extends NovaRequest
@@ -43,7 +43,7 @@ class PivotFieldDestroyRequest extends NovaRequest
     /**
      * Find the related resource for the operation.
      *
-     * @return Resource
+     * @return resource
      */
     public function findRelatedResource()
     {

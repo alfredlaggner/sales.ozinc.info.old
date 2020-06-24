@@ -2,15 +2,15 @@
 
 namespace Laravel\Nova\Tests\Controller;
 
-use Laravel\Nova\Nova;
 use Illuminate\Support\Carbon;
 use Laravel\Nova\Metrics\Metric;
-use Laravel\Nova\Tests\Fixtures\Post;
-use Laravel\Nova\Tests\Fixtures\User;
-use Laravel\Nova\Tests\IntegrationTest;
-use Laravel\Nova\Tests\Fixtures\TotalUsers;
-use Laravel\Nova\Tests\Fixtures\UserGrowth;
+use Laravel\Nova\Nova;
 use Laravel\Nova\Tests\Fixtures\CustomerRevenue;
+use Laravel\Nova\Tests\Fixtures\Post;
+use Laravel\Nova\Tests\Fixtures\TotalUsers;
+use Laravel\Nova\Tests\Fixtures\User;
+use Laravel\Nova\Tests\Fixtures\UserGrowth;
+use Laravel\Nova\Tests\IntegrationTest;
 
 class MetricControllerTest extends IntegrationTest
 {

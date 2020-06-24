@@ -4,8 +4,8 @@ namespace Laravel\Nova\Tests\Fixtures;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Laravel\Nova\Lenses\Lens;
 use Laravel\Nova\Http\Requests\LensRequest;
+use Laravel\Nova\Lenses\Lens;
 
 class GroupingUserLens extends Lens
 {

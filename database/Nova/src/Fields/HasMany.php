@@ -2,8 +2,8 @@
 
 namespace Laravel\Nova\Fields;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Laravel\Nova\Contracts\ListableField;
 
 class HasMany extends Field implements ListableField

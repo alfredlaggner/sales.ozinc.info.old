@@ -1,17 +1,10 @@
 <?php
 /**
- *
  * @mixin Eloquent
  */
 
 namespace App\Http\Controllers;
 
-use App\Payment;
-use PDF;
-use Gate;
-use Auth;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Session;
 use App\AgedReceivable;
 use App\AgedReceivablesTotal;
 use App\Exports\AgedReceivableDetailExport;
@@ -20,11 +13,17 @@ use App\Exports\InvoiceNoteExport;
 use App\Invoice;
 use App\InvoiceAmountCollect;
 use App\InvoiceNote;
+use App\Payment;
+use Auth;
 use Carbon\Carbon;
+use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class ArController extends Controller
 {
@@ -54,7 +53,7 @@ class ArController extends Controller
                     'amount' => $q->amount_total,
                     'payment_amount' => 0,
                     'residual' => $q->residual,
-                    'difference' => 0]
+                    'difference' => 0, ]
             );
         }
         $query = Payment::whereYear('payment_date', 2019)
@@ -62,7 +61,7 @@ class ArController extends Controller
             ->get();
         $total_payment = 0;
         foreach ($query as $q) {
-            echo $q->residual . '<br>';
+            echo $q->residual.'<br>';
             $total_payment += $q->amount;
             array_push($ledger, [
                     'sales_order' => '',
@@ -73,9 +72,8 @@ class ArController extends Controller
                     'amount' => 0,
                     'payment_amount' => $q->amount,
                     'residual' => 0,
-                    'difference' => $q->payment_difference]
+                    'difference' => $q->payment_difference, ]
             );
-
         }
         //     dd("xxx");
         $out_ledger = collect($ledger);
@@ -85,23 +83,21 @@ class ArController extends Controller
         //   return view('ar.customer_statement', compact('customer_name','ledgers', 'total_amount','total_residual','total_payment'));
     }
 
-    public function new_aged_receivables($rep_id = 0, Request $request)
+    public function new_aged_receivables($rep_id, Request $request)
     {
         /*        Artisan::call('tntsearch:import', ['model' => 'App\AgedReceivable']);
                 Artisan::call('tntsearch:import', ['model' => 'App\AgedReceivablesTotal']);*/
 
         $data = [];
-        if (!$rep_id) {
+        if (! $rep_id) {
             $rep_id = $request->get('rep_id');
         }
-
 
         $customer = $request->get('customer');
 
         session(['rep_id' => $rep_id]);
 
         if ($rep_id) {
-
             $ars = AgedReceivable::
             when($rep_id, function ($query, $rep_id) {
                 return $query->where('rep_id', $rep_id);
@@ -144,7 +140,6 @@ class ArController extends Controller
                 if ($value = Redis::get('ars_totals4.all')) {
                     $ars_totals = collect(json_decode($value));
                 } else {
-
                     $ars_totals = AgedReceivablesTotal::orderBy('customer')->get();
                     //           Redis::set('ars_totals4.all', $ars_totals);
                     session(['search_value' => '']);
@@ -152,7 +147,6 @@ class ArController extends Controller
             }
             if ($value = Redis::get('ars.all')) {
                 $ars = collect(json_decode($value));
-
             } else {
                 $ars = AgedReceivable::orderBy('customer')->get();
                 //       Redis::set('ars.all', $ars);
@@ -162,48 +156,44 @@ class ArController extends Controller
         $amt_collects = InvoiceAmountCollect::orderBy('updated_at', 'desc')->get();
         $notes = InvoiceNote::orderBy('updated_at', 'desc')->get();
 
-//		$request->session()->forget('previous_screen'); // to start clean when adding notes
+        //		$request->session()->forget('previous_screen'); // to start clean when adding notes
 
-        return (view('ar.accordion', compact('ars', 'ars_totals', 'notes', 'amt_collects', 'rep_id')));
+        return view('ar.accordion', compact('ars', 'ars_totals', 'notes', 'amt_collects', 'rep_id'));
     }
 
-    public
-    function export_aged_ar(Request $request)
+    public function export_aged_ar(Request $request)
     {
         //dd(Session::get('search_value')->toArray());
         return Excel::download(new AgedReceivableTotalExport(Session::get('search_value')), 'aged_receivables.xlsx');
     }
 
-    public
-    function export_aged_ar_detail(Request $request)
+    public function export_aged_ar_detail(Request $request)
     {
         //dd(Session::get('search_value')->toArray());
         return Excel::download(new AgedReceivableDetailExport(Session::get('search_value')), 'aged_receivables_so.xlsx');
     }
 
-    public
-    function search_customer(Request $request)
+    public function search_customer(Request $request)
     {
         $customer = $request->get('customer');
         $customers = AgedReceivablesTotal::search($customer)->get();
     }
 
-    public
-    function export(Request $request)
+    public function export(Request $request)
     {
         // dd($request->get('selection'));
         $date_from = $request->get('date_from');
         $date_to = $request->get('date_to');
         if (Gate::allows('isAdmin')) {
-            $timespan = "Last seven days";
+            $timespan = 'Last seven days';
             if ($request->get('selection') == 'last_week') {
-                $data = InvoiceNote::where('created_at', '>=', date('Y-m-d', strtotime("-7 days")))->get();
+                $data = InvoiceNote::where('created_at', '>=', date('Y-m-d', strtotime('-7 days')))->get();
             } elseif ($request->get('selection') == 'selection') {
-                if (!$date_from or !$date_to
+                if (! $date_from or ! $date_to
                     or ($date_to < $date_from)) {
-                    $data = InvoiceNote::where('created_at', '>=', date('Y-m-d', strtotime("-7 days")))->get();
+                    $data = InvoiceNote::where('created_at', '>=', date('Y-m-d', strtotime('-7 days')))->get();
                 } else {
-                    $timespan = "From " . $date_from . " to " . $date_to;
+                    $timespan = 'From '.$date_from.' to '.$date_to;
 
                     $data = InvoiceNote::where('created_at', '>=', $date_from)
                         ->where('created_at', '>=', $date_to)
@@ -222,15 +212,12 @@ class ArController extends Controller
         return Excel::download(new InvoiceNoteExport($return_array), 'ar_notes.xlsx');
     }
 
-    public
-    function export_ar_notes()
+    public function export_ar_notes()
     {
-
         return view('ar.display_notes_selection');
     }
 
-    public
-    function aged_receivables(Request $request)
+    public function aged_receivables(Request $request)
     {
         $is_expanded = $request->get('is_expanded');
         $is_grouped_by_reps = $request->get('is_grouped_by_reps');
@@ -248,12 +235,12 @@ class ArController extends Controller
 
         $rep_id = 0;
         $rep_id = $request->get('rep_id');
-        $customers = Invoice::select(DB::raw("
+        $customers = Invoice::select(DB::raw('
 			    customer_id, 
                 customer_name, 
                 sales_person_id,
                 sum(residual) as sum_residual
-                "
+                '
         ))
             ->groupBy('customer_id')
             ->orderBy('customer_name')
@@ -307,7 +294,6 @@ class ArController extends Controller
                 ->where('residual', '!=', 0)
                 ->get();
 
-
             foreach ($invoices as $invoice) {
                 $rank = [];
                 for ($i = 0; $i < 9; $i++) {
@@ -326,8 +312,8 @@ class ArController extends Controller
                 //dd($notes->toArray());
                 foreach ($notes as $note) {
                     $updated_at = new Carbon($note->updated_at);
-                    $all_notes = $all_notes . $note->note . " (by " . $note->note_by . " " . $updated_at->format('m-d-Y') . ")" . PHP_EOL;
-                };
+                    $all_notes = $all_notes.$note->note.' (by '.$note->note_by.' '.$updated_at->format('m-d-Y').')'.PHP_EOL;
+                }
 
                 /*					if ($all_notes) {
                                         echo $all_notes;
@@ -351,7 +337,7 @@ class ArController extends Controller
                     'range5' => $rank[5],
                     'range6' => $rank[6],
                     'range7' => $rank[7],
-                    'range8' => $rank[8]
+                    'range8' => $rank[8],
                 ]);
             }
             dd($data);
@@ -359,11 +345,10 @@ class ArController extends Controller
         //   dd('xx');
         $request->session()->forget('previous_screen'); // to start clean when adding notes
 
-        return (view('tables.aged_receivables', ['data' => json_encode($data), 'header' => [], 'is_expanded' => $is_expanded, 'grouping' => $grouping]));
+        return view('tables.aged_receivables', ['data' => json_encode($data), 'header' => [], 'is_expanded' => $is_expanded, 'grouping' => $grouping]);
     }
 
-    public
-    function toggle_felon($customer_id)
+    public function toggle_felon($customer_id)
     {
         $query = AgedReceivablesTotal::where('customer_id', $customer_id)->first();
         $is_felon = $query->is_felon;
@@ -373,17 +358,14 @@ class ArController extends Controller
             $is_felon = 0;
         }
         AgedReceivablesTotal::where('customer_id', $customer_id)->update(['is_felon' => $is_felon]);
+
         return back();
     }
 
     public function ajaxRequest()
-
     {
-
         return view('ajaxRequest');
-
     }
-
 
     public function ajaxRequestPost(Request $request)
     {
@@ -402,51 +384,46 @@ class ArController extends Controller
         if ($is_felon == 0) {
             $return = [
                 'old' => 'btn-danger',
-                'new' => "btn-success"
+                'new' => 'btn-success',
             ];
         } else {
             $return = [
                 'new' => 'btn-danger',
-                'old' => "btn-success"
+                'old' => 'btn-success',
             ];
         }
 
-        $new = "btn-success";
-        $old = "btn-danger";
+        $new = 'btn-success';
+        $old = 'btn-danger';
 
         if ($is_felon == 0) {
-            $felony_state = "ok";
-            $felony_color = "color: #3ADF00; font-size: 100%";
-            $new = "btn btn-sm btn-success";
-            $old = "btn btn-sm btn-danger";
-
+            $felony_state = 'ok';
+            $felony_color = 'color: #3ADF00; font-size: 100%';
+            $new = 'btn btn-sm btn-success';
+            $old = 'btn btn-sm btn-danger';
         } elseif ($is_felon == 1) {
-            $felony_state = "bad";
-            $felony_color = "color: #FF8000; font-size: 110%";
-            $new = "btn btn-sm btn-warning";
-            $old = "btn btn-sm btn-success";
-
+            $felony_state = 'bad';
+            $felony_color = 'color: #FF8000; font-size: 110%';
+            $new = 'btn btn-sm btn-warning';
+            $old = 'btn btn-sm btn-success';
         } elseif ($is_felon == 2) {
-            $felony_state = "worse";
-            $felony_color = "color: #FF0000; font-size: 120%";
-            $new = "btn btn-sm btn-secondary";
-            $old = "btn btn-sm btn-warning";
-
+            $felony_state = 'worse';
+            $felony_color = 'color: #FF0000; font-size: 120%';
+            $new = 'btn btn-sm btn-secondary';
+            $old = 'btn btn-sm btn-warning';
         } elseif ($is_felon == 3) {
-            $felony_state = "worst";
-            $felony_color = "color:#FF0040; font-size: 120%";
-            $new = "btn btn-sm btn-danger";
-            $old = "btn btn-sm btn-warning";
+            $felony_state = 'worst';
+            $felony_color = 'color:#FF0040; font-size: 120%';
+            $new = 'btn btn-sm btn-danger';
+            $old = 'btn btn-sm btn-warning';
         }
         $return = [
             'old' => $old,
             'new' => $new,
             'felony_state' => $felony_state,
-            'felony_color' => $felony_color
+            'felony_color' => $felony_color,
         ];
 
-
         return response()->json($return);
-
     }
 }

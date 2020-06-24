@@ -34,7 +34,7 @@ class DetachResourceRequest extends DeletionRequest
      * Get the models that may be detached.
      *
      * @param Collection $models
-     * @param  Resource  $parentResource
+     * @param  resource  $parentResource
      * @return Collection
      */
     protected function detachableModels(Collection $models, $parentResource)

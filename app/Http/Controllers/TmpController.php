@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Salesline;
 use App\SavedCommission;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Auth;
 
 class TmpController extends Controller
 {
@@ -17,7 +17,6 @@ class TmpController extends Controller
     {
         $this->middleware('auth');
     }
-
 
     public function createSavedCommission(Request $request)
     {
@@ -30,16 +29,16 @@ class TmpController extends Controller
             commissions_paids.created_at as cp_created_at
             '
         ))
-            ->leftjoin('commissions_paids','saleslines.ext_id','commissions_paids.ext_id')
+            ->leftjoin('commissions_paids', 'saleslines.ext_id', 'commissions_paids.ext_id')
             ->whereBetween('commissions_paids.created_at', [$paidCommissionDateFrom, $dateTo])
-            ->where('commissions_paids.saved_commissions_id','=', 107)
+            ->where('commissions_paids.saved_commissions_id', '=', 107)
             //  ->where('amount', '>=', 0)
             ->orderBy('summary_year_month')
             ->orderBy('customer_name', 'asc')
             ->orderBy('order_number', 'desc')
             ->get();
 
-//dd($queries);
+        //dd($queries);
 
         /*        foreach ($queries as $query) {
                     echo $query->invoice_paid->ext_id . "<br>";
@@ -51,7 +50,7 @@ class TmpController extends Controller
         if ($is_add == true) {
             $now = Carbon::now();
             $currentTime = $now->format('_Y_m_d_h_i_s');
-            $newtable = "invoices_paid" . $currentTime;
+            $newtable = 'invoices_paid'.$currentTime;
             //			echo $newtable;
             Schema::create($newtable, function (Blueprint $table) {
                 $table->increments('id')->unique();
@@ -82,7 +81,7 @@ class TmpController extends Controller
 
             $data = [];
             $sc = new SavedCommission;
-            $sc->description = "add description";
+            $sc->description = 'add description';
             $sc->name = $newtable;
             $sc->date_created = $now;
             $sc->month = $request->get('months');
@@ -92,9 +91,9 @@ class TmpController extends Controller
         }
 
         foreach ($queries as $query) {
-            $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+            $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
             $line = [
-                'month' => $month . ' ' . substr($query->summary_year_month, 0, 4),
+                'month' => $month.' '.substr($query->summary_year_month, 0, 4),
                 'ext_id' => $query->ext_id,
                 'sales_person_id' => $query->sales_person_id,
                 'order_date' => $query->order_date,

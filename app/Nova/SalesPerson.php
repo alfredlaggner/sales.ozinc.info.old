@@ -2,10 +2,9 @@
 
 namespace App\Nova;
 
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-
-use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class SalesPerson extends Resource
@@ -15,7 +14,7 @@ class SalesPerson extends Resource
      *
      * @var string
      */
-    public static $model = 'App\SalesPerson';
+    public static $model = \App\SalesPerson::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -42,12 +41,12 @@ class SalesPerson extends Resource
     public function fields(Request $request)
     {
         return [
-			ID::make()->sortable(),
-			Text::make('SalesPerson','name')->sortable(),
-			Text::make('Is Salesperson','is_salesperson')->sortable(),
-			Text::make('Email','email')->sortable(),
-			Text::make('Phone','phone_number')->sortable(),
-			Text::make('Region','region')->sortable(),
+            ID::make()->sortable(),
+            Text::make('SalesPerson', 'name')->sortable(),
+            Text::make('Is Salesperson', 'is_salesperson')->sortable(),
+            Text::make('Email', 'email')->sortable(),
+            Text::make('Phone', 'phone_number')->sortable(),
+            Text::make('Region', 'region')->sortable(),
         ];
     }
 

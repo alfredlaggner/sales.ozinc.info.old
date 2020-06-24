@@ -3,8 +3,8 @@
 namespace Laravel\Nova;
 
 use Closure;
-use JsonSerializable;
 use Illuminate\Http\Resources\MergeValue;
+use JsonSerializable;
 
 class Panel extends MergeValue implements JsonSerializable
 {
@@ -66,7 +66,7 @@ class Panel extends MergeValue implements JsonSerializable
     /**
      * Get the default panel name for the given resource.
      *
-     * @param Resource $resource
+     * @param resource $resource
      * @return string
      */
     public static function defaultNameFor(Resource $resource)

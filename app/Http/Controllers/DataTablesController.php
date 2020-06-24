@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\User;
 use Illuminate\View\View;
 use Yajra\Datatables\Datatables;
 
 class DataTablesController extends Controller
 {
     /**
-     * Displays datatables front end view
+     * Displays datatables front end view.
      *
      * @return View
      */
@@ -25,7 +25,6 @@ class DataTablesController extends Controller
      *
      * @return JsonResponse
      */
-
     public function getPosts()
     {
         return \DataTables::of(User::query())->make(true);

@@ -2,10 +2,10 @@
 
 namespace App\Nova;
 
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
-use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Commission extends Resource
@@ -15,7 +15,7 @@ class Commission extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Commission';
+    public static $model = \App\Commission::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

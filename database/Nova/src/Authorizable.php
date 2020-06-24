@@ -2,12 +2,12 @@
 
 namespace Laravel\Nova;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Illuminate\Auth\Access\AuthorizationException;
 
 trait Authorizable
 {

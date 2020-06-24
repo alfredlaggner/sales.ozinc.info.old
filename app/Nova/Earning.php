@@ -2,14 +2,15 @@
 
 namespace App\Nova;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\HasOne;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Salesperson;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasOne;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
+
 class Earning extends Resource
 {
     /**
@@ -17,7 +18,7 @@ class Earning extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Earning';
+    public static $model = \App\Earning::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -44,12 +45,15 @@ class Earning extends Resource
     public function fields(Request $request)
     {
         return [
-			Text::make('SalesPerson', function () { return $this->salesperson->name; }) ->onlyOnIndex()->sortable(),
-			Text::make('Month')->sortable(),
-			Text::make('Year')->sortable(),
-			Number::make('Commission')->resolveUsing(function ($commission) {
-                return number_format($commission,2);})->sortable()
-		];
+            Text::make('SalesPerson', function () {
+                return $this->salesperson->name;
+            })->onlyOnIndex()->sortable(),
+            Text::make('Month')->sortable(),
+            Text::make('Year')->sortable(),
+            Number::make('Commission')->resolveUsing(function ($commission) {
+                return number_format($commission, 2);
+            })->sortable(),
+        ];
     }
 
     /**

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\AgedReceivable;
+use Illuminate\Http\Request;
+
 class SearchController extends Controller
 {
     /**
@@ -26,7 +27,6 @@ class SearchController extends Controller
 
             // If there are results return them, if none, return the error message.
             return $posts->count() ? $posts : $error;
-
         }
 
         // Return the error message if no keywords existed

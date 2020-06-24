@@ -59,7 +59,7 @@ trait InteractsWithResources
     /**
      * Get a new instance of the resource being requested.
      *
-     * @return Resource
+     * @return resource
      */
     public function newResource()
     {
@@ -72,7 +72,7 @@ trait InteractsWithResources
      * Find the resource model instance for the request.
      *
      * @param  mixed|null  $resourceId
-     * @return Resource
+     * @return resource
      */
     public function findResourceOrFail($resourceId = null)
     {
@@ -113,7 +113,7 @@ trait InteractsWithResources
      * Get a new instance of the resource being requested.
      *
      * @param  Model  $model
-     * @return Resource
+     * @return resource
      */
     public function newResourceWith($model)
     {

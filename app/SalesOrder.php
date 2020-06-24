@@ -12,6 +12,6 @@ class SalesOrder extends Model
 
     public function saleinvoice()
     {
-        return $this->hasMany('App\SaleInvoice', 'order_id', 'sales_order_id');
+        return $this->hasMany(\App\SaleInvoice::class, 'order_id', 'sales_order_id');
     }
 }

@@ -10,6 +10,6 @@ class CommissionsPaid extends Model
 
     public function salesline()
     {
-        return $this->hasOne('App\Salesline', 'ext_id', 'ext_id');
+        return $this->hasOne(\App\Salesline::class, 'ext_id', 'ext_id');
     }
 }

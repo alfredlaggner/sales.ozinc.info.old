@@ -21,6 +21,6 @@ namespace App;
 
         public function receivables()
         {
-            return $this->hasMany('App\AgedReceivable', 'customer_id', 'customer_id');
+            return $this->hasMany(\App\AgedReceivable::class, 'customer_id', 'customer_id');
         }
     }

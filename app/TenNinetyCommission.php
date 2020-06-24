@@ -11,6 +11,6 @@ class TenNinetyCommission extends Model
 
     public function rep()
     {
-        return $this->hasOne('App\SalesPerson', 'sales_person_id', 'rep_id');
+        return $this->hasOne(\App\SalesPerson::class, 'sales_person_id', 'rep_id');
     }
 }

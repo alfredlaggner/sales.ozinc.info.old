@@ -8,7 +8,7 @@ class Salesline extends Model
 {
     public function invoice_paid()
     {
-        return $this->hasOne('App\CommissionsPaid', 'ext_id', 'ext_id');
+        return $this->hasOne(\App\CommissionsPaid::class, 'ext_id', 'ext_id');
     }
 
     public function getCommissionsUnpaidAttribute()

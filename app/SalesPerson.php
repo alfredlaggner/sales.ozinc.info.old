@@ -24,6 +24,6 @@ class SalesPerson extends Model
         }*/
     public function salesperson()
     {
-        return $this->hasOne('App\SaleInvoice', 'sales_person_id', 'sales_person_id');
+        return $this->hasOne(\App\SaleInvoice::class, 'sales_person_id', 'sales_person_id');
     }
 }

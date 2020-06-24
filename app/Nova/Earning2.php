@@ -17,7 +17,7 @@ class Earning2 extends Resource
      *
      * @var string
      */
-    public static $model = 'App\Earning2';
+    public static $model = \App\Earning2::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

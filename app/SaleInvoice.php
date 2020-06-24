@@ -39,22 +39,22 @@ namespace App;
 
         public function salesperson()
         {
-            return $this->hasOne('App\SalesPerson', 'sales_person_id', 'sales_person_id');
+            return $this->hasOne(\App\SalesPerson::class, 'sales_person_id', 'sales_person_id');
         }
 
         public function customer()
         {
-            return $this->belongsTo('App\Customer', 'customer_id', 'ext_id');
+            return $this->belongsTo(\App\Customer::class, 'customer_id', 'ext_id');
         }
 
         public function salesline()
         {
-            return $this->hasOne('App\Salesline', 'ext_id', 'ext_id');
+            return $this->hasOne(\App\Salesline::class, 'ext_id', 'ext_id');
         }
 
         public function invoice_paid()
         {
-            return $this->hasOne('App\CommissionsPaid', 'ext_id', 'ext_id');
+            return $this->hasOne(\App\CommissionsPaid::class, 'ext_id', 'ext_id');
         }
 
         public function getCommissionsUnpaidAttribute()

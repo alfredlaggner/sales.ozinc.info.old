@@ -11,6 +11,6 @@ class Earning2 extends Model
 
     public function salesperson()
     {
-        return $this->hasOne('App\SalesPerson', 'sales_person_id', 'sales_person_id');
+        return $this->hasOne(\App\SalesPerson::class, 'sales_person_id', 'sales_person_id');
     }
 }

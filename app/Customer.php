@@ -28,11 +28,11 @@ class Customer extends Model
 
     public function sales_lines()
     {
-        return $this->hasMany('App\SaleInvoice', 'customer_id', 'ext_id');
+        return $this->hasMany(\App\SaleInvoice::class, 'customer_id', 'ext_id');
     }
 
     public function notes()
     {
-        return $this->hasMany('App\InvoiceNote', 'ext_id', 'customer_id');
+        return $this->hasMany(\App\InvoiceNote::class, 'ext_id', 'customer_id');
     }
 }

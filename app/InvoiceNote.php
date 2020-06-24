@@ -10,6 +10,6 @@ class InvoiceNote extends Model
 
     public function customer()
     {
-        return $this->belongsTo('App\Customer', 'customer_id', 'ext_id');
+        return $this->belongsTo(\App\Customer::class, 'customer_id', 'ext_id');
     }
 }

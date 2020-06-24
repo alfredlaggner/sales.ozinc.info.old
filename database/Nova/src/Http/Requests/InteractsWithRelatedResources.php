@@ -11,7 +11,7 @@ trait InteractsWithRelatedResources
     /**
      * Find the parent resource model instance for the request.
      *
-     * @return Resource
+     * @return resource
      */
     public function findParentResourceOrFail()
     {
@@ -75,7 +75,7 @@ trait InteractsWithRelatedResources
     /**
      * Get a new instance of hte "via" resource being requested.
      *
-     * @return Resource
+     * @return resource
      */
     public function newViaResource()
     {

@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Fluent;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Fluent;
 use Laravel\Nova\Actions\Action;
-use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Actions\ActionModelCollection;
+use Laravel\Nova\Fields\ActionFields;
 
 class ActionRequest extends NovaRequest
 {

@@ -3,8 +3,8 @@
 namespace Laravel\Nova;
 
 use Illuminate\Support\Facades\Gate;
-use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Events\ServingNova;
 
 class NovaApplicationServiceProvider extends ServiceProvider
 {

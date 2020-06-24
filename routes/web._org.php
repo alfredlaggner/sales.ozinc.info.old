@@ -29,12 +29,12 @@
     Route::post('/commission_calc', 'CommissionController@calcCommissions');
     Route::post('/saleorder_calc', 'CommissionController@calcCommissionsPerSalesOrder');
     Route::post('/init_calc', 'DevelopController@calcCommissions');
-    Route::get('go-home', array('as' => 'go-home', 'uses' => 'CommissionController@index'));
-    Route::post('view-so/{order_id}', array('as' => 'view_so', 'uses' => 'CommissionController@displaySalesOrder'));
+    Route::get('go-home', ['as' => 'go-home', 'uses' => 'CommissionController@index']);
+    Route::post('view-so/{order_id}', ['as' => 'view_so', 'uses' => 'CommissionController@displaySalesOrder']);
 
     Route::get('/init_calc', 'DevelopController@calcCommissions');
     Route::get('/comm', 'DevelopController@allCommissions');
-    Route::get('donutchart/{customer_id}/{customer_name}/{salesperson}/{month}', array('as' => 'donutchart', 'uses' => 'CommissionController@commissionsPerCustomerBrand'));
+    Route::get('donutchart/{customer_id}/{customer_name}/{salesperson}/{month}', ['as' => 'donutchart', 'uses' => 'CommissionController@commissionsPerCustomerBrand']);
 
     Route::post('/calc_region', 'DevelopController@calcRegions');
 
@@ -81,13 +81,11 @@
     Route::get('list_notes/{customer_id}', 'InvoiceNoteController@list_notes')->name('list_notes');
     Route::resource('invoice_notes', 'InvoiceNoteController');
 
-
     Route::get('export', 'NoteImportController@export')->name('export');
     Route::get('export_aged_ar', 'DevelopController@export_aged_ar')->name('export_aged_ar');
     Route::get('export_aged_ar_detail', 'DevelopController@export_aged_ar_detail')->name('export_aged_ar_detail');
     Route::get('importExportView', 'NoteImportController@importExportView');
     Route::post('import', 'NoteImportController@import')->name('import');
-
 
     Route::get('view_unpaid_paid', 'CommissionPaidController@view_paid_unpaid_commissions')->name('view_paid_unpaid_commissions');
 Route::post('unpaid_paid', 'CommissionPaidController@list_paid_unpaid_commissions')->name('unpaid_paid');

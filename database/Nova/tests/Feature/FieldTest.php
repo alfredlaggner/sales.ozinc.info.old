@@ -3,13 +3,13 @@
 namespace Laravel\Nova\Tests\Feature;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Tests\IntegrationTest;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Tests\Fixtures\UserResource;
+use Laravel\Nova\Tests\IntegrationTest;
 
 class FieldTest extends IntegrationTest
 {

@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\SalesOrder;
-use Illuminate\Support\Facades\DB;
 use App\Commission;
 use App\Customer;
-use App\SaleInvoice;
-use App\SalesPerson;
-use Carbon\Carbon;
 use App\Earning;
 use App\Earning2;
+use App\SaleInvoice;
+use App\SalesOrder;
+use App\SalesPerson;
 use App\Traits\CommissionTrait;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
     public function index()
     {
         $timeFrame = ['year' => 2019, 'months' => [1, 2, 3]];
-        $dateFrom = substr(new Carbon($timeFrame['year'] . '-' . $timeFrame['months'][0] . '-01'), 0, 10);
-        $lastMonth = substr(new Carbon($timeFrame['year'] . '-' . end($timeFrame['months']) . '-01'), 0, 10);
-        $dateTo = date("Y-m-t", strtotime($lastMonth));
+        $dateFrom = substr(new Carbon($timeFrame['year'].'-'.$timeFrame['months'][0].'-01'), 0, 10);
+        $lastMonth = substr(new Carbon($timeFrame['year'].'-'.end($timeFrame['months']).'-01'), 0, 10);
+        $dateTo = date('Y-m-t', strtotime($lastMonth));
 
         $returnValues = [];
         $queries = SaleInvoice::select(DB::raw('saleinvoices.sales_person_id as salesperson_id,sales_persons.name as salesperson_name,
@@ -39,17 +39,17 @@ class TestController extends Controller
         $data = [];
         foreach ($queries as $query) {
             if ($query->sp_volume) {
-                $month = date("F", mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
+                $month = date('F', mktime(0, 0, 0, substr($query->summary_year_month, 4, 2), 1));
                 array_push($data, [
                     'salesperson_name' => $query->salesperson_name,
                     'commission' => $query->sp_commission,
                     'volume' => $query->sp_volume,
                     'margin' => $query->sp_margin,
-                    'month' => $month . ' ' . substr($query->summary_year_month, 0, 4),
+                    'month' => $month.' '.substr($query->summary_year_month, 0, 4),
                 ]);
             }
         }
-        return (view('tables.salespersons', ['data' => json_encode($data)]));
 
+        return view('tables.salespersons', ['data' => json_encode($data)]);
     }
 }

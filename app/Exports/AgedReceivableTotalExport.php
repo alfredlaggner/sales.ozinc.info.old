@@ -18,14 +18,14 @@ class AgedReceivableTotalExport implements FromView
     /**
      * @return Collection
      */
-	public function view(): View
-	{
-		if ($this->data) {
-			$ar_totals =  AgedReceivablesTotal::where('rep_id',$this->data)->orderby('rep')->orderby('customer')->get();
-		} else {
-			$ar_totals = AgedReceivablesTotal::orderby('rep')->orderby('customer')->get();
-		}
-		return view('exports.ar_totals', ['ars_totals' => $ar_totals]);
-	}
+    public function view(): View
+    {
+        if ($this->data) {
+            $ar_totals = AgedReceivablesTotal::where('rep_id', $this->data)->orderby('rep')->orderby('customer')->get();
+        } else {
+            $ar_totals = AgedReceivablesTotal::orderby('rep')->orderby('customer')->get();
+        }
 
+        return view('exports.ar_totals', ['ars_totals' => $ar_totals]);
+    }
 }

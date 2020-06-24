@@ -2,9 +2,9 @@
 
 namespace Laravel\Nova\Tests\Controller;
 
-use Laravel\Nova\Nova;
 use Cake\Chronos\Chronos;
 use Laravel\Nova\Metrics\Trend;
+use Laravel\Nova\Nova;
 use Laravel\Nova\Tests\Fixtures\Post;
 
 trait TrendDateTests

@@ -30,12 +30,12 @@
     Route::post('/commission_calc', 'CommissionController@calcCommissions');
     Route::post('/saleorder_calc', 'CommissionController@calcCommissionsPerSalesOrder');
     Route::post('/init_calc', 'DevelopController@calcCommissions');
-    Route::get('go-home', array('as' => 'go-home', 'uses' => 'CommissionController@index'));
-    Route::post('view-so/{order_id}', array('as' => 'view_so', 'uses' => 'CommissionController@displaySalesOrder'));
+    Route::get('go-home', ['as' => 'go-home', 'uses' => 'CommissionController@index']);
+    Route::post('view-so/{order_id}', ['as' => 'view_so', 'uses' => 'CommissionController@displaySalesOrder']);
 
     Route::get('/init_calc', 'DevelopController@calcCommissions');
     Route::get('/comm', 'DevelopController@allCommissions');
-    Route::get('donutchart/{customer_id}/{customer_name}/{salesperson}/{month}', array('as' => 'donutchart', 'uses' => 'CommissionController@commissionsPerCustomerBrand'));
+    Route::get('donutchart/{customer_id}/{customer_name}/{salesperson}/{month}', ['as' => 'donutchart', 'uses' => 'CommissionController@commissionsPerCustomerBrand']);
 
     Route::post('/calc_region', 'DevelopController@calcRegions');
 
@@ -68,7 +68,6 @@
     Route::post('create_saved_commissions', 'DevelopController@createSavedCommission');
     Route::get('pay_saved_commission/{id}/{table_name}', 'CommissionPaidController@paySavedCommission')->name('pay_saved_commission');
 
-
     Route::get('prolist_paid_unpaid_commissions_workducts', 'DevelopController@all_products')->name('products');
     Route::get('aged_receivables', 'ArController@aged_receivables')->name('aged_receivables');
     Route::get('aged_receivables1/{rep_id?}', 'ArController@new_aged_receivables')->name('aged_receivables1');
@@ -77,10 +76,8 @@
     Route::get('list_notes/{customer_id}', 'InvoiceNoteController@list_notes')->name('list_notes');
     Route::resource('invoice_notes', 'InvoiceNoteController');
 
-
     Route::get('importExportView', 'NoteImportController@importExportView');
     Route::post('import', 'NoteImportController@import')->name('import');
-
 
     Route::get('view_unpaid_paid', 'CommissionPaidController@view_paid_unpaid_commissions')->name('view_paid_unpaid_commissions');
     Route::post('unpaid_paid', 'NewCommissionController@list_paid_unpaid_commissions')->name('unpaid_paid');
@@ -118,9 +115,8 @@
 
     Route::post('/ajaxRequestPost', 'ArController@ajaxRequestPost');
 
-Route::get('old_commissions','CommissionController@index_old');
+Route::get('old_commissions', 'CommissionController@index_old');
 
-
-Route::get('notifications','NotificationsController@view_notifications');
-Route::any('notify','NotificationsController@notify_customer')->name('notify_customer');
+Route::get('notifications', 'NotificationsController@view_notifications');
+Route::any('notify', 'NotificationsController@notify_customer')->name('notify_customer');
 Route::get('cst/{customer_id}/{customer_name}', 'ArController@customer_statement')->name('customer_statement');

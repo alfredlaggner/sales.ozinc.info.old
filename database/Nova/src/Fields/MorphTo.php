@@ -5,15 +5,15 @@ namespace Laravel\Nova\Fields;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Http\Requests\ResourceIndexRequest;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Laravel\Nova\TrashedStatus;
 use Laravel\Nova\Rules\Relatable;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Laravel\Nova\Http\Requests\ResourceIndexRequest;
+use Laravel\Nova\TrashedStatus;
 
 class MorphTo extends Field
 {

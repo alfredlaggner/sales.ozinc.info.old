@@ -3,13 +3,13 @@
 namespace Laravel\Nova\Http\Controllers;
 
 use Illuminate\Contracts\Auth\StatefulGuard;
-use Illuminate\Http\Response;
-use Laravel\Nova\Nova;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Nova\Nova;
 
 class LoginController extends Controller
 {

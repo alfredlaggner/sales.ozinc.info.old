@@ -2,8 +2,8 @@
 
 namespace Laravel\Nova\Fields;
 
-use Exception;
 use DateTimeInterface;
+use Exception;
 
 class DateTime extends Field
 {

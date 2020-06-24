@@ -5,9 +5,9 @@ namespace Laravel\Nova\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Laravel\Nova\Events\NovaServiceProviderRegistered;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaServiceProvider;
-use Laravel\Nova\Events\NovaServiceProviderRegistered;
 
 class ServeNova
 {

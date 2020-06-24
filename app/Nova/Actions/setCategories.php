@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Nova\Actions;
+
 use App\Brand;
 use Illuminate\Bus\Queueable;
-use Laravel\Nova\Actions\Action;
-use Illuminate\Support\Collection;
-use Laravel\Nova\Fields\ActionFields;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
+use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Fields\ActionFields;
 
 class setCategories extends Action
 {
@@ -23,11 +24,12 @@ class setCategories extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-		foreach ($models as $model) {
-			$model->is_active = false;
-			$model->save();
-		}
-		return Action::message('Updated!');
+        foreach ($models as $model) {
+            $model->is_active = false;
+            $model->save();
+        }
+
+        return Action::message('Updated!');
     }
 
     /**
@@ -37,8 +39,6 @@ class setCategories extends Action
      */
     public function fields()
     {
-		return [];
-
-
+        return [];
     }
 }

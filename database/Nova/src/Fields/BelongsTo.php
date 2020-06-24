@@ -4,14 +4,14 @@ namespace Laravel\Nova\Fields;
 
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
-use Laravel\Nova\Nova;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Laravel\Nova\TrashedStatus;
-use Laravel\Nova\Rules\Relatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Http\Requests\ResourceIndexRequest;
+use Laravel\Nova\Nova;
+use Laravel\Nova\Rules\Relatable;
+use Laravel\Nova\TrashedStatus;
 
 class BelongsTo extends Field
 {

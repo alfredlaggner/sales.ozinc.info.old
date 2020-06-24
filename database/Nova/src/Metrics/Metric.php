@@ -4,11 +4,11 @@ namespace Laravel\Nova\Metrics;
 
 use DateInterval;
 use DateTimeInterface;
-use Laravel\Nova\Card;
-use Laravel\Nova\Nova;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
+use Laravel\Nova\Card;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Nova;
 
 abstract class Metric extends Card
 {

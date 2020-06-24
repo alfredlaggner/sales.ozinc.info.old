@@ -2,13 +2,13 @@
 
 namespace Laravel\Nova\Rules;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Nova\Nova;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\MorphOne;
-use Illuminate\Contracts\Validation\Rule;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Nova;
 
 class Relatable implements Rule
 {

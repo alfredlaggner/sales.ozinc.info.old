@@ -3,9 +3,9 @@
 namespace Laravel\Nova\Fields;
 
 use Closure;
-use Laravel\Nova\Nova;
-use Laravel\Nova\DeleteField;
 use Laravel\Nova\Contracts\Deletable;
+use Laravel\Nova\DeleteField;
+use Laravel\Nova\Nova;
 
 trait DetachesPivotModels
 {

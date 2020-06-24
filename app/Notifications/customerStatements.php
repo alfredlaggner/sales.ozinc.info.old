@@ -1,14 +1,14 @@
 <?php
 
-    namespace App\Notifications;
+namespace App\Notifications;
 
+    use App\Customer;
     use App\Invoice;
     use App\Payment;
-    use App\Customer;
     use Illuminate\Bus\Queueable;
-    use Illuminate\Notifications\Notification;
     use Illuminate\Contracts\Queue\ShouldQueue;
     use Illuminate\Notifications\Messages\MailMessage;
+    use Illuminate\Notifications\Notification;
 
     class customerStatements extends Notification implements ShouldQueue
     {
@@ -67,7 +67,7 @@
                         'amount' => $q->amount_total,
                         'payment_amount' => 0,
                         'residual' => $q->residual,
-                        'difference' => 0]
+                        'difference' => 0, ]
                 );
             }
             $query = Payment::whereYear('payment_date', 2019)
@@ -85,9 +85,8 @@
                         'amount' => 0,
                         'payment_amount' => $q->amount,
                         'residual' => 0,
-                        'difference' => $q->payment_difference]
+                        'difference' => $q->payment_difference, ]
                 );
-
             }
             //     dd("xxx");
             $out_ledger = collect($ledger);

@@ -3,11 +3,11 @@
 namespace Laravel\Nova\Fields;
 
 use Closure;
-use JsonSerializable;
-use Illuminate\Support\Str;
-use Laravel\Nova\Contracts\Resolvable;
-use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Macroable;
+use JsonSerializable;
+use Laravel\Nova\Contracts\Resolvable;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use stdClass;
 

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTenNintyCommssion extends Migration
 {
@@ -15,12 +15,12 @@ class CreateTenNintyCommssion extends Migration
     {
         Schema::create('ten_ninty_commssions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('month')->nullable();;
-            $table->integer('year')->nullable();;
-            $table->integer('rep_id')->nullable();;
-            $table->double('goal','10','2')->nullable();;
-            $table->double('volume','10','2')->nullable();;
-            $table->double('commission','10','2')->nullable();;
+            $table->integer('month')->nullable();
+            $table->integer('year')->nullable();
+            $table->integer('rep_id')->nullable();
+            $table->double('goal', '10', '2')->nullable();
+            $table->double('volume', '10', '2')->nullable();
+            $table->double('commission', '10', '2')->nullable();
             $table->timestamps();
         });
     }

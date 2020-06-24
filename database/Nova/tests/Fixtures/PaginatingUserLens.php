@@ -3,11 +3,11 @@
 namespace Laravel\Nova\Tests\Fixtures;
 
 use Illuminate\Database\Eloquent\Builder;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Lenses\Lens;
 use Laravel\Nova\Http\Requests\LensRequest;
+use Laravel\Nova\Lenses\Lens;
 
 class PaginatingUserLens extends Lens
 {

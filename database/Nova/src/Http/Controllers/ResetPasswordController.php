@@ -3,12 +3,12 @@
 namespace Laravel\Nova\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Laravel\Nova\Nova;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\View\View;
+use Laravel\Nova\Nova;
 
 class ResetPasswordController extends Controller
 {

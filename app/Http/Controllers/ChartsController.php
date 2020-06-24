@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use DB;
-use Illuminate\Http\Request;
-
 use App\BccRetailer;
 use App\Customer;
 use App\Traits\CommissionTrait;
+use DB;
+use Illuminate\Http\Request;
 use Lava;
 
 class ChartsController extends Controller
@@ -33,26 +32,24 @@ class ChartsController extends Controller
         $dispensaries->addStringColumn('City');
         $dispensaries->addStringColumn('Dispensary');
         $dispensaries->addStringColumn('Phone');
-       $dispensaries->addRows($bccCustomers);
+        $dispensaries->addRows($bccCustomers);
 
-dd($dispensaries);
+        dd($dispensaries);
         Lava::GeoChart('Dispensary', $dispensaries,
             ['displayMode' => 'markers', 'region' => 'US-CA',
-                'resolution' => "provinces",
+                'resolution' => 'provinces',
                 'colorAxis' => ['colors' => ['red', 'green']],
             ]);
 
-        $title = "Sales for " . $sales_person_id;
+        $title = 'Sales for '.$sales_person_id;
 
         return view('charts.bcc_customers', compact('title'));
-
     }
 
     public function geoChart()
     {
-
         $order_date = 12;
-        $title = "Sales for " . $order_date;
+        $title = 'Sales for '.$order_date;
 
         //     $data = BccRetailer::select("city as 0", "business_name as 1")->limit(20)->get()->toArray();
         $salesorders = Customer::
@@ -70,14 +67,12 @@ dd($dispensaries);
         //	dd($dispensaries);
 
         Lava::GeoChart('Dispensary', $dispensaries, ['displayMode' => 'markers', 'region' => 'US-CA',
-            'resolution' => "provinces",
+            'resolution' => 'provinces',
             'colorAxis' => ['colors' => ['red', 'green']],
         ]);
 
-
         return view('charts.bcc_customers', compact('title'));
     }
-
 
     public function geoChartBrands(Request $request)
     {
@@ -91,7 +86,7 @@ dd($dispensaries);
         select(DB::raw('customers.name as "0", sum(quantity) as "1", count(customer_id) as "2"'))
             ->join('saleinvoices', 'saleinvoices.customer_id', '=', 'customers.ext_id')
             ->when($brand, function ($query, $brand) {
-                return $query->whereRaw("upper(saleinvoices.name) LIKE '%" . $brand . "%'");
+                return $query->whereRaw("upper(saleinvoices.name) LIKE '%".$brand."%'");
             })
             ->when($month, function ($query, $month) {
                 return $query->whereMonth('saleinvoices.created_at', $month);
@@ -106,13 +101,12 @@ dd($dispensaries);
             ->addRows($saleslines);
 
         Lava::GeoChart('Dispensary', $dispensaries, ['displayMode' => 'markers', 'region' => 'US-CA',
-            'resolution' => "provinces",
+            'resolution' => 'provinces',
             'colorAxis' => ['colors' => ['red', 'green']],
         ]);
 
-        $title = [["Sales of: " . $brand], ["Month: " . $month], ["Dispensaries: " . count($saleslines)]];
+        $title = [['Sales of: '.$brand], ['Month: '.$month], ['Dispensaries: '.count($saleslines)]];
+
         return view('charts.geocharts.brands', ['title' => $title, 'months' => Month::all()]);
-
     }
-
 }

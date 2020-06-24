@@ -2,10 +2,10 @@
 
 namespace Laravel\Nova\Metrics;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Builder;
 
 abstract class Partition extends Metric
 {

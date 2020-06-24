@@ -5,8 +5,8 @@ namespace Laravel\Nova\Fields;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Contracts\Deletable as DeletableContract;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
 
 class File extends Field implements DeletableContract
@@ -409,7 +409,7 @@ class File extends Field implements DeletableContract
      * Create an HTTP response to download the underlying field.
      *
      * @param NovaRequest $request
-     * @param  Resource  $resource
+     * @param  resource  $resource
      * @return Response
      */
     public function toDownloadResponse(NovaRequest $request, $resource)

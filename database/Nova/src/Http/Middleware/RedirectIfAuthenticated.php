@@ -4,8 +4,8 @@ namespace Laravel\Nova\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Laravel\Nova\Nova;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Nova\Nova;
 
 class RedirectIfAuthenticated
 {

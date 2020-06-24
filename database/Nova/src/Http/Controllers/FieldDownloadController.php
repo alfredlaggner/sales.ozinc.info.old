@@ -3,8 +3,8 @@
 namespace Laravel\Nova\Http\Controllers;
 
 use Illuminate\Http\Response;
-use Laravel\Nova\Fields\File;
 use Illuminate\Routing\Controller;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class FieldDownloadController extends Controller

@@ -3,21 +3,21 @@
 namespace Laravel\Nova;
 
 use Closure;
-use Laravel\Nova\Fields\Field;
-use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\MorphTo;
-use Laravel\Nova\Contracts\Cover;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Collection;
-use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Actions\Actionable;
-use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Actions\ActionResource;
+use Laravel\Nova\Contracts\Cover;
+use Laravel\Nova\Contracts\ListableField;
 use Laravel\Nova\Contracts\Resolvable;
 use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Actions\ActionResource;
+use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Fields\FieldCollection;
-use Laravel\Nova\Contracts\ListableField;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphMany;
+use Laravel\Nova\Fields\MorphTo;
+use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use Laravel\Nova\Http\Requests\ResourceDetailRequest;
 
 trait ResolvesFields

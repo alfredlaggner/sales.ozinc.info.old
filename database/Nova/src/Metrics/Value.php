@@ -2,9 +2,9 @@
 
 namespace Laravel\Nova\Metrics;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 
 abstract class Value extends RangedMetric
 {

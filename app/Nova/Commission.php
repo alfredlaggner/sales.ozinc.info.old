@@ -2,10 +2,10 @@
 
 namespace App\Nova;
 
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
-use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Commission extends Resource

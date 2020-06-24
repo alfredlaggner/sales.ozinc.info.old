@@ -3,8 +3,8 @@
 namespace Laravel\Nova\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Nova\DeleteField;
 use Laravel\Nova\Contracts\Deletable;
+use Laravel\Nova\DeleteField;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 trait DeletesFields

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Exports;
 
 use App\AgedReceivable;
@@ -21,8 +20,9 @@ class TenNinetyExport implements FromView
         $ars = TenNinetyCommission::where('month', $this->data)
             ->where('goal', '>', 0)
             ->where('volume', '>', 0)
-            ->orderby('is_ten_ninety','desc')
+            ->orderby('is_ten_ninety', 'desc')
             ->get();
+
         return view('exports.ten_ninety_commissions', ['ars' => $ars]);
     }
 }
